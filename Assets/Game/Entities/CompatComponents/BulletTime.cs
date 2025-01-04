@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletTime : MonoBehaviour
 {
-    [SerializeField] Camera camera;
+    [SerializeField] Camera _camera;
     public float currentMeter { get; private set;}
     [SerializeField] float bulletTimeScale;
     bool isActive = false;
@@ -15,7 +15,7 @@ public class BulletTime : MonoBehaviour
         Game.events.OnParry -= IncreaseMeter;
     }
     void Start() {
-        camera = Camera.main;
+        _camera = Camera.main;
     }
     void Update()
     {
@@ -25,11 +25,11 @@ public class BulletTime : MonoBehaviour
             currentMeter -= Time.deltaTime * 0.5f;
             Game.events.OnBulletTimeStart();
 
-            camera.orthographicSize = 7.5f;
+            _camera.orthographicSize = 7.5f;
         }
         else {
             Time.timeScale = 1;
-            camera.orthographicSize = 8f;
+            _camera.orthographicSize = 8f;
             Game.events.OnBulletTimeEnd();
         }
     }

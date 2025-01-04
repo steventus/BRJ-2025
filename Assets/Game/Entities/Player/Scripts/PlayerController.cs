@@ -34,9 +34,10 @@ public class PlayerController : MonoBehaviour
             spinAttack.ChargeSpin();
         }
         else {
+            if(spinAttack.completedCircleInputs > 0) {
+                spinAttack.UnleashSpin();
+            }
             bulletTime.Deactivate();
-
-            spinAttack.UnleashSpin();
         }
     }
 
