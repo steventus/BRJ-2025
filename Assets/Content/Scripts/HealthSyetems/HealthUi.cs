@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class HealthUi : MonoBehaviour
+{
+    [SerializeField] HealthSystem health;
+    [SerializeField] Slider slider;
+    void Start()
+    {
+        if (health != null)
+        {
+            health.HealthChangedEvent.AddListener(OnHealthChanged);
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (health != null)
+        {
+            health.HealthChangedEvent.RemoveListener(OnHealthChanged);
+        }
+    }
+
+    public void Damage(int _amount)
+    {
+        health.DecreaseHealth(_amount);
+    }
+
+    public void Heal(int _amount)
+    {
+        health.IncreaseHealth(_amount);
+    }
+
+    void UpdateView()
+    {
+        if (health != null) { return; }
+
+        if (slider != null && health.MaxHealth != 0)
+        {
+            slider.value = (float)health.CurrentHealth / (float)health.MaxHealth;
+        }
+    }
+
+    void OnHealthChanged()
+    {
+        UpdateView();
+    }
+}
