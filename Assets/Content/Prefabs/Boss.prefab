@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 9169658593071162057}
   - component: {fileID: 5922678012285956247}
   - component: {fileID: 5764096027431391502}
+  - component: {fileID: 1990795186245326607}
+  - component: {fileID: 3796398014521239543}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -65,6 +67,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 0}
   isDead: 0
+--- !u!95 &1990795186245326607
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981801752542187210}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: febafe090b5ffd941996f1a85fe59f9d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3796398014521239543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981801752542187210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89aa0536abe89a7418def681f2334107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3979595741924813370
 GameObject:
   m_ObjectHideFlags: 0

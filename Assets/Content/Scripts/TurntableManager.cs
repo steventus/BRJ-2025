@@ -9,9 +9,9 @@ public class TurntableManager : MonoBehaviour
 {
     //Disc Scratching Variables
     [Header("Disc")]
-    GameObject[] discs;
+    [SerializeField] GameObject[] discs;
     public LayerMask whatIsDisc;
-    private bool isRotatingOnItsOwn = false; // Flag to indicate autonomous rotation
+    private bool isRotatingOnItsOwn = true; // Flag to indicate autonomous rotation
     private float currentAngle = 0f; // Track the current angle
     private float rotationSpeed = 0f; // Speed of autonomous rotation (degrees per second)
 
@@ -36,34 +36,10 @@ public class TurntableManager : MonoBehaviour
     public float inGameTempo;
     public Slider tempoSlider;
 
-    //Disc Change Variables
-    [Header("Disc Change")]
-    public GameObject currentDisc;
-    public Vector3 currentDiscPos, currentDiscScale;
-
-    private void Start()
-    {
-        discs = GameObject.FindGameObjectsWithTag("Disc");
-
-        for(int i = 0; i < discs.Length; i++)
-        {
-            if (discs[i].GetComponent<Disc>().isBeingPlayed)
-            {
-                currentDisc = discs[i];
-                currentDiscPos = discs[i].transform.position;
-                currentDiscScale = discs[i].transform.localScale;
-                break;
-            }
-        }
-    }
     private void Update()
     {
-
         if(Camera.main.ScreenToWorldPoint(Input.mousePosition).x != Mathf.Infinity)
         Scratch();
-
-        VolumeHandling();
-        TempoHandling();
     }
 
     void Scratch()
@@ -76,10 +52,8 @@ public class TurntableManager : MonoBehaviour
         hit = Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc);
 
 
-        if (Input.GetMouseButton(0) && Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc) && hit.transform.gameObject.GetComponent<Disc>().isBeingPlayed) 
+        if (Input.GetMouseButton(0) && Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc)) 
         {
-
-
             // Get the mouse position in world space
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -114,6 +88,7 @@ public class TurntableManager : MonoBehaviour
             // Disable autonomous rotation while the mouse is pressed
             isRotatingOnItsOwn = false;
         }
+
         if (!isRotatingOnItsOwn) // Transition to autonomous rotation after releasing the mouse
         {
             // Use the last angular velocity as the initial rotation speed
@@ -122,11 +97,16 @@ public class TurntableManager : MonoBehaviour
         }
         if (isRotatingOnItsOwn)
         {
+            if(rotationSpeed == 0) {
+                rotationSpeed = -250;
+            }
             // Increment the current angle using the rotation speed
             currentAngle += rotationSpeed * Time.deltaTime;
 
             // Apply the updated angle to the GameObject
-            currentDisc.transform.rotation = Quaternion.Euler(0, 0, currentAngle);
+            foreach(GameObject disc in discs) {
+                disc.transform.rotation = Quaternion.Euler(0, 0, currentAngle);
+            }
 
             // Decelerate the rotation speed
             if (rotationSpeed > 0)
@@ -140,54 +120,6 @@ public class TurntableManager : MonoBehaviour
                 rotationSpeed = Mathf.Min(rotationSpeed, 0); // Clamp to zero
             }
         }
-
-        if (Input.GetMouseButtonDown(0) && Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc) && !hit.transform.gameObject.GetComponent<Disc>().isBeingPlayed)
-        {
-            changeDisc(hit);
-        }
-
-
     }
 
-    void VolumeHandling()
-    {
-        if(volumeSlider != null)
-        {
-            volumeSlider.maxValue = maxVolume;
-            inGameVolume = volumeSlider.value;
-            volumeSlider.minValue = 0f;
-        }
-    }
-
-    void TempoHandling()
-    {
-        if (tempoSlider != null)
-        {
-            tempoSlider.maxValue = maxTempo;
-            inGameTempo = tempoSlider.value;
-            tempoSlider.minValue = 0f;
-        }
-    }
-
-    public void EnableVolume()
-    {
-        volumeSlider.gameObject.active = !volumeSlider.gameObject.active;
-    }
-
-    public void EnableTempo()
-    {
-        tempoSlider.gameObject.active = !tempoSlider.gameObject.active;
-    }
-
-    void changeDisc(RaycastHit2D hit)
-    {
-        currentDisc.transform.position = hit.transform.position;
-        currentDisc.transform.localScale = hit.transform.localScale;
-        currentDisc.transform.gameObject.GetComponent<Disc>().isBeingPlayed = false;
-        hit.transform.position = currentDiscPos;
-        hit.transform.localScale = currentDiscScale;
-        currentDisc = hit.transform.gameObject;
-        hit.transform.gameObject.GetComponent<Disc>().isBeingPlayed = true;
-
-    }
 }

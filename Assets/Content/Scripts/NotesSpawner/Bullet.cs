@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField] protected float moveSpeed;
     [SerializeField] float timeSpawned, lifetime;
+
+    [SerializeField] UnityEvent OnHit;
     
     void Start() {
         timeSpawned = Time.time;
@@ -31,7 +34,8 @@ public class Bullet : MonoBehaviour
             //when object pooling is implemented
                 // gameObject.SetActive(false);
             
-            Destroy(gameObject);
+            OnHit?.Invoke();
+            transform.localScale = (Vector3.one * 1.35f);
         }
     }
 
