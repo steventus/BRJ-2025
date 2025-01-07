@@ -63,11 +63,11 @@ public class BossRotationController : MonoBehaviour
     //rotate bosses so that next active boss is standing in front of player
     void RepositionBosses() {
         Debug.Log("swap bosses");
-        Vector3 targetPosition = Vector3.zero;
 
         //loop through the boss list & place bosses at the next position
         for(int i = 0; i < bossList.Count; i++)
         {
+            Vector3 targetPosition = Vector3.zero;
             if(i < bossWheelPositions.Count - 1) {
                 targetPosition = bossWheelPositions[i + 1].position;
             }
