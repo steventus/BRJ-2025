@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Conductor : MonoBehaviour
 {
@@ -42,6 +43,10 @@ public class Conductor : MonoBehaviour
     //an AudioSource attached to this GameObject that will play the music.
     public AudioSource musicSource;
 
+    //JOHNNY
+    //Created an event triggered on every beat
+    public UnityEvent onEachBeat;
+
     void Awake()
     {
         instance = this;
@@ -69,6 +74,9 @@ public class Conductor : MonoBehaviour
 
         //determine how many beats since the song started
         songPositionInBeats = songPosition / secPerBeat;
+
+
+
 
         //calculate the loop position
         if (songPositionInBeats >= (completedLoops + 1) * beatsPerLoop)
