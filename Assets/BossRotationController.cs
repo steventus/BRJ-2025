@@ -22,7 +22,8 @@ public class BossRotationController : MonoBehaviour
     {
         //TEST --- TO BE REMOVED AFTERWARDS
         #region TEST
-        if (Input.GetKeyDown(KeyCode.P)){
+        if (Input.GetKeyDown(KeyCode.P))
+        {
             RotateNextBoss(currentBoss);
         }
         #endregion
@@ -40,5 +41,12 @@ public class BossRotationController : MonoBehaviour
         }
         currentBoss = _nextBoss;
         return _nextBoss;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        if (currentBoss != null)
+            Gizmos.DrawCube(currentBoss.transform.position, Vector3.one * 0.3f);
     }
 }
