@@ -35,12 +35,7 @@ public class HealthUi : MonoBehaviour
 
     void UpdateView()
     {
-        if (health != null) { return; }
-
-        if (slider != null && health.MaxHealth != 0)
-        {
-            slider.value = (float)health.CurrentHealth / (float)health.MaxHealth;
-        }
+        slider.value = (float)health.CurrentHealth / (float)health.MaxHealth;
     }
 
     void OnHealthChanged()

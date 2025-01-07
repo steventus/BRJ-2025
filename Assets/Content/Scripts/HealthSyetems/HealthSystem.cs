@@ -10,7 +10,7 @@ public class HealthSystem : MonoBehaviour
     public int CurrentHealth => currentHealth;
     private int currentHealth;
 
-    public UnityEvent HealthChangedEvent;
+    public UnityEvent HealthChangedEvent = new UnityEvent();
 
     public void IncreaseHealth(int _delta)
     {
