@@ -19,8 +19,10 @@ public class TurntableManager : MonoBehaviour
     private float angularVelocity = 0f; // Track how fast the player was rotating the disc
     private float lastMouseInteractionTime = 0f; // Time of the last mouse movement
 
-    [SerializeField]
-    private float decelerationRate = 50f; // Deceleration rate (degrees per second^2)
+    public TMP_Text e;
+
+
+    public float decelerationRate = 50f; // Deceleration rate (degrees per second^2)
 
 
 
@@ -133,11 +135,13 @@ public class TurntableManager : MonoBehaviour
             {
                 rotationSpeed -= decelerationRate * Time.deltaTime;
                 rotationSpeed = Mathf.Max(rotationSpeed, 0); // Clamp to zero
+                e.text = "Is rotating Right";
             }
             else if (rotationSpeed < 0)
             {
                 rotationSpeed += decelerationRate * Time.deltaTime;
                 rotationSpeed = Mathf.Min(rotationSpeed, 0); // Clamp to zero
+                e.text = "Is rotating Left";
             }
         }
 
