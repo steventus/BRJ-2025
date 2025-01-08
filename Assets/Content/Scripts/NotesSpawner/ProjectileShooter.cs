@@ -37,7 +37,7 @@ public class ProjectileShooter : MonoBehaviour
         for(int i = 0; i < burstCount; i++) {
             for(int j = 0; j < projectilesPerBurst + 1; j++) {
                 //instantiate bullet
-                Transform bulletTransform = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                Transform bulletTransform = Instantiate(bulletPrefab, transform.position, Quaternion.identity, transform);
 
                 if (bulletTransform.TryGetComponent(out Bullet bullet))
                 {

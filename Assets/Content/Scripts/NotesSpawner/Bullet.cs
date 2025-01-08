@@ -35,7 +35,6 @@ public class Bullet : MonoBehaviour
                 // gameObject.SetActive(false);
             
             OnHit?.Invoke();
-            transform.localScale = (Vector3.one * 1.35f);
         }
     }
 
