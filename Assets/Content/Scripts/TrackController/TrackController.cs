@@ -12,31 +12,29 @@ public class TrackController : MonoBehaviour
         index = 1;
         UpdateTrack();
     }
+
     public void NextTrack()
     {
         index++;
-        if (index >= Tracks.Count)
-            index = 0;
-
         UpdateTrack();
     }
 
     public void PreviousTrack()
     {
         index--;
-        if (index <= 0)
-            index = Tracks.Count - 1;
-
         UpdateTrack();
     }
 
     private void UpdateTrack()
     {
+        index = Mathf.Clamp(index, 0, Tracks.Count - 1);
         currentTrack = Tracks[index];
     }
 
-    void OnDrawGizmosSelected(){
+    void OnDrawGizmosSelected()
+    {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(currentTrack.transform.position, Vector3.one * 0.3f);
+        if (currentTrack != null)
+            Gizmos.DrawWireCube(currentTrack.transform.position, Vector3.one * 0.3f);
     }
 }
