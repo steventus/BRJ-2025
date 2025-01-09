@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
 {
-    public GameObject notePrefab;
+    public GameObject scratchL, scratchR, holdL, holdR, bossChange, avoid;
     private Track[] tracks;
     List<GameObject> activeNotes = new List<GameObject>();
 
+    public int[] notesPerBeat;
+    public int[] trackNum;
+
+    public int[] noteTypes;
 
     public float noteVel;
 
@@ -15,7 +19,6 @@ public class NoteSpawner : MonoBehaviour
     {
         tracks = GameObject.FindObjectsOfType<Track>();
 
-        SpawnNote(1);
     }
 
     private void Update()
@@ -23,9 +26,18 @@ public class NoteSpawner : MonoBehaviour
         MoveAllNotes();
     }
 
-    void SpawnNote(int tracknum)
+    void SpawnMusicTrack(float beatsNum, int[] notesPerBeat, int[] trackNum, int[] noteTypes)
     {
-        activeNotes.Add(Instantiate(notePrefab, tracks[tracknum].startPos, Quaternion.identity));
+        for(int i = 0;  i < beatsNum; i++)
+        {
+            if (notesPerBeat.Length < i)
+            {
+                for(int j = 0; j <  notesPerBeat.Length; j++)
+                {
+                    activeNotes.Add(Instantiate(scratchL, tracks[trackNum[i]].startPos, Quaternion.identity));
+                }
+            }
+        }
     }
 
     void MoveAllNotes()
