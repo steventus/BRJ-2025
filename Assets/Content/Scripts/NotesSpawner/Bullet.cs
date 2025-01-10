@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour
     }
 
     protected virtual void Move() {
-        transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+        transform.Translate(-transform.parent.right * moveSpeed * Time.deltaTime);
     }
 
     public void SetMoveSpeed(float speed) {
