@@ -22,12 +22,16 @@ public class NoteSpawner : MonoBehaviour
 
     GameObject tmpNote = null;
 
+    GameObject wholeChart;
+
+    bool isPlaying;
 
     private bool hasPickedUpNote = false;
     private void Start()
     {
+        wholeChart = new GameObject();
         tracks = GameObject.FindObjectsOfType<Track>();
-
+        wholeChart.transform.position = tracks[1].startPos;
     }
 
     private void Update()
@@ -48,20 +52,25 @@ public class NoteSpawner : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            MoveAllNotes();
+            MoveAllNotes(1);
         }
+        if(Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            MoveAllNotes(-1);
+        }
+
+        if (isPlaying)
+        {
+            Play();
+        }
+
+        CheckIfTrackIsOccupied();
     }
 
-    void MoveAllNotes()
+    //used when building the chart
+    void MoveAllNotes(int dir)
     {
-        for(int i = 0;  i < activeNotes.Count; i++) 
-        {
-            activeNotes[i].transform.position += new Vector3 (noteOffset, 0, 0);
-        }
-        for(int i = 0; i < tracks.Length; i++)
-        {
-            tracks[i].isOccupied = false;
-        }
+        wholeChart.transform.position += new Vector3(noteOffset * dir, 0 ,0);
     }
 
     //gotta work on this one(fking notes don't follow me if i move too fast lol)
@@ -70,6 +79,7 @@ public class NoteSpawner : MonoBehaviour
         if (!hasPickedUpNote)
         {
             tmpNote = Instantiate(hit.transform.gameObject, mousePos, Quaternion.identity);
+            hit.transform.GetComponent<Note>().isPicked = true;
             hasPickedUpNote = true;
             activeNotes.Add(tmpNote);
         }
@@ -79,6 +89,7 @@ public class NoteSpawner : MonoBehaviour
         }    
     }
 
+    //checks the closest track to the picked note
     void CheckClosestTrack(GameObject note)
     {
         float closestDistance = Mathf.Infinity;
@@ -95,6 +106,8 @@ public class NoteSpawner : MonoBehaviour
         if (!tracks[closestTrackID].isOccupied)
         {
             note.transform.position = tracks[closestTrackID].startPos;
+            note.transform.parent = wholeChart.transform;
+            note.GetComponent<Note>().isPicked = false;
             tracks[closestTrackID].isOccupied = true;
         }
         else
@@ -102,6 +115,38 @@ public class NoteSpawner : MonoBehaviour
             Destroy(note);
             Debug.Log("Track Already Occupied");
         }
+    }
+
+    void CheckIfTrackIsOccupied()
+    {
+        RaycastHit2D hit;
         
+
+        for (int i = 0; i<tracks.Length; i++)
+        {
+            hit = Physics2D.Raycast(tracks[i].startPos, Vector3.zero, Mathf.Infinity, whatIsNote);
+
+            Debug.Log(tracks[i].isOccupied);
+
+            if (hit && !hit.transform.GetComponent<Note>().isPicked)
+                tracks[i].isOccupied = true;
+            else if (hit && hit.transform.GetComponent<Note>().isPicked)
+                tracks[i].isOccupied = false;
+            else if (!hit)
+                tracks[i].isOccupied = false;
+        }
+    }
+
+    //put first note at the track's start position
+    public void FinishChart()
+    {
+        wholeChart.transform.position = tracks[1].startPos;
+    }
+
+    public void Play() //when button is pressed, start moving notes
+    {
+        isPlaying = true;
+
+        wholeChart.transform.position += new Vector3(noteOffset * Time.deltaTime, 0, 0);
     }
 }
