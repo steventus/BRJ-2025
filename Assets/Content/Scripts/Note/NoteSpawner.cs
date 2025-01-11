@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
@@ -24,14 +25,17 @@ public class NoteSpawner : MonoBehaviour
 
     GameObject wholeChart;
 
+    private int uniChartID = 0;
+
     bool isPlaying;
 
     private bool hasPickedUpNote = false;
     private void Start()
     {
+        
         wholeChart = new GameObject();
         tracks = GameObject.FindObjectsOfType<Track>();
-        wholeChart.transform.position = tracks[1].startPos;
+        wholeChart.transform.position = tracks[1].endPos;
     }
 
     private void Update()
@@ -105,7 +109,7 @@ public class NoteSpawner : MonoBehaviour
         }
         if (!tracks[closestTrackID].isOccupied)
         {
-            note.transform.position = tracks[closestTrackID].startPos;
+            note.transform.position = tracks[closestTrackID].endPos;
             note.transform.parent = wholeChart.transform;
             note.GetComponent<Note>().isPicked = false;
             tracks[closestTrackID].isOccupied = true;
@@ -124,7 +128,7 @@ public class NoteSpawner : MonoBehaviour
 
         for (int i = 0; i<tracks.Length; i++)
         {
-            hit = Physics2D.Raycast(tracks[i].startPos, Vector3.zero, Mathf.Infinity, whatIsNote);
+            hit = Physics2D.Raycast(tracks[i].endPos, Vector3.zero, Mathf.Infinity, whatIsNote);
 
             Debug.Log(tracks[i].isOccupied);
 
@@ -140,13 +144,15 @@ public class NoteSpawner : MonoBehaviour
     //put first note at the track's start position
     public void FinishChart()
     {
-        wholeChart.transform.position = tracks[1].startPos;
+        wholeChart.transform.position = tracks[1].endPos;
+        PrefabUtility.SaveAsPrefabAsset(wholeChart, "Assets/Content/Prefabs/Charts/Chart" + uniChartID +  ".prefab");
+        uniChartID++;
     }
 
     public void Play() //when button is pressed, start moving notes
     {
         isPlaying = true;
 
-        wholeChart.transform.position += new Vector3(noteOffset * Time.deltaTime, 0, 0);
+        wholeChart.transform.position += new Vector3(-noteOffset * Time.deltaTime, 0, 0);
     }
 }
