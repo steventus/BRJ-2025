@@ -75,9 +75,6 @@ public class Conductor : MonoBehaviour
         //determine how many beats since the song started
         songPositionInBeats = songPosition / secPerBeat;
 
-        Debug.Log(name + " beats: " + songPositionInBeats);
-
-
         //calculate the loop position
         if (songPositionInBeats >= (completedLoops + 1) * beatsPerLoop)
             completedLoops++;
