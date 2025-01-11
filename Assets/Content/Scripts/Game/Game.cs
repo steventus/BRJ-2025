@@ -10,8 +10,6 @@ public class Game : MonoBehaviour
     public PlayerTurn playerTurn;
 
     [Header("Game Components")]
-    public Camera camera;
-    public Transform player;
     public TextMeshProUGUI stateUIDisplay;
     void Start()
     {
@@ -23,7 +21,6 @@ public class Game : MonoBehaviour
         DetermineState();
         stateMachine.state.UpdateState();
 
-        ChangeCameraView();
         DisplayState();
     }
 
@@ -36,18 +33,6 @@ public class Game : MonoBehaviour
                 stateMachine.SetState(enemyTurn);
             }
         }
-    }
-
-    void ChangeCameraView() {
-        float targetRot = 0;
-        if(stateMachine.state == enemyTurn) {
-            targetRot = 20f;            
-        }
-        else if(stateMachine.state == playerTurn) {
-            targetRot = 35f;            
-        }
-
-        camera.transform.rotation = Quaternion.Euler(targetRot, 0, 0);
     }
 
     void DisplayState() {
