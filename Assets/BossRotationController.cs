@@ -7,24 +7,13 @@ public class BossRotationController : MonoBehaviour
 {
     public List<BossBehaviour> bossList;
     private Queue<BossBehaviour> activeBossList = new Queue<BossBehaviour>();
-    private BossBehaviour currentBoss;
-
-    public Transform bossWheelPositionsParent;
-    [SerializeField] List<Transform> bossWheelPositions;
+    public BossBehaviour currentBoss { get; private set; }
     [SerializeField] bool swapTriggered = false;
     void Start()
     {
-        //get all boss positions and store them in an array
-        foreach(Transform t in bossWheelPositionsParent) {
-            bossWheelPositions.Add(t);
-        }
-
         for (int i = 0; i < bossList.Count; i++)
         {
             activeBossList.Enqueue(bossList[i]);
-
-            //take all bosses in queue and place them at their respective positions
-            bossList[i].transform.position = bossWheelPositions[i].position;
         }
 
         currentBoss = activeBossList.Dequeue();
@@ -54,29 +43,8 @@ public class BossRotationController : MonoBehaviour
             _nextBoss = activeBossList.Dequeue();
         }
 
-        RepositionBosses();
-
         currentBoss = _nextBoss;
         return _nextBoss;
-    }
-
-    //rotate bosses so that next active boss is standing in front of player
-    void RepositionBosses() {
-        Debug.Log("swap bosses");
-
-        //loop through the boss list & place bosses at the next position
-        for(int i = 0; i < bossList.Count; i++)
-        {
-            Vector3 targetPosition = Vector3.zero;
-            if(i < bossWheelPositions.Count - 1) {
-                targetPosition = bossWheelPositions[i + 1].position;
-            }
-            else if (i >= bossWheelPositions.Count) {
-                targetPosition = bossWheelPositions[0].position;
-            }
-
-            bossList[i].transform.position = targetPosition;
-        }
     }
 
     void OnDrawGizmosSelected()

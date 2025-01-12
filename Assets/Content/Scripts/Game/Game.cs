@@ -11,6 +11,8 @@ public class Game : MonoBehaviour
 
     [Header("Game Components")]
     public TextMeshProUGUI stateUIDisplay;
+    public BossRotationController bossRotationControl;
+    public Transform player;
     void Start()
     {
         stateMachine = new();
@@ -22,6 +24,8 @@ public class Game : MonoBehaviour
         stateMachine.state.UpdateState();
 
         DisplayState();
+
+        RotatePlayerTowardsCurrentBoss();
     }
 
     void DetermineState() {
@@ -31,11 +35,19 @@ public class Game : MonoBehaviour
             }
             else if(stateMachine.state == playerTurn) {
                 stateMachine.SetState(enemyTurn);
+                bossRotationControl.TriggerRotation();
             }
         }
     }
 
     void DisplayState() {
         stateUIDisplay.text = stateMachine.state.transform.name;
+    }
+
+    void RotatePlayerTowardsCurrentBoss() {
+        Transform currentBoss = bossRotationControl.currentBoss.transform;
+        var targetRotation = Quaternion.LookRotation(currentBoss.position - player.position);
+        float rotSpeed = 10f;
+        player.rotation = Quaternion.Lerp(player.rotation,targetRotation, rotSpeed * Time.deltaTime);
     }
 }
