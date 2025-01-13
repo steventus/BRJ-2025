@@ -12,9 +12,10 @@ public class MusicManager : MonoBehaviour
     [SerializeField] float pitchSpeed;
     float volume = 1;
     [SerializeField] float fadeDuration;
-    [SerializeField] Slider pitchSlider, volumeSlider;
-    [SerializeField] TextMeshProUGUI songNameDisplay;
+    [SerializeField] Slider pitchSlider, volumeSlider, source1VolSlider, source2VolSlider;
+    [SerializeField] TextMeshProUGUI songNameDisplay, manualFadeStateDisplay;
     bool isFadingBetweenSongs = false;
+    [SerializeField] bool fadeManually = false;
     void Awake() {
         if(Instance == null) {
             Instance = this;
@@ -25,10 +26,17 @@ public class MusicManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(this);
-
-        //subscribe pitch function to slider
+    }
+    void OnEnable() {
+        //subscribe sliders to functions
         pitchSlider.onValueChanged.AddListener(ChangePitchSpeed);
         volumeSlider.onValueChanged.AddListener(ChangeVolume);
+
+        source1VolSlider.onValueChanged.AddListener(FirstSourceChangeVolume);
+        source2VolSlider.onValueChanged.AddListener(SecondSourceChangeVolume);
+    }
+    void OnDisable() {
+
     }
     void Start() {
         currentMusicSource = musicSource1;
@@ -39,7 +47,10 @@ public class MusicManager : MonoBehaviour
     {
         ControlTempo();
         ControlVolume();
-        DisplayCurrentSongName();
+        ControlSliders();
+        //display text
+        songNameDisplay.text = "Now Playing: " + "'" + currentMusicSource.clip.name + "'";
+        manualFadeStateDisplay.text = "Enabled: " + fadeManually;
     }
 
     void ControlTempo() {
@@ -47,13 +58,28 @@ public class MusicManager : MonoBehaviour
         musicSource2.pitch = pitchSpeed;
     }
     void ControlVolume() {
-        if(!isFadingBetweenSongs)
+        if(!isFadingBetweenSongs && !fadeManually)
             currentMusicSource.volume = volume;
+
     }
-    public void ChangePitchSpeed(float newSpeed) {
+    void ControlSliders() {
+        if(fadeManually) {
+            volumeSlider.interactable = false;
+
+            source1VolSlider.interactable = true;
+            source2VolSlider.interactable = true;
+        }
+        else {
+            volumeSlider.interactable = true;
+
+            source1VolSlider.interactable = false;
+            source2VolSlider.interactable = false;
+        }
+    }
+    void ChangePitchSpeed(float newSpeed) {
         pitchSpeed = newSpeed;
     }
-    public void ChangeVolume(float newVolume) {
+    void ChangeVolume(float newVolume) {
         volume = newVolume;
     }
 
@@ -64,6 +90,8 @@ public class MusicManager : MonoBehaviour
     }
 
     public void StartFade() {
+        if(fadeManually) return;
+
         if(currentMusicSource == musicSource1) {
             StartCoroutine(FadeBetweenSongs(musicSource1, musicSource2));
         }
@@ -107,7 +135,16 @@ public class MusicManager : MonoBehaviour
         musicSource1.Stop();
     }
 
-    void DisplayCurrentSongName() {
-        songNameDisplay.text = "Now Playing: " + "'" + currentMusicSource.clip.name + "'";
+    void FirstSourceChangeVolume(float value) {
+        if(fadeManually)
+            musicSource1.volume = value;
+    }
+    void SecondSourceChangeVolume(float value) {
+        if(fadeManually)
+            musicSource2.volume = value;
+    }
+
+    public void EnableManualFade() {
+        fadeManually = !fadeManually;
     }
 }
