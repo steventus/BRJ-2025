@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9169658593071162057}
   - component: {fileID: 5922678012285956247}
   - component: {fileID: 5764096027431391502}
+  - component: {fileID: 5197789021258552397}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -65,6 +66,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: {fileID: 0}
   isDead: 0
+--- !u!114 &5197789021258552397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981801752542187210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fff84fc35fe79b4183b41fbe023dfd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scratchNoteSprite: {fileID: 0}
+  holdNoteSprite: {fileID: 0}
+  badNoteSprite: {fileID: 0}
+  changeNoteSprite: {fileID: 0}
+  spriteRenderer: {fileID: 8676445529528372272}
 --- !u!1 &3979595741924813370
 GameObject:
   m_ObjectHideFlags: 0
