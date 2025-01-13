@@ -43,10 +43,6 @@ public class Conductor : MonoBehaviour
     //an AudioSource attached to this GameObject that will play the music.
     public AudioSource musicSource;
 
-    //JOHNNY
-    //Created an event triggered on every beat
-    public UnityEvent onEachBeat;
-
     void Awake()
     {
         instance = this;
@@ -54,17 +50,11 @@ public class Conductor : MonoBehaviour
 
     void Start()
     {
-        //Load the AudioSource attached to the Conductor GameObject
-        musicSource = GetComponent<AudioSource>();
-
         //Calculate the number of seconds in each beat
         secPerBeat = 60f / songBpm;
 
         //Record the time when the music starts
         dspSongTime = (float)AudioSettings.dspTime;
-
-        //Start the music
-        musicSource.Play();
     }
 
     void Update()

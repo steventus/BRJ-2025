@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class EnemyTurn : BaseState
 {
-    public Transform enemy;
     [SerializeField] float stateDuration;
+
+    [Header("Game Components")]
+    public MusicManager musicManager;
+    
     public override void EnterState() {
         Debug.Log("enter " + transform.name);
+
+        musicManager.StartFade();
     }   
     public override void UpdateState() {
         if(timeElapsed >= stateDuration) {
