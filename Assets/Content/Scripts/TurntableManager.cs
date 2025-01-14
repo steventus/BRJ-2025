@@ -9,7 +9,6 @@ public class TurntableManager : MonoBehaviour
 {
     //Disc Scratching Variables
     [Header("Disc")]
-
     GameObject[] discs;
     public LayerMask whatIsDisc;
     private bool isRotatingOnItsOwn = false; // Flag to indicate autonomous rotation
@@ -78,9 +77,10 @@ public class TurntableManager : MonoBehaviour
 
         hit = Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc);
 
-
         if (Input.GetMouseButton(0) && Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc) && hit.transform.gameObject.GetComponent<Disc>().isBeingPlayed) 
         {
+
+
             // Get the mouse position in world space
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 

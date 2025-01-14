@@ -6,8 +6,11 @@ public class BossBehaviour : MonoBehaviour
 {
     [Header("HP")]
     [SerializeField] HealthSystem health;
+    public HealthSystem Health => health;
     public bool isDead;
-    
+    [Header("Attack Stats")]
+    public int phrasesCompleted = 0;
+
     [Header("Audio")]
     public AudioSource musicSource;
     public AudioClip[] bossSongs;
