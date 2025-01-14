@@ -19,7 +19,7 @@ public class EnemyTurn : BaseState
     //rotation check
     [SerializeField] float minHealthThreshold = 0.5f;
     [SerializeField] int minAttacksBeforeRotation = 0;
-
+    
     void OnEnable() {
         //subscribe state to event that triggers boss rotation
     }
@@ -49,7 +49,7 @@ public class EnemyTurn : BaseState
         
         // var chosenChart  
         
-        bool hasLostEnoughHealth = currentHealthInPercent <= phaseThreshold;
+        bool hasLostEnoughHealth = currentHealthInPercent <= minHealthThreshold;
         bool hasPerformedEnoughAttacks = _currentBoss.phrasesCompleted >= minAttacksBeforeRotation;  
         
         
@@ -65,9 +65,9 @@ public class EnemyTurn : BaseState
         }
 
         //Spawn Chart Event
+            // Initialize Chart - set position, spawn prefab notes
+            // Enable Control of Notes Controller 
 
-        // Initialize Chart - set position, spawn prefab notes
-        // Enable Control of Notes Controller 
         isAttacking = true;
     }   
     
@@ -77,15 +77,13 @@ public class EnemyTurn : BaseState
         if(isAttacking) {
             // display chart && perform dance
 
-            if(!isAttacking) {
-                danceComplete = true;
+            // if attack is complete (placeholder bool)
+            bool attackComplete = false;
+            if(attackComplete ) {
+                
+                // end enemy turn
+                isComplete = true;
             }
-        }
-        
-        //check is boss is done dancing
-        bool danceComplete = false;
-        if(danceComplete) {
-            isComplete = true;
         }
     }
     public override void ExitState() {
