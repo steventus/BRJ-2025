@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Conductor : MonoBehaviour
 {
@@ -49,17 +50,11 @@ public class Conductor : MonoBehaviour
 
     void Start()
     {
-        //Load the AudioSource attached to the Conductor GameObject
-        musicSource = GetComponent<AudioSource>();
-
         //Calculate the number of seconds in each beat
         secPerBeat = 60f / songBpm;
 
         //Record the time when the music starts
         dspSongTime = (float)AudioSettings.dspTime;
-
-        //Start the music
-        musicSource.Play();
     }
 
     void Update()
