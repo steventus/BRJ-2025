@@ -14,8 +14,8 @@ public class MusicManager : MonoBehaviour
     bool hasStarted = false;
     [Header("Bosses")]
     public Transform bossContainer;
-    [SerializeField] List<BossBehaviour> bossBehaviours = new();
-    int currentBossIndex = 0;
+    public List<BossBehaviour> bossBehaviours = new();
+    public int currentBossIndex = 0;
     void Awake() {
         //Get and store all Boss objs
         foreach(Transform boss in bossContainer) {
@@ -23,6 +23,7 @@ public class MusicManager : MonoBehaviour
                 bossBehaviours.Add(bossBehaviour);
             }
         }
+        currentMusicSource = bossBehaviours[0].musicSource; 
     }
 
     void Start() {

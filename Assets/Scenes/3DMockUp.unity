@@ -2444,8 +2444,6 @@ MonoBehaviour:
   enemyTurn: {fileID: 1458254049}
   playerTurn: {fileID: 1008023064}
   stateUIDisplay: {fileID: 511430502}
-  bossRotationControl: {fileID: 1126766513}
-  player: {fileID: 507133486}
 --- !u!4 &1126766512
 Transform:
   m_ObjectHideFlags: 0
@@ -2765,6 +2763,7 @@ MonoBehaviour:
   fadeDuration: 0.05
   bossContainer: {fileID: 138443555}
   bossBehaviours: []
+  currentBossIndex: 0
 --- !u!1 &1266854325
 GameObject:
   m_ObjectHideFlags: 0
@@ -3224,6 +3223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateDuration: 3.75
   musicManager: {fileID: 1241183301}
+  bossRotationControl: {fileID: 1126766513}
+  player: {fileID: 507133486}
 --- !u!1 &1541253036
 GameObject:
   m_ObjectHideFlags: 0

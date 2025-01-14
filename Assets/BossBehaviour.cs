@@ -12,7 +12,7 @@ public class BossBehaviour : MonoBehaviour
     public AudioSource musicSource;
     public AudioClip[] bossSongs;
     int songIndex;
-    void Awake() {
+    void OnEnable() {
         musicSource = GetComponentInChildren<AudioSource>();
     }
     void Start()
