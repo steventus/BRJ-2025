@@ -115,7 +115,6 @@ public class TurntableManager : MonoBehaviour
             // Disable autonomous rotation while the mouse is pressed
             isRotatingOnItsOwn = false;
         }
-
         if (!isRotatingOnItsOwn) // Transition to autonomous rotation after releasing the mouse
         {
             // Use the last angular velocity as the initial rotation speed
@@ -124,12 +123,10 @@ public class TurntableManager : MonoBehaviour
         }
         if (isRotatingOnItsOwn)
         {
-
             // Increment the current angle using the rotation speed
             currentAngle += rotationSpeed * Time.deltaTime;
 
             // Apply the updated angle to the GameObject
-
             currentDisc.transform.rotation = Quaternion.Euler(0, 0, currentAngle);
 
             // Decelerate the rotation speed
@@ -137,7 +134,6 @@ public class TurntableManager : MonoBehaviour
             {
                 rotationSpeed -= decelerationRate * Time.deltaTime;
                 rotationSpeed = Mathf.Max(rotationSpeed, 0); // Clamp to zero
-
                 e.text = "Is rotating Right";
             }
             else if (rotationSpeed < 0)
