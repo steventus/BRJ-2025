@@ -66,8 +66,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980b80fe16ed95d4584a589de69600fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 0}
+  health: {fileID: 5922678012285956247}
   isDead: 0
+  musicSource: {fileID: 0}
+  bossSongs: []
 --- !u!95 &1990795186245326607
 Animator:
   serializedVersion: 5

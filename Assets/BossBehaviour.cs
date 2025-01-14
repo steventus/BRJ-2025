@@ -20,6 +20,7 @@ public class BossBehaviour : MonoBehaviour
         //intiate health    
         health?.HealthChangedEvent.AddListener(OnHealthChanged);
         health = GetComponent<HealthSystem>();
+        Heal(health.MaxHealth);
         // Reset();
     }
 
