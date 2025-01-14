@@ -12,17 +12,31 @@ public class EnemyTurn : BaseState
     public Transform player;
 
     //rotation check
-    public bool rotateBoss = false;
+    [SerializeField] 
+    bool rotateBoss = false;
+
+    void OnEnable() {
+        //subscribe state to event that triggers boss rotation
+    }
+    void OnDisable() {
+        //unsubscribe state to event that triggers boss rotation
+    }
     public override void EnterState() {
         Debug.Log("enter " + transform.name);
 
+        // [[ ENEMY START PHASE ]]
         if(rotateBoss) {
             
             if(bossRotationControl.currentBoss == musicManager.bossBehaviours[musicManager.currentBossIndex])
                 bossRotationControl.TriggerRotation();
 
             musicManager.StartFade();
+            rotateBoss = false;
         }
+
+        // [[ TRANSITION PHASE ]]
+        HealthSystem currentBossHealth = bossRotationControl.currentBoss.Health; 
+        float currentHealthInPercent = currentBossHealth.CurrentHealth / currentBossHealth.MaxHealth;
     }   
     public override void UpdateState() {
         RotatePlayerTowardsCurrentBoss();
