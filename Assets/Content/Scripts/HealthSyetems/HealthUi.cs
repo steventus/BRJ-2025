@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthUi : MonoBehaviour
 {
-    [SerializeField] HealthSystem health;
+    [SerializeField] protected HealthSystem health;
     [SerializeField] Slider slider;
     void Start()
     {
