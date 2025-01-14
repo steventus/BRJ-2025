@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BossRotationController : MonoBehaviour
 {
     public List<BossBehaviour> bossList;
     private Queue<BossBehaviour> activeBossList = new Queue<BossBehaviour>();
-    private BossBehaviour currentBoss;
+    public BossBehaviour currentBoss { get; private set; }
+    [SerializeField] bool swapTriggered = false;
+    public UnityEvent BossChangedEvent = new UnityEvent();
+
     void Start()
     {
         for (int i = 0; i < bossList.Count; i++)
@@ -22,11 +26,18 @@ public class BossRotationController : MonoBehaviour
     {
         //TEST --- TO BE REMOVED AFTERWARDS
         #region TEST
-        if (Input.GetKeyDown(KeyCode.P))
+        if (swapTriggered)
         {
             RotateNextBoss(currentBoss);
+            swapTriggered = false;
         }
         #endregion
+
+        //TEST --- TO BE REMOVED AFTERWARDS
+        if (Input.GetKeyDown(KeyCode.P)){
+            currentBoss.Damage(10);
+        }
+
     }
 
     public BossBehaviour RotateNextBoss(BossBehaviour _currentBoss)
@@ -39,7 +50,9 @@ public class BossRotationController : MonoBehaviour
         {
             _nextBoss = activeBossList.Dequeue();
         }
+
         currentBoss = _nextBoss;
+        UpdateBossChange();
         return _nextBoss;
     }
 
@@ -48,5 +61,15 @@ public class BossRotationController : MonoBehaviour
         Gizmos.color = Color.red;
         if (currentBoss != null)
             Gizmos.DrawCube(currentBoss.transform.position, Vector3.one * 0.3f);
+    }
+
+    public void UpdateBossChange()
+    {
+        BossChangedEvent.Invoke();
+    }
+
+    public void TriggerRotation()
+    {
+        swapTriggered = true;
     }
 }

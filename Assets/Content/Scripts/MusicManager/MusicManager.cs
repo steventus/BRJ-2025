@@ -6,109 +6,51 @@ using TMPro;
 
 public class MusicManager : MonoBehaviour
 {
-    public static MusicManager Instance;
-    [SerializeField] AudioSource musicSource1, musicSource2;
     [SerializeField] AudioSource currentMusicSource;
-    [SerializeField] float pitchSpeed;
+    [SerializeField] AudioSource nextMusicSource;
     float volume = 1;
     [SerializeField] float fadeDuration;
-    [SerializeField] Slider pitchSlider, volumeSlider, source1VolSlider, source2VolSlider;
-    [SerializeField] TextMeshProUGUI songNameDisplay, manualFadeStateDisplay;
     bool isFadingBetweenSongs = false;
-    [SerializeField] bool fadeManually = false;
+    bool hasStarted = false;
+    [Header("Bosses")]
+    public Transform bossContainer;
+    public List<BossBehaviour> bossBehaviours = new();
+    public int currentBossIndex = 0;
     void Awake() {
-        if(Instance == null) {
-            Instance = this;
+        //Get and store all Boss objs
+        foreach(Transform boss in bossContainer) {
+            if(boss.TryGetComponent(out BossBehaviour bossBehaviour)) {
+                bossBehaviours.Add(bossBehaviour);
+            }
         }
-        else {
-            Debug.Log("multiple instance of " + name + " singleton found, destroying duplicate");
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(this);
+        currentMusicSource = bossBehaviours[0].musicSource; 
     }
-    void OnEnable() {
-        //subscribe sliders to functions
-        pitchSlider.onValueChanged.AddListener(ChangePitchSpeed);
-        volumeSlider.onValueChanged.AddListener(ChangeVolume);
 
-        source1VolSlider.onValueChanged.AddListener(FirstSourceChangeVolume);
-        source2VolSlider.onValueChanged.AddListener(SecondSourceChangeVolume);
-    }
-    void OnDisable() {
-
-    }
     void Start() {
-        currentMusicSource = musicSource1;
-
-        musicSource2.volume = 0;
+        //set starting music source (first boss)
+        currentMusicSource = bossBehaviours[0].musicSource; 
     }
-    void Update()
-    {
-        ControlTempo();
-        ControlVolume();
-        ControlSliders();
-        //display text
-        songNameDisplay.text = "Now Playing: " + "'" + currentMusicSource.clip.name + "'";
-        manualFadeStateDisplay.text = "Enabled: " + fadeManually;
-    }
-
-    void ControlTempo() {
-        musicSource1.pitch = pitchSpeed;
-        musicSource2.pitch = pitchSpeed;
-    }
-    void ControlVolume() {
-        if(!isFadingBetweenSongs && !fadeManually)
-            currentMusicSource.volume = volume;
-
-    }
-    void ControlSliders() {
-        if(fadeManually) {
-            volumeSlider.interactable = false;
-
-            source1VolSlider.interactable = true;
-            source2VolSlider.interactable = true;
+    
+    public void StartFade() {
+        if(!hasStarted) {
+            //do not fade between audioSources
+            currentMusicSource.volume = 1;
+            hasStarted = true;
         }
         else {
-            volumeSlider.interactable = true;
+            currentBossIndex++;
+            if(currentBossIndex >= bossBehaviours.Count) {
+                currentBossIndex = 0;
+            }
 
-            source1VolSlider.interactable = false;
-            source2VolSlider.interactable = false;
+            nextMusicSource = bossBehaviours[currentBossIndex].musicSource; 
+
+            StartCoroutine(FadeBetweenSongs(currentMusicSource, nextMusicSource));
         }
-    }
-    void ChangePitchSpeed(float newSpeed) {
-        pitchSpeed = newSpeed;
-    }
-    void ChangeVolume(float newVolume) {
-        volume = newVolume;
-    }
-
-    public void ChangeAudioClip(AudioClip newClip) {
-        currentMusicSource.Stop();
-        currentMusicSource.clip = newClip;
-        currentMusicSource.Play();
-    }
-
-    public void StartFade() {
-        if(fadeManually) return;
-
-        if(currentMusicSource == musicSource1) {
-            StartCoroutine(FadeBetweenSongs(musicSource1, musicSource2));
-        }
-        else if (currentMusicSource == musicSource2) {
-            StartCoroutine(FadeBetweenSongs(musicSource2, musicSource1));
-        }                
     }
 
     IEnumerator FadeBetweenSongs(AudioSource fadeOut, AudioSource fadeIn) {
         float timeElapsed = 0;
-
-        if(!musicSource1.isPlaying) {
-            musicSource1.Play();
-        }
-        if(!musicSource2.isPlaying) {
-            musicSource2.Play();
-        }
 
         isFadingBetweenSongs = true;
         fadeOut.volume = volume;
@@ -124,27 +66,5 @@ public class MusicManager : MonoBehaviour
 
         currentMusicSource = fadeIn;
         isFadingBetweenSongs = false;
-    }
-
-    public void PlayMusic() {
-        musicSource1.Play();
-        musicSource2.Play();
-    }
-    public void StopMusic() {
-        musicSource2.Stop();
-        musicSource1.Stop();
-    }
-
-    void FirstSourceChangeVolume(float value) {
-        if(fadeManually)
-            musicSource1.volume = value;
-    }
-    void SecondSourceChangeVolume(float value) {
-        if(fadeManually)
-            musicSource2.volume = value;
-    }
-
-    public void EnableManualFade() {
-        fadeManually = !fadeManually;
     }
 }
