@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerTurn : BaseState
 {
-    public Transform table;
     [SerializeField] float stateDuration;
     public override void EnterState() {
         Debug.Log("enter " + transform.name);
     }
     public override void UpdateState() {
+        base.UpdateState();
+
         if(timeElapsed >= stateDuration) {
             isComplete = true;
         }

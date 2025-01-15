@@ -6,52 +6,40 @@ public class EnemyTurn : BaseState
 {
     [SerializeField] float stateDuration;
 
-    [Header("Game Components")]
-    public MusicManager musicManager;
-    public BossRotationController bossRotationControl;
-    public Transform player;
-
     [Header("Phases")]
     [SerializeField] bool rotateBoss = false;
-    [SerializeField] bool isAttacking = false;
+    [SerializeField] bool inAttackPhase = false;
+    [SerializeField] bool attackComplete = false;
 
     [Header("Variables")]
     //rotation check
     [SerializeField] float minHealthThreshold = 0.5f;
     [SerializeField] int minAttacksBeforeRotation = 0;
     
-    void OnEnable() {
-        //subscribe state to event that triggers boss rotation
-    }
-    void OnDisable() {
-        //unsubscribe state to event that triggers boss rotation
-    }
     public override void EnterState() {
         Debug.Log("enter " + transform.name);
 
         // [[ ENEMY START PHASE ]]
         if(rotateBoss) {
             
-            if(bossRotationControl.currentBoss == musicManager.bossBehaviours[musicManager.currentBossIndex])
-                bossRotationControl.TriggerRotation();
-
             musicManager.StartFade();
+            bossRotationControl.TriggerRotation();
+            Debug.Log("rotate");
+
             rotateBoss = false;
         }
 
-        // [[ TRANSITION PHASE ]]
-        BossBehaviour _currentBoss =  bossRotationControl.currentBoss;
+    // [[ TRANSITION PHASE ]]
+
+        // intialize data needed for transition checks (boss health, attack counter)
+        BossBehaviour _currentBoss = bossRotationControl.currentBoss;
         HealthSystem currentBossHealth = _currentBoss.Health; 
         float currentHealthInPercent = currentBossHealth.CurrentHealth / currentBossHealth.MaxHealth;
-        
-        
-        // [[ ATTACK PHASE ]]
-        
-        // var chosenChart  
-        
         bool hasLostEnoughHealth = currentHealthInPercent <= minHealthThreshold;
         bool hasPerformedEnoughAttacks = _currentBoss.phrasesCompleted >= minAttacksBeforeRotation;  
         
+        // determine which chart to spawn
+        //var chosenChart;  
         
         if (hasLostEnoughHealth || hasPerformedEnoughAttacks) {
             // store chart to spawn as a variable 
@@ -64,23 +52,24 @@ public class EnemyTurn : BaseState
                 // chosenChart = randomChart
         }
 
-        //Spawn Chart Event
-            // Initialize Chart - set position, spawn prefab notes
-            // Enable Control of Notes Controller 
+    // [[ ATTACK PHASE ]]
 
-        isAttacking = true;
+        //Spawn Chart Event
+        // boss.spawnChart(chosenChart);
+
+        // display chart && perform dance
+        // boss.dance()
+
+        inAttackPhase = true;
     }   
     
     public override void UpdateState() {
-        RotatePlayerTowardsCurrentBoss();
+        base.UpdateState();
 
-        if(isAttacking) {
-            // display chart && perform dance
+        if(inAttackPhase) {
 
-            // if attack is complete (placeholder bool)
-            bool attackComplete = false;
+            // if attack is complete
             if(attackComplete ) {
-                
                 // end enemy turn
                 isComplete = true;
             }
@@ -89,13 +78,8 @@ public class EnemyTurn : BaseState
     public override void ExitState() {
         Debug.Log("exit " + transform.name);
 
-        isAttacking = false;
+        inAttackPhase = false;
+        attackComplete = false;
     }
 
-    void RotatePlayerTowardsCurrentBoss() {
-        Transform currentBoss = bossRotationControl.currentBoss.transform;
-        var targetRotation = Quaternion.LookRotation(currentBoss.position - player.position);
-        float rotSpeed = 10f;
-        player.rotation = Quaternion.Lerp(player.rotation,targetRotation, rotSpeed * Time.deltaTime);
-    }
 }

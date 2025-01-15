@@ -12,7 +12,7 @@ public class BossRotationController : MonoBehaviour
     [SerializeField] bool swapTriggered = false;
     public UnityEvent BossChangedEvent = new UnityEvent();
 
-    void Start()
+    void Awake()
     {
         for (int i = 0; i < bossList.Count; i++)
         {
@@ -29,7 +29,6 @@ public class BossRotationController : MonoBehaviour
         if (swapTriggered)
         {
             RotateNextBoss(currentBoss);
-            swapTriggered = false;
         }
         #endregion
 
@@ -42,6 +41,8 @@ public class BossRotationController : MonoBehaviour
 
     public BossBehaviour RotateNextBoss(BossBehaviour _currentBoss)
     {
+        swapTriggered = false;
+
         activeBossList.Enqueue(_currentBoss);
 
         BossBehaviour _nextBoss = activeBossList.Dequeue();

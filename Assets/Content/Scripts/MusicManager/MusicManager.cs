@@ -11,7 +11,6 @@ public class MusicManager : MonoBehaviour
     float volume = 1;
     [SerializeField] float fadeDuration;
     bool isFadingBetweenSongs = false;
-    bool hasStarted = false;
     [Header("Bosses")]
     public Transform bossContainer;
     public List<BossBehaviour> bossBehaviours = new();
@@ -29,24 +28,19 @@ public class MusicManager : MonoBehaviour
     void Start() {
         //set starting music source (first boss)
         currentMusicSource = bossBehaviours[0].musicSource; 
+
+        currentMusicSource.volume = 1;
     }
     
     public void StartFade() {
-        if(!hasStarted) {
-            //do not fade between audioSources
-            currentMusicSource.volume = 1;
-            hasStarted = true;
+        currentBossIndex++;
+        if(currentBossIndex >= bossBehaviours.Count) {
+            currentBossIndex = 0;
         }
-        else {
-            currentBossIndex++;
-            if(currentBossIndex >= bossBehaviours.Count) {
-                currentBossIndex = 0;
-            }
 
-            nextMusicSource = bossBehaviours[currentBossIndex].musicSource; 
+        nextMusicSource = bossBehaviours[currentBossIndex].musicSource; 
 
-            StartCoroutine(FadeBetweenSongs(currentMusicSource, nextMusicSource));
-        }
+        StartCoroutine(FadeBetweenSongs(currentMusicSource, nextMusicSource));
     }
 
     IEnumerator FadeBetweenSongs(AudioSource fadeOut, AudioSource fadeIn) {
