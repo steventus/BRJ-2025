@@ -39,12 +39,13 @@ public class EnemyTurn : BaseState
         bool hasPerformedEnoughAttacks = _currentBoss.phrasesCompleted >= minAttacksBeforeRotation;  
         
         // determine which chart to spawn
+        // get list of possible charts from currentBoss
+        
+        // store chart to spawn as a variable 
         //var chosenChart;  
         
         if (hasLostEnoughHealth || hasPerformedEnoughAttacks) {
-            // store chart to spawn as a variable 
-                // chosenChart = forcedRotateChart
-
+            // chosenChart = forcedRotateChart
             rotateBoss = true;
         }
         else {
@@ -53,13 +54,11 @@ public class EnemyTurn : BaseState
         }
 
     // [[ ATTACK PHASE ]]
+        // INITIALIZE attack phase
 
-        //Spawn Chart Event
-        // boss.spawnChart(chosenChart);
+        // chartSPawner.spawnChart(chosenChart);
 
-        // display chart && perform dance
-        // boss.dance()
-
+        //start attack phase
         inAttackPhase = true;
     }   
     
@@ -67,12 +66,19 @@ public class EnemyTurn : BaseState
         base.UpdateState();
 
         if(inAttackPhase) {
+            // spawn chart
+            
+            // currentBoss.dance()
 
             // if attack is complete
             if(attackComplete ) {
                 // end enemy turn
                 isComplete = true;
             }
+        }
+
+        if(timeElapsed >= stateDuration) {
+            isComplete = true;
         }
     }
     public override void ExitState() {

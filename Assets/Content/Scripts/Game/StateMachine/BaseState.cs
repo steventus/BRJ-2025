@@ -23,6 +23,13 @@ public abstract class BaseState : MonoBehaviour
     public BossRotationController bossRotationControl;
     public Transform player;
 
+    public Conductor conductor;
+    public Metronome metronome;
+    
+    //NEED:
+    //  CHART SPAWN && CONTROL
+    //  PLAYER INPUT
+
     void RotatePlayerTowardsCurrentBoss() {
         Transform currentBoss = bossRotationControl.currentBoss.transform;
         var targetRotation = Quaternion.LookRotation(currentBoss.position - player.position);
