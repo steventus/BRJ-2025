@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class JudgementLineBehaviour : MonoBehaviour
 {
+
+    public BoxCollider2D thisCollider;
+    [SerializeField] private float perfectDistance = 50;
+    [SerializeField] private float goodDistance = 70;
+    [SerializeField] private float missDistance = 100;
+
+
     private Conductor conductor = Conductor.instance;
     private TrackFactory trackFactory = TrackFactory.instance;
     private float speed = 0;
@@ -45,7 +52,7 @@ public class JudgementLineBehaviour : MonoBehaviour
     {
         // Calculate ideal speed to move
         // speed = (Physical distance between each "Green circle/UI Beat" set by Trackfactory) multiply by (Beats per second set by Conductor).
-        speed = (trackFactory.DistanceBetweenBeat) * conductor.songBpm/60;
+        speed = (trackFactory.DistanceBetweenBeat + trackFactory.DistanceOffset) * conductor.songBpm / 60;
         Debug.Log(speed);
 
         //Any zero-error based on current time to starting beat
@@ -68,6 +75,20 @@ public class JudgementLineBehaviour : MonoBehaviour
     public void JudgeNote()
     {
         //Judge perfect/good/miss based on what note a player hits.
+        Collider2D[] results = thisCollider.OverlapCollider();
+
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, new Vector3(perfectDistance, 10,10));
+
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(transform.position, new Vector3(goodDistance, 8,8));
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, new Vector3(missDistance, 6,6));
     }
 
 }

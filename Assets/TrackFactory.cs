@@ -7,6 +7,7 @@ public class TrackFactory : MonoBehaviour
 {
     public static TrackFactory instance = null;
     public float DistanceBetweenBeat = 50;
+    public float DistanceOffset = 25;
     public HorizontalLayoutGroup horizontalLayoutGroup;
 
     void Awake()

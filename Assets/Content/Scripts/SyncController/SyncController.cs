@@ -29,6 +29,8 @@ public class SyncController : MonoBehaviour
 {
     private List<Coroutine> queueActions = new List<Coroutine>();
 
+    
+
     public void QueueForBeat(UnityAction _unityAction, int _beatDelay = 1)
     {
         float _startTime = Mathf.FloorToInt(Conductor.instance.songPositionInBeats);
@@ -44,8 +46,6 @@ public class SyncController : MonoBehaviour
         while (Conductor.instance.songPositionInBeats <= _queuedAction.endTime)
         {
             yield return new WaitForEndOfFrame();
-            if (Conductor.instance.songPositionInBeats >= _queuedAction.endTime)
-                break;
         }
         _queuedAction.actionToRun.Invoke();
         yield return null;
