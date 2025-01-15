@@ -36,7 +36,8 @@ public class JudgementLineBehaviour : MonoBehaviour
             if (testingIfMoving)
             {
                 testingIfMoving = false;
-                GetComponent<SyncController>().QueueForBeat(StopMoving);
+                StopMoving();
+                thisRectTransform.anchoredPosition = trackFactory.notes[0].anchoredPosition;
             }
 
             else
@@ -50,9 +51,12 @@ public class JudgementLineBehaviour : MonoBehaviour
 
     public void StartMoving()
     {
+        //Distance between 2 beats
+        float _distance = Vector2.Distance(TrackFactory.instance.notes[0].anchoredPosition, TrackFactory.instance.notes[1].anchoredPosition);
+
         // Calculate ideal speed to move
         // speed = (Physical distance between each "Green circle/UI Beat" set by Trackfactory) multiply by (Beats per second set by Conductor).
-        speed = (trackFactory.DistanceBetweenBeat + trackFactory.DistanceOffset) * conductor.songBpm / 60;
+        speed = (_distance) * conductor.songBpm / 60;
         Debug.Log(speed);
 
         //Any zero-error based on current time to starting beat
@@ -75,19 +79,23 @@ public class JudgementLineBehaviour : MonoBehaviour
     public void JudgeNote()
     {
         //Judge perfect/good/miss based on what note a player hits.
+        List<Collider2D> results = new List<Collider2D>();
+        thisCollider.OverlapCollider(new ContactFilter2D().NoFilter(), results);
+
+
 
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, new Vector3(perfectDistance, 10,10));
+        Gizmos.DrawWireCube(transform.position, new Vector3(perfectDistance, 10, 10));
 
         Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(transform.position, new Vector3(goodDistance, 8,8));
+        Gizmos.DrawWireCube(transform.position, new Vector3(goodDistance, 8, 8));
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector3(missDistance, 6,6));
+        Gizmos.DrawWireCube(transform.position, new Vector3(missDistance, 6, 6));
     }
 
 }
