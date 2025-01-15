@@ -7,6 +7,7 @@ public class HealthUi : MonoBehaviour
 {
     [SerializeField] protected HealthSystem health;
     [SerializeField] protected Slider slider;
+
     protected virtual void Start()
     {
         if (health != null)
@@ -42,5 +43,9 @@ public class HealthUi : MonoBehaviour
     protected void OnHealthChanged()
     {
         UpdateView();
+    }
+
+    public void SetHealthComponent(HealthSystem _health) {
+        health = _health;
     }
 }

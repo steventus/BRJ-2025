@@ -28,6 +28,7 @@ public class HealthSystem : MonoBehaviour
 
     void UpdateHealth()
     {
+        Debug.Log(name + " " +currentHealth);
         HealthChangedEvent.Invoke();
     }
 }

@@ -7,6 +7,13 @@ public class BossHealthUi : HealthUi
 {
     BossBehaviour selectedBoss;
     BossRotationController thisController;
+    
+    void OnEnable() {
+        Events.OnSuccessfulNoteHit += Damage;
+    }
+    void OnDisable() {
+        Events.OnSuccessfulNoteHit -= Damage;
+    }
     void Awake()
     {
         thisController = FindObjectOfType<BossRotationController>();
@@ -46,7 +53,7 @@ public class BossHealthUi : HealthUi
         UpdateView();
     }
 
-    void OnBossChanged()
+    public void OnBossChanged()
     {
         UpdateBossHealthUi();
     }

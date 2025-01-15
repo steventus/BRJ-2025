@@ -6,20 +6,34 @@ public class PlayerTurn : BaseState
 {
     [SerializeField] float stateDuration;
     [SerializeField] int successfulNotesHitCount;
+    [SerializeField] int hitsRequiredToEndTurn;
+
     void OnEnable() {
-        metronome.OnSuccessfulNoteHit += AddToHitCounter;
-    } 
+        Events.OnSuccessfulNoteHit += CountHit;
+    }
     void OnDisable() {
-        metronome.OnSuccessfulNoteHit -= AddToHitCounter;
+        Events.OnSuccessfulNoteHit -= CountHit;
     }
     public override void EnterState() {
-        metronome.isPlayerTurn = true;
         Debug.Log("enter " + transform.name);
+
+        // change required number of hits based on which chart/boss is being faced against
     }
     public override void UpdateState() {
         base.UpdateState();
         
-        if(timeElapsed >= stateDuration) {
+        // player input
+        
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            metronome.CheckIfInputIsOnBeat();
+        }
+
+        // checks player has successfully hit min number of notes
+        bool hitMinimumNotes = successfulNotesHitCount >= hitsRequiredToEndTurn;
+        // checks that loop has completed
+        bool currentLoopIsComplete = conductor.loopPositionInAnalog <= 0.1f;
+
+        if(hitMinimumNotes && currentLoopIsComplete) {
             isComplete = true;
         }
     }
@@ -27,10 +41,9 @@ public class PlayerTurn : BaseState
         Debug.Log("exit " + transform.name);
 
         successfulNotesHitCount = 0;
-        metronome.isPlayerTurn = false;
     }
 
-    void AddToHitCounter() {
+    void CountHit(int n) {
         successfulNotesHitCount++;
     }
 }

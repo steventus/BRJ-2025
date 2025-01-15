@@ -34,6 +34,13 @@ public class EnemyTurn : BaseState
         // intialize data needed for transition checks (boss health, attack counter)
         BossBehaviour _currentBoss = bossRotationControl.currentBoss;
         HealthSystem currentBossHealth = _currentBoss.Health; 
+
+        //Update which boss' health is being displayed
+        BossHealthUi bossHealthUi = healthSlider.GetComponent<BossHealthUi>();
+        bossHealthUi.SetHealthComponent(currentBossHealth);
+        bossHealthUi.OnBossChanged();
+
+        // boss state parameters
         float currentHealthInPercent = currentBossHealth.CurrentHealth / currentBossHealth.MaxHealth;
         bool hasLostEnoughHealth = currentHealthInPercent <= minHealthThreshold;
         bool hasPerformedEnoughAttacks = _currentBoss.phrasesCompleted >= minAttacksBeforeRotation;  
@@ -69,16 +76,13 @@ public class EnemyTurn : BaseState
             // spawn chart
             
             // currentBoss.dance()
-
+            if(Input.GetKeyDown(KeyCode.LeftShift))
+                attackComplete = true;
             // if attack is complete
-            if(attackComplete ) {
+            if(attackComplete) {
                 // end enemy turn
                 isComplete = true;
             }
-        }
-
-        if(timeElapsed >= stateDuration) {
-            isComplete = true;
         }
     }
     public override void ExitState() {

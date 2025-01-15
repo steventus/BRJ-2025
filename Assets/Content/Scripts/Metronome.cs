@@ -15,10 +15,10 @@ public class Metronome : MonoBehaviour
     public GameObject hitMessage;
     public GameObject missMessage;
 
-    public bool isPlayerTurn = false;
-    // SUCCESSFUL INPUT EVENT
-    public UnityAction OnSuccessfulNoteHit;
-
+    public float minThresholdForNoteHit = 0.4f;
+    void Start() {
+        beatIndex = 0;
+    }
     void Update()
     {
         beatIndex = Mathf.Clamp(beatIndex, 0, beatMarkers.Length);
@@ -34,29 +34,23 @@ public class Metronome : MonoBehaviour
 
         metronomeLine.position = Vector3.Lerp(metronomeLine.position, nextBeat.position, Time.deltaTime * lerpSpeed);
 
-
-        // [TEMP INPUT CONTROLS] //
-        if(!isPlayerTurn) return;
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            CheckIfInputIsOnBeat();
-        }
     }
 
-    void CheckIfInputIsOnBeat() {
-        float minThresholdForNoteHit = 0.4f;
+    public void CheckIfInputIsOnBeat() {
         float inputPressDistanceFromBeat = Mathf.Abs((float)beatIndex - conductor.loopPositionInBeats); 
         if(inputPressDistanceFromBeat < minThresholdForNoteHit) {
             hitMessage.SetActive(true);
             missMessage.SetActive(false);
 
             //invoke successful input event
-            OnSuccessfulNoteHit?.Invoke();
+            Events.OnSuccessfulNoteHit?.Invoke(2);
         }
         else {
             hitMessage.SetActive(false);
             missMessage.SetActive(true);
          
             //invoke failed input event
+            Events.OnUnsuccessfulNoteHit?.Invoke(2);
         }
 
         Invoke("DisableMessages", 0.25f);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 public class Game : MonoBehaviour
@@ -39,5 +40,10 @@ public class Game : MonoBehaviour
     void DisplayState() {
         stateUIDisplay.text = stateMachine.state.transform.name;
     }
+}
 
+public static class Events
+{
+    public static UnityAction<int> OnSuccessfulNoteHit;
+    public static UnityAction<int> OnUnsuccessfulNoteHit;
 }

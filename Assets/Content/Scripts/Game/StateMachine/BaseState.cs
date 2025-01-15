@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 public abstract class BaseState : MonoBehaviour 
 {
     public bool isComplete { get; protected set; }
@@ -25,6 +26,9 @@ public abstract class BaseState : MonoBehaviour
 
     public Conductor conductor;
     public Metronome metronome;
+    
+    //Health Bar UI
+    public HealthUi healthSlider;
     
     //NEED:
     //  CHART SPAWN && CONTROL
