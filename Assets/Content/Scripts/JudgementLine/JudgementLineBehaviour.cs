@@ -75,7 +75,6 @@ public class JudgementLineBehaviour : MonoBehaviour
     public void JudgeNote()
     {
         //Judge perfect/good/miss based on what note a player hits.
-        Collider2D[] results = thisCollider.OverlapCollider();
 
     }
 
