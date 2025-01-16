@@ -7,6 +7,8 @@ public class Track : MonoBehaviour
     public Vector3 startPos;
     public Vector3 endPos;
 
+    [HideInInspector] public bool isOccupied;
+
     void OnValidate(){
         startPos = transform.position;
     }
