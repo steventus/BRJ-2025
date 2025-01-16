@@ -154,6 +154,7 @@ MonoBehaviour:
   whatIsDisc:
     serializedVersion: 2
     m_Bits: 8
+
   e: {fileID: 246137621}
   decelerationRate: 500
   maxVolume: 100
@@ -339,6 +340,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+
 --- !u!1 &246137619
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +655,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+
     - target: {fileID: 5156557487923495733, guid: 5d07bb43adb4f4a4685af04c713b3904, type: 3}
       propertyPath: m_SortingOrder
       value: 90
@@ -788,6 +791,7 @@ RectTransform:
   - {fileID: 1408031497}
   - {fileID: 1866794330}
   - {fileID: 1286463938}
+
   - {fileID: 246137620}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1786,6 +1790,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+
     - target: {fileID: 5156557487923495733, guid: 5d07bb43adb4f4a4685af04c713b3904, type: 3}
       propertyPath: m_SortingOrder
       value: 10
@@ -2459,6 +2464,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+
     - target: {fileID: 5156557487923495733, guid: 5d07bb43adb4f4a4685af04c713b3904, type: 3}
       propertyPath: m_SortingOrder
       value: 90
@@ -2770,6 +2776,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+
     - target: {fileID: 5156557487923495733, guid: 5d07bb43adb4f4a4685af04c713b3904, type: 3}
       propertyPath: m_SortingOrder
       value: 90
@@ -2886,6 +2893,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+
     - target: {fileID: 5156557487923495733, guid: 5d07bb43adb4f4a4685af04c713b3904, type: 3}
       propertyPath: m_SortingOrder
       value: 90

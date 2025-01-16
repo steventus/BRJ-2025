@@ -12,7 +12,7 @@ TagManager:
   - Disc
   - Water
   - UI
-  - 
+  - Note
   - 
   - 
   - 
@@ -41,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 2021583869
     locked: 0

@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class HealthUi : MonoBehaviour
 {
-    [SerializeField] HealthSystem health;
-    [SerializeField] Slider slider;
-    void Start()
+    [SerializeField] protected HealthSystem health;
+    [SerializeField] protected Slider slider;
+
+    protected virtual void Start()
     {
         if (health != null)
         {
@@ -15,7 +16,7 @@ public class HealthUi : MonoBehaviour
         }
     }
 
-    void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (health != null)
         {
@@ -33,13 +34,18 @@ public class HealthUi : MonoBehaviour
         health.IncreaseHealth(_amount);
     }
 
-    void UpdateView()
+    protected void UpdateView()
     {
         slider.value = (float)health.CurrentHealth / (float)health.MaxHealth;
+        Debug.Log(health.CurrentHealth);
     }
 
-    void OnHealthChanged()
+    protected void OnHealthChanged()
     {
         UpdateView();
+    }
+
+    public void SetHealthComponent(HealthSystem _health) {
+        health = _health;
     }
 }

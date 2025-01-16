@@ -77,7 +77,6 @@ public class TurntableManager : MonoBehaviour
 
         hit = Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc);
 
-
         if (Input.GetMouseButton(0) && Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc) && hit.transform.gameObject.GetComponent<Disc>().isBeingPlayed) 
         {
 
