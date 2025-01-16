@@ -4,6 +4,8 @@ using UnityEditor;
 using UnityEngine;
 using TMPro;
 using System;
+using Unity.VisualScripting;
+using UnityEngine.AI;
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -213,6 +215,10 @@ public class NoteSpawner : MonoBehaviour
         lr = notes[0].gameObject.AddComponent<LineRenderer>();
         lr.SetPosition(0, notes[0].transform.position);
         lr.SetPosition(1, notes[1].transform.position);
+
+        //Set Notes to Hold Start/End NoteType
+        notes[0].SetNoteType(notes[0].isStart ? NoteType.Note.holdStart : NoteType.Note.holdEnd);
+        notes[1].SetNoteType(notes[1].isStart ? NoteType.Note.holdStart : NoteType.Note.holdEnd);
     }
 
     //put first note at the track's start position
