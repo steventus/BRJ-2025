@@ -1494,12 +1494,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03e594a62d34b8b41b94d0e3a8b0df22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateDuration: 3.75
   musicManager: {fileID: 1282759619}
   bossRotationControl: {fileID: 168448559}
   player: {fileID: 213371654}
+  conductor: {fileID: 0}
+  metronome: {fileID: 0}
+  healthSlider: {fileID: 0}
+  stateDuration: 3.75
   rotateBoss: 0
-  isAttacking: 0
+  inAttackPhase: 0
+  attackComplete: 0
   minHealthThreshold: 0.5
   minAttacksBeforeRotation: 0
 --- !u!1 &650453417
@@ -4382,6 +4386,7 @@ GameObject:
   - component: {fileID: 1797802854}
   - component: {fileID: 1797802853}
   - component: {fileID: 1797802852}
+  - component: {fileID: 1797802855}
   m_Layer: 0
   m_Name: boss1
   m_TagString: Untagged
@@ -4456,6 +4461,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1797802855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797802850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fff84fc35fe79b4183b41fbe023dfd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scratchNoteSprite: {fileID: 21300000, guid: c6cdec266d51cd540a16c156c5d7b15f, type: 3}
+  holdNoteSprite: {fileID: 21300000, guid: 8a1f9fa59326f37419b6f3812c3f3c0c, type: 3}
+  badNoteSprite: {fileID: 21300000, guid: 987300bafc4db8d42adc4a431fe81126, type: 3}
+  changeNoteSprite: {fileID: 21300000, guid: 161d1a93ff0072c438816ce62971b201, type: 3}
+  spriteRenderer: {fileID: 1268431079}
 --- !u!1 &1840501970
 GameObject:
   m_ObjectHideFlags: 0
@@ -4712,8 +4734,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e7087d3c9c2cf42a8de26b19d2b122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  table: {fileID: 0}
+  musicManager: {fileID: 0}
+  bossRotationControl: {fileID: 0}
+  player: {fileID: 0}
+  conductor: {fileID: 0}
+  metronome: {fileID: 0}
+  healthSlider: {fileID: 0}
   stateDuration: 3.75
+  successfulNotesHitCount: 0
+  hitsRequiredToEndTurn: 0
 --- !u!1 &1909545633
 GameObject:
   m_ObjectHideFlags: 0
