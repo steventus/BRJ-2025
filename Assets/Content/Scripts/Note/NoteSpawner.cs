@@ -45,6 +45,8 @@ public class NoteSpawner : MonoBehaviour
         wholeChart = new GameObject();
         tracks = GameObject.FindObjectsOfType<Track>();
         wholeChart.transform.position = tracks[0].endPos;
+
+        wholeChart.AddComponent<Chart>();
     }
 
     private void Update()
@@ -166,7 +168,7 @@ public class NoteSpawner : MonoBehaviour
         {
             hit = Physics2D.Raycast(tracks[i].endPos, Vector3.zero, Mathf.Infinity, whatIsNote);
 
-            Debug.Log(tracks[i].isOccupied);
+            //Debug.Log(tracks[i].isOccupied);
 
             if (hit && !hit.transform.GetComponent<Note>().isPicked)
                 tracks[i].isOccupied = true;
@@ -225,6 +227,11 @@ public class NoteSpawner : MonoBehaviour
     public void FinishChart()
     {
         wholeChart.transform.position = tracks[0].endPos;
+
+        //Prepare Chart Component
+        wholeChart.GetComponent<Chart>().SetBeats(Convert.ToInt32(inputField.text));
+        
+
         PrefabUtility.SaveAsPrefabAsset(wholeChart, "Assets/Content/Prefabs/Charts/Chart" + uniChartID +  ".prefab");
         uniChartID++;
     }
@@ -253,6 +260,5 @@ public class NoteSpawner : MonoBehaviour
             notePositions.Add(Instantiate(emptyNote, new Vector3(tracks[0].endPos.x - (noteoffset * i), tracks[0].endPos.y, 0), Quaternion.identity));
             notePositions[i].GetComponent<Note>().noteIndex = i;
         }
-        
     }
 }
