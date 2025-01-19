@@ -44,12 +44,7 @@ public class TrackFactory : MonoBehaviour
 
     void Update()
     {
-        #region TODO: REMOVE WHEN FINISHED
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            CreateTrack();
-        }
-        #endregion
+        
     }
 
     public void CreateTrack()

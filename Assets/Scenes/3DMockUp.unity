@@ -1272,13 +1272,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bf71f0c68d9f7a4186aa33e34c3200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  raycastRange: 100
-  disc: {fileID: 986477943}
   whatIsDisc:
     serializedVersion: 2
     m_Bits: 8
+  e: {fileID: 0}
   decelerationRate: 50
+  maxVolume: 0
+  inGameVolume: 0
+  volumeSlider: {fileID: 0}
+  maxTempo: 0
+  inGameTempo: 0
+  tempoSlider: {fileID: 0}
+  currentDisc: {fileID: 0}
+  currentDiscPos: {x: 0, y: 0, z: 0}
+  currentDiscScale: {x: 0, y: 0, z: 0}
 --- !u!1 &195683265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3804,9 +3811,7 @@ Transform:
   - {fileID: 1487661547}
   - {fileID: 1094993527}
   - {fileID: 95952376}
-  - {fileID: 647599018}
-  - {fileID: 1358052669}
-  - {fileID: 2106425818}
+  - {fileID: 658875504}
   m_Father: {fileID: 329001777}
   m_LocalEulerAnglesHint: {x: 0, y: -1.665, z: 0}
 --- !u!114 &507133487
@@ -5131,11 +5136,11 @@ Transform:
   m_GameObject: {fileID: 647599017}
   serializedVersion: 2
   m_LocalRotation: {x: 0.6567676, y: -0.26202366, z: 0.26202366, w: 0.6567676}
-  m_LocalPosition: {x: -1.11, y: 0.41, z: -0.2}
-  m_LocalScale: {x: 0.2, y: 0.4, z: 0.03333333}
+  m_LocalPosition: {x: -1.1100001, y: 0.4100001, z: -0.2}
+  m_LocalScale: {x: 0.20000002, y: 0.4, z: 0.03333333}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 507133486}
+  m_Father: {fileID: 658875504}
   m_LocalEulerAnglesHint: {x: 90, y: -43.5, z: 0}
 --- !u!65 &647599019
 BoxCollider:
@@ -5208,6 +5213,40 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647599017}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &658875503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 658875504}
+  m_Layer: 0
+  m_Name: World
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &658875504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658875503}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 647599018}
+  - {fileID: 1358052669}
+  - {fileID: 2106425818}
+  m_Father: {fileID: 507133486}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &661653586
 GameObject:
   m_ObjectHideFlags: 0
@@ -7817,7 +7856,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldRotate: 0
-  rotateClockwise: 1
   yRot: 60
 --- !u!4 &993556366 stripped
 Transform:
@@ -8080,7 +8118,6 @@ MonoBehaviour:
   stateDuration: 3.75
   successfulNotesHitCount: 0
   hitsRequiredToEndTurn: 8
-  turnTable: {fileID: 194627322}
 --- !u!4 &1008023065
 Transform:
   m_ObjectHideFlags: 0
@@ -11189,13 +11226,13 @@ Transform:
   m_GameObject: {fileID: 1358052668}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.014525751, z: -0, w: 0.9998945}
-  m_LocalPosition: {x: -0.428, y: -0.246, z: -1.488}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalPosition: {x: -0.42800003, y: -0.24600005, z: -1.488}
+  m_LocalScale: {x: 0.79999995, y: 0.8, z: 0.79999995}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1418941649}
   - {fileID: 1544295604}
-  m_Father: {fileID: 507133486}
+  m_Father: {fileID: 658875504}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1390833066
 PrefabInstance:
@@ -11391,7 +11428,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldRotate: 1
-  rotateClockwise: 1
   yRot: 8
 --- !u!1 &1411313585
 GameObject:
@@ -12977,7 +13013,7 @@ MonoBehaviour:
   - {fileID: 680003015}
   - {fileID: 1766389978}
   - {fileID: 776986891}
-  chartToSpawn: {fileID: 0}
+  chartToSpawn: {fileID: 8026011796638699987, guid: 8f39518130741d44da19427870186652, type: 3}
   MinLength: 125
   LengthPerBeat: 50
   trackHeight: 10
@@ -17809,7 +17845,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 507133486}
+    m_TransformParent: {fileID: 658875504}
     m_Modifications:
     - target: {fileID: 2086974978356573058, guid: 3ad459ad803d97c4b904229f2eb591e0, type: 3}
       propertyPath: m_Name
@@ -17829,7 +17865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418271081783399942, guid: 3ad459ad803d97c4b904229f2eb591e0, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9540035
+      value: 0.95400345
       objectReference: {fileID: 0}
     - target: {fileID: 5418271081783399942, guid: 3ad459ad803d97c4b904229f2eb591e0, type: 3}
       propertyPath: m_LocalRotation.x
