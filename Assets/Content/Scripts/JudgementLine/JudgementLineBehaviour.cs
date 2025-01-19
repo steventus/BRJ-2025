@@ -37,7 +37,7 @@ public class JudgementLineBehaviour : MonoBehaviour
             {
                 testingIfMoving = false;
                 StopMoving();
-                thisRectTransform.anchoredPosition = trackFactory.notes[0].anchoredPosition;
+                thisRectTransform.anchoredPosition = trackFactory.notes[0].GetComponent<RectTransform>().anchoredPosition;
             }
 
             else
@@ -52,7 +52,7 @@ public class JudgementLineBehaviour : MonoBehaviour
     public void StartMoving()
     {
         //Distance between 2 beats
-        float _distance = Vector2.Distance(TrackFactory.instance.notes[0].anchoredPosition, TrackFactory.instance.notes[1].anchoredPosition);
+        float _distance = Vector2.Distance(TrackFactory.instance.notes[0].GetComponent<RectTransform>().anchoredPosition, TrackFactory.instance.notes[1].GetComponent<RectTransform>().anchoredPosition);
 
         // Calculate ideal speed to move
         // speed = (Physical distance between each "Green circle/UI Beat" set by Trackfactory) multiply by (Beats per second set by Conductor).

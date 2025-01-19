@@ -4,6 +4,8 @@ using UnityEditor;
 using UnityEngine;
 using TMPro;
 using System;
+using Unity.VisualScripting;
+using UnityEngine.AI;
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -43,6 +45,8 @@ public class NoteSpawner : MonoBehaviour
         wholeChart = new GameObject();
         tracks = GameObject.FindObjectsOfType<Track>();
         wholeChart.transform.position = tracks[0].endPos;
+
+        wholeChart.AddComponent<Chart>();
     }
 
     private void Update()
@@ -164,7 +168,7 @@ public class NoteSpawner : MonoBehaviour
         {
             hit = Physics2D.Raycast(tracks[i].endPos, Vector3.zero, Mathf.Infinity, whatIsNote);
 
-            Debug.Log(tracks[i].isOccupied);
+            //Debug.Log(tracks[i].isOccupied);
 
             if (hit && !hit.transform.GetComponent<Note>().isPicked)
                 tracks[i].isOccupied = true;
@@ -213,12 +217,21 @@ public class NoteSpawner : MonoBehaviour
         lr = notes[0].gameObject.AddComponent<LineRenderer>();
         lr.SetPosition(0, notes[0].transform.position);
         lr.SetPosition(1, notes[1].transform.position);
+
+        //Set Notes to Hold Start/End NoteType
+        notes[0].SetNoteType(notes[0].isStart ? NoteType.Note.holdStart : NoteType.Note.holdEnd);
+        notes[1].SetNoteType(notes[1].isStart ? NoteType.Note.holdStart : NoteType.Note.holdEnd);
     }
 
     //put first note at the track's start position
     public void FinishChart()
     {
         wholeChart.transform.position = tracks[0].endPos;
+
+        //Prepare Chart Component
+        wholeChart.GetComponent<Chart>().SetBeats(Convert.ToInt32(inputField.text));
+        
+
         PrefabUtility.SaveAsPrefabAsset(wholeChart, "Assets/Content/Prefabs/Charts/Chart" + uniChartID +  ".prefab");
         uniChartID++;
     }
@@ -247,6 +260,5 @@ public class NoteSpawner : MonoBehaviour
             notePositions.Add(Instantiate(emptyNote, new Vector3(tracks[0].endPos.x - (noteoffset * i), tracks[0].endPos.y, 0), Quaternion.identity));
             notePositions[i].GetComponent<Note>().noteIndex = i;
         }
-        
     }
 }

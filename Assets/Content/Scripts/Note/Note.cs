@@ -15,4 +15,15 @@ public class Note : MonoBehaviour
     public int noteIndex;
     public int connectedNoteIndex;
 
+    [Space]
+    [Header("Cue System Variables")]
+    //Data for what type of note this is
+    public NoteType.Note noteType;
+
+    //Data to be fed into BossPresenter.cs
+    public bool ifRight;
+
+    public void SetNoteType(NoteType.Note _noteType){
+        noteType = _noteType;
+    }
 }

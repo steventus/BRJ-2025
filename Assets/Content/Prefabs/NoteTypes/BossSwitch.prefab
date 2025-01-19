@@ -91,6 +91,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1dc34696c1872a4fb98b83745b4ad6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPicked: 0
+  isStart: 0
+  isEnd: 0
+  isInTrack: 0
+  isSelected: 0
+  isConnected: 0
+  isOccupied: 0
+  noteIndex: 0
+  connectedNoteIndex: 0
+  noteType: 4
+  ifRight: 0
 --- !u!1 &7221321328266038632
 GameObject:
   m_ObjectHideFlags: 0

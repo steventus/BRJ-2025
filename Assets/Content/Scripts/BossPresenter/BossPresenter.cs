@@ -11,7 +11,8 @@ public class NoteType
     public enum Note
     {
         scratch,
-        hold,
+        holdStart,
+        holdEnd,
         bad,
         change
     }
@@ -19,23 +20,26 @@ public class NoteType
 public class BossPresenter : MonoBehaviour
 {
     public Sprite scratchNoteSprite;
-    public Sprite holdNoteSprite;
+    public Sprite holdStartNoteSprite;
+    public Sprite holdEndNoteSprite;
     public Sprite badNoteSprite;
     public Sprite changeNoteSprite;
     public enum DancePose
     {
         scratchNote,
-        holdNote,
+        holdStartNote,
+        holdEndNote,
         badNote,
         changeNote,
     }
     Dictionary<NoteType.Note, DancePose> danceDictionary = new Dictionary<NoteType.Note, DancePose>(){
         {NoteType.Note.scratch, DancePose.scratchNote},
-        {NoteType.Note.hold, DancePose.holdNote},
+        {NoteType.Note.holdStart, DancePose.holdStartNote},
+        {NoteType.Note.holdEnd, DancePose.holdEndNote},
         {NoteType.Note.bad, DancePose.badNote},
         {NoteType.Note.change, DancePose.changeNote}
     };
-
+    
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     void Start()
@@ -53,7 +57,7 @@ public class BossPresenter : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            CheckNoteType(NoteType.Note.hold);
+            CheckNoteType(NoteType.Note.holdStart);
         }
 
         if (Input.GetKeyDown(KeyCode.K))
@@ -92,9 +96,13 @@ public class BossPresenter : MonoBehaviour
                 spriteRenderer.sprite = scratchNoteSprite;
                 break;
 
-            case DancePose.holdNote:
-                spriteRenderer.sprite = holdNoteSprite;
+            case DancePose.holdStartNote:
+                spriteRenderer.sprite = holdStartNoteSprite;
                 break;
+
+            case DancePose.holdEndNote:
+                spriteRenderer.sprite = holdStartNoteSprite;
+                break;    
 
             case DancePose.badNote:
                 spriteRenderer.sprite = badNoteSprite;
