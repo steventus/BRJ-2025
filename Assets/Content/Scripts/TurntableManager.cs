@@ -70,7 +70,6 @@ public class TurntableManager : MonoBehaviour
 
     void Scratch()
     {
-        GameObject go;
         Vector3 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mousePos2d = new Vector2(MousePos.x, MousePos.y);
         RaycastHit2D hit;
@@ -170,16 +169,6 @@ public class TurntableManager : MonoBehaviour
             inGameTempo = tempoSlider.value;
             tempoSlider.minValue = 0f;
         }
-    }
-
-    public void EnableVolume()
-    {
-        volumeSlider.gameObject.active = !volumeSlider.gameObject.active;
-    }
-
-    public void EnableTempo()
-    {
-        tempoSlider.gameObject.active = !tempoSlider.gameObject.active;
     }
 
     void changeDisc(RaycastHit2D hit)

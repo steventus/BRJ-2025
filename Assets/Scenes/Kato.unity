@@ -3347,6 +3347,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5277466770926740983, guid: 0f4e904eda0f8f84eb0d2d21ac956eea, type: 3}
+      propertyPath: isOccupied
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2027268857240785042, guid: 0f4e904eda0f8f84eb0d2d21ac956eea, type: 3}
       propertyPath: m_Name
       value: BossSwitch
@@ -3408,6 +3412,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScrathL
       objectReference: {fileID: 0}
+    - target: {fileID: 4425810387126340923, guid: 3168e4321d10d0345afeca59fa66ad62, type: 3}
+      propertyPath: isOccupied
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8136968219454621680, guid: 3168e4321d10d0345afeca59fa66ad62, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.73
@@ -3461,6 +3469,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7442886136625570870, guid: 1154cbf40c1609f46bc4d6f009ff975a, type: 3}
+      propertyPath: isOccupied
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 905386603885433147, guid: 1154cbf40c1609f46bc4d6f009ff975a, type: 3}
       propertyPath: m_Name
       value: ScrathR
@@ -3518,6 +3530,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8124637528263514368, guid: d0f8b52f3397bda47832a6306044e5ce, type: 3}
+      propertyPath: isOccupied
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1996023513606157969, guid: d0f8b52f3397bda47832a6306044e5ce, type: 3}
       propertyPath: m_Name
       value: Avoid
