@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyTurn : BaseState
 {
-    [SerializeField] float stateDuration;
+    [Header("References")]
+    Chart currentChart;
 
     [Header("Phases")]
     [SerializeField] bool rotateBoss = false;
@@ -13,9 +14,11 @@ public class EnemyTurn : BaseState
 
     [Header("Variables")]
     //rotation check
+    [SerializeField] float stateDuration;
     [SerializeField] float minHealthThreshold = 0.5f;
     [SerializeField] int minAttacksBeforeRotation = 0;
-    
+
+
     public override void EnterState() {
         Debug.Log("enter " + transform.name);
 
@@ -24,6 +27,7 @@ public class EnemyTurn : BaseState
             
             musicManager.StartFade();
             bossRotationControl.TriggerRotation();
+
             Debug.Log("rotate");
 
             rotateBoss = false;
@@ -48,23 +52,27 @@ public class EnemyTurn : BaseState
         // determine which chart to spawn
         // get list of possible charts from currentBoss
         
-        // store chart to spawn as a variable 
-        //var chosenChart;  
-        
+        // store chart to spawn as a variable   
+        Chart _chartToSpawn;
+
         if (hasLostEnoughHealth || hasPerformedEnoughAttacks) {
             // chosenChart = forcedRotateChart
             rotateBoss = true;
+            _chartToSpawn = _currentBoss.triggerRotationChart;
         }
         else {
             // choose a random chart attack
-                // chosenChart = randomChart
+            _chartToSpawn = _currentBoss.GetRandomChart();
         }
+
+        currentChart = _chartToSpawn;
 
     // [[ ATTACK PHASE ]]
         // INITIALIZE attack phase
 
-        // chartSPawner.spawnChart(chosenChart);
-
+        TrackFactory.instance.chartToSpawn = currentChart;
+        TrackFactory.instance.CreateTrack();
+        conductor.beatsPerLoop = currentChart.notes.Count;
         //start attack phase
         inAttackPhase = true;
     }   
@@ -73,16 +81,11 @@ public class EnemyTurn : BaseState
         base.UpdateState();
 
         if(inAttackPhase) {
-            // spawn chart
-            
+            //set positions for judgement line visual
+            metronome.SetMarkers();
+
             // currentBoss.dance()
-            if(Input.GetKeyDown(KeyCode.LeftShift))
-                attackComplete = true;
-            // if attack is complete
-            if(attackComplete) {
-                // end enemy turn
-                isComplete = true;
-            }
+
         }
     }
     public override void ExitState() {
@@ -90,6 +93,8 @@ public class EnemyTurn : BaseState
 
         inAttackPhase = false;
         attackComplete = false;
+
+        conductor.completedLoops = 0;
     }
 
 }

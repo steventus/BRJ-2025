@@ -14,6 +14,8 @@ public class BossBehaviour : MonoBehaviour
     [Header("Audio")]
     public AudioSource musicSource;
     public AudioClip[] bossSongs;
+    public Chart triggerRotationChart;
+    public Chart[] randomCharts;
     int songIndex;
     void OnEnable() {
         musicSource = GetComponentInChildren<AudioSource>();
@@ -55,4 +57,9 @@ public class BossBehaviour : MonoBehaviour
             Debug.Log(gameObject.name + " is dead.");
         }
     }
+
+    // [[ CHART SPAWN ]]
+    public Chart GetRandomChart() {
+        return randomCharts[Random.Range(0, randomCharts.Length)];
+    }   
 }
