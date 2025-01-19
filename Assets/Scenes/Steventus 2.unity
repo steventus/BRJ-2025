@@ -530,6 +530,7 @@ MonoBehaviour:
   enemyTurn: {fileID: 607418981}
   playerTurn: {fileID: 1847892912}
   stateUIDisplay: {fileID: 1295917771}
+  judgementLineBehaviour: {fileID: 0}
 --- !u!1 &195088504
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,6 +769,8 @@ MonoBehaviour:
   phrasesCompleted: 0
   musicSource: {fileID: 0}
   bossSongs: []
+  triggerRotationChart: {fileID: 0}
+  randomCharts: []
 --- !u!114 &244272772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -937,6 +940,8 @@ MonoBehaviour:
   phrasesCompleted: 0
   musicSource: {fileID: 0}
   bossSongs: []
+  triggerRotationChart: {fileID: 0}
+  randomCharts: []
 --- !u!114 &328626129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1435,10 +1440,10 @@ MonoBehaviour:
   conductor: {fileID: 0}
   metronome: {fileID: 0}
   healthSlider: {fileID: 0}
-  stateDuration: 3.75
   rotateBoss: 0
   inAttackPhase: 0
   attackComplete: 0
+  stateDuration: 3.75
   minHealthThreshold: 0.5
   minAttacksBeforeRotation: 0
 --- !u!1 &650453417
@@ -2190,6 +2195,7 @@ MonoBehaviour:
   - {fileID: 1475006468}
   - {fileID: 683329448}
   - {fileID: 1293387176}
+  chartToSpawn: {fileID: 8026011796638699987, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
   MinLength: 125
   LengthPerBeat: 50
   trackHeight: 10
@@ -3055,6 +3061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMusicSource: {fileID: 0}
   nextMusicSource: {fileID: 0}
+  volume: 1
   fadeDuration: 0.05
   bossContainer: {fileID: 522709953}
   bossBehaviours: []
@@ -4366,6 +4373,8 @@ MonoBehaviour:
   phrasesCompleted: 0
   musicSource: {fileID: 0}
   bossSongs: []
+  triggerRotationChart: {fileID: 0}
+  randomCharts: []
 --- !u!114 &1797802853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4416,6 +4425,7 @@ MonoBehaviour:
   holdEndNoteSprite: {fileID: 0}
   badNoteSprite: {fileID: 21300000, guid: 987300bafc4db8d42adc4a431fe81126, type: 3}
   changeNoteSprite: {fileID: 21300000, guid: 161d1a93ff0072c438816ce62971b201, type: 3}
+  emptyNoteSprite: {fileID: 0}
   spriteRenderer: {fileID: 1268431079}
 --- !u!1 &1840501970
 GameObject:
