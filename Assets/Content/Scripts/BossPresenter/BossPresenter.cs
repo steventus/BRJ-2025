@@ -14,7 +14,8 @@ public class NoteType
         holdStart,
         holdEnd,
         bad,
-        change
+        change,
+        empty
     }
 }
 public class BossPresenter : MonoBehaviour
@@ -24,6 +25,7 @@ public class BossPresenter : MonoBehaviour
     public Sprite holdEndNoteSprite;
     public Sprite badNoteSprite;
     public Sprite changeNoteSprite;
+    public Sprite emptyNoteSprite;
     public enum DancePose
     {
         scratchNote,
@@ -31,15 +33,17 @@ public class BossPresenter : MonoBehaviour
         holdEndNote,
         badNote,
         changeNote,
+        emptyNote
     }
     Dictionary<NoteType.Note, DancePose> danceDictionary = new Dictionary<NoteType.Note, DancePose>(){
         {NoteType.Note.scratch, DancePose.scratchNote},
         {NoteType.Note.holdStart, DancePose.holdStartNote},
         {NoteType.Note.holdEnd, DancePose.holdEndNote},
         {NoteType.Note.bad, DancePose.badNote},
-        {NoteType.Note.change, DancePose.changeNote}
+        {NoteType.Note.change, DancePose.changeNote},
+        {NoteType.Note.empty, DancePose.emptyNote}
     };
-    
+
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     void Start()
@@ -102,7 +106,7 @@ public class BossPresenter : MonoBehaviour
 
             case DancePose.holdEndNote:
                 spriteRenderer.sprite = holdStartNoteSprite;
-                break;    
+                break;
 
             case DancePose.badNote:
                 spriteRenderer.sprite = badNoteSprite;
@@ -110,6 +114,10 @@ public class BossPresenter : MonoBehaviour
 
             case DancePose.changeNote:
                 spriteRenderer.sprite = changeNoteSprite;
+                break;
+
+            case DancePose.emptyNote:
+                spriteRenderer.sprite = emptyNoteSprite;
                 break;
         }
     }

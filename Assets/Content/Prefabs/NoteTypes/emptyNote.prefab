@@ -94,7 +94,14 @@ MonoBehaviour:
   isPicked: 0
   isStart: 0
   isEnd: 0
+  isInTrack: 0
+  isSelected: 0
+  isConnected: 0
+  isOccupied: 0
   noteIndex: 0
+  connectedNoteIndex: 0
+  noteType: 5
+  ifRight: 0
 --- !u!1 &8246682855278113236
 GameObject:
   m_ObjectHideFlags: 0

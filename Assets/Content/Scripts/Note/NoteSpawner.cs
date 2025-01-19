@@ -6,6 +6,7 @@ using TMPro;
 using System;
 using Unity.VisualScripting;
 using UnityEngine.AI;
+using UnityEngine.Assertions.Must;
 
 public class NoteSpawner : MonoBehaviour
 {
@@ -41,7 +42,7 @@ public class NoteSpawner : MonoBehaviour
     private bool hasPickedUpNote = false;
     private void Start()
     {
-        
+
         wholeChart = new GameObject();
         tracks = GameObject.FindObjectsOfType<Track>();
         wholeChart.transform.position = tracks[0].endPos;
@@ -57,7 +58,7 @@ public class NoteSpawner : MonoBehaviour
         hit = Physics2D.Raycast(mousePosRaw, Vector3.zero, Mathf.Infinity, whatIsNote);
 
         if (Input.GetMouseButton(0) && Physics2D.Raycast(mousePosRaw, Vector3.zero, Mathf.Infinity, whatIsNote))
-        {        
+        {
 
             if (!hit.transform.gameObject.GetComponent<Note>().isInTrack && !hit.transform.gameObject.GetComponent<Note>().isPicked)
                 CreateNote();
@@ -67,7 +68,7 @@ public class NoteSpawner : MonoBehaviour
             DragNote();
         }
 
-        if(Input.GetMouseButtonUp(0) && Physics2D.Raycast(mousePosRaw, Vector3.zero, Mathf.Infinity, whatIsNote) && hasPickedUpNote)
+        if (Input.GetMouseButtonUp(0) && Physics2D.Raycast(mousePosRaw, Vector3.zero, Mathf.Infinity, whatIsNote) && hasPickedUpNote)
         {
             hasPickedUpNote = false;
             CheckClosestEmptyNote(tmpNote);
@@ -77,7 +78,7 @@ public class NoteSpawner : MonoBehaviour
         {
             MoveAllNotes(1);
         }
-        if(Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             MoveAllNotes(-1);
         }
@@ -87,7 +88,7 @@ public class NoteSpawner : MonoBehaviour
             Play();
         }
 
-        if(Input.GetMouseButtonDown(0) && Physics2D.Raycast(mousePosRaw, Vector3.zero, Mathf.Infinity, whatIsNote) && hit.transform.gameObject.GetComponent<Note>().isInTrack && !hit.transform.gameObject.GetComponent<Note>().isSelected && !hit.transform.gameObject.GetComponent<Note>().isConnected)
+        if (Input.GetMouseButtonDown(0) && Physics2D.Raycast(mousePosRaw, Vector3.zero, Mathf.Infinity, whatIsNote) && hit.transform.gameObject.GetComponent<Note>().isInTrack && !hit.transform.gameObject.GetComponent<Note>().isSelected && !hit.transform.gameObject.GetComponent<Note>().isConnected)
         {
             hit.transform.gameObject.GetComponent<Note>().isSelected = true;
             notesSelected++;
@@ -105,7 +106,7 @@ public class NoteSpawner : MonoBehaviour
     //used when building the chart
     void MoveAllNotes(int dir)
     {
-        wholeChart.transform.position += new Vector3(noteOffset * dir, 0 ,0);
+        wholeChart.transform.position += new Vector3(noteOffset * dir, 0, 0);
     }
 
     //gotta work on this one(fking notes don't follow me if i move too fast lol)
@@ -114,9 +115,9 @@ public class NoteSpawner : MonoBehaviour
         if (hasPickedUpNote)
         {
             tmpNote.transform.position = new Vector3(mousePos.x, mousePos.y, 0f);
-        }    
+        }
     }
-    
+
     void CreateNote()
     {
         if (!hasPickedUpNote)
@@ -135,7 +136,7 @@ public class NoteSpawner : MonoBehaviour
         float closestDistance = Mathf.Infinity;
         int closestEmptyNoteID = -1;
 
-        for(int i = 0; i < notePositions.Count; i++)
+        for (int i = 0; i < notePositions.Count; i++)
         {
             if (Vector3.Distance(notePositions[i].transform.position, note.transform.position) < closestDistance)
             {
@@ -162,9 +163,9 @@ public class NoteSpawner : MonoBehaviour
     void CheckIfEmptyNoteIsOccupied()
     {
         RaycastHit2D hit;
-        
 
-        for (int i = 0; i<tracks.Length; i++)
+
+        for (int i = 0; i < tracks.Length; i++)
         {
             hit = Physics2D.Raycast(tracks[i].endPos, Vector3.zero, Mathf.Infinity, whatIsNote);
 
@@ -185,9 +186,9 @@ public class NoteSpawner : MonoBehaviour
 
         LineRenderer lr;
 
-        for(int i = 0; i < notes.Length; i++)
+        for (int i = 0; i < notes.Length; i++)
         {
-            for(int j = 0; j < activeNotes.Count; j++)
+            for (int j = 0; j < activeNotes.Count; j++)
             {
                 if (activeNotes[j].GetComponent<Note>().isSelected)
                 {
@@ -223,16 +224,39 @@ public class NoteSpawner : MonoBehaviour
         notes[1].SetNoteType(notes[1].isStart ? NoteType.Note.holdStart : NoteType.Note.holdEnd);
     }
 
+    public void FillEmptyNotes()
+    {
+        //Find Empty Note
+        Note[] _notes = FindObjectsOfType<Note>();
+
+        for (int i = 0; i < _notes.Length; i++)
+        {
+            //Insert Empty Note prefab into Chart
+            if (!_notes[i].isOccupied)
+            {
+                //Instantiate
+                tmpNote = Instantiate(emptyNote, wholeChart.transform);
+                Note _emptyNote = tmpNote.GetComponent<Note>();
+                _emptyNote.noteIndex = _notes[i].noteIndex;
+                _emptyNote.isInTrack = true;
+                _emptyNote.isOccupied = true;
+                Debug.Log("Instantiating: " + _notes[i].name);
+            }
+        }
+    }
+
     //put first note at the track's start position
     public void FinishChart()
     {
+        FillEmptyNotes();
+
         wholeChart.transform.position = tracks[0].endPos;
 
         //Prepare Chart Component
         wholeChart.GetComponent<Chart>().SetBeats(Convert.ToInt32(inputField.text));
-        
 
-        PrefabUtility.SaveAsPrefabAsset(wholeChart, "Assets/Content/Prefabs/Charts/Chart" + uniChartID +  ".prefab");
+
+        PrefabUtility.SaveAsPrefabAsset(wholeChart, "Assets/Content/Prefabs/Charts/Chart" + uniChartID + ".prefab");
         uniChartID++;
     }
 
@@ -245,9 +269,9 @@ public class NoteSpawner : MonoBehaviour
 
     public void SetNumOfBeats()
     {
-        for(int i = 0; i < notePositions.Count; i++)
+        for (int i = 0; i < notePositions.Count; i++)
         {
-            Destroy(notePositions[i]);         
+            Destroy(notePositions[i]);
         }
         notePositions.Clear();
 
@@ -255,7 +279,7 @@ public class NoteSpawner : MonoBehaviour
         int numberOfBeats = Convert.ToInt32(inputField.text);
         float noteoffset = trackLenght / (numberOfBeats - 1);
 
-        for(int i = 0; i < numberOfBeats; i++)
+        for (int i = 0; i < numberOfBeats; i++)
         {
             notePositions.Add(Instantiate(emptyNote, new Vector3(tracks[0].endPos.x - (noteoffset * i), tracks[0].endPos.y, 0), Quaternion.identity));
             notePositions[i].GetComponent<Note>().noteIndex = i;
