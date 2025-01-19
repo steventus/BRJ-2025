@@ -5,11 +5,11 @@ using UnityEngine.Events;
 public class Metronome : MonoBehaviour
 {
     [SerializeField] Conductor conductor;
-    [SerializeField] Transform metronomeLine;
-    [SerializeField] Transform[] beatMarkers;
+    [SerializeField] RectTransform metronomeLine;
+    [SerializeField] RectTransform beatMarkerParent;
+    public List<RectTransform> beatMarkers = new();
     int beatIndex;
-    public Transform currentBeat;
-    public Transform nextBeat;
+    public RectTransform nextBeat;
     public float lerpSpeed;
 
     public GameObject perfectMessage;
@@ -20,23 +20,39 @@ public class Metronome : MonoBehaviour
     public float perfectHitThreshold = 0.2f;
     void Start() {
         beatIndex = 0;
+        ClearBeatsList();
     }
+    
     void Update()
     {
-        beatIndex = Mathf.Clamp(beatIndex, 0, beatMarkers.Length);
+        if(beatMarkers.Count == 0) 
+            return;
+        
+        beatIndex = Mathf.Clamp(beatIndex, 0, beatMarkers.Count);
         beatIndex = Mathf.FloorToInt(conductor.loopPositionInBeats);
         
-        currentBeat = beatMarkers[beatIndex];
-        if(beatIndex >= beatMarkers.Length) {
+        if(beatIndex >= beatMarkers.Count) {
             nextBeat = beatMarkers[0];
         }
         else {
             nextBeat = beatMarkers[beatIndex];
         }
 
-        metronomeLine.position = Vector3.Lerp(metronomeLine.position, nextBeat.position, Time.deltaTime * lerpSpeed);
+        metronomeLine.anchoredPosition = Vector3.Lerp(metronomeLine.anchoredPosition, nextBeat.anchoredPosition, Time.deltaTime * lerpSpeed);
     }
 
+    public void SetMarkers() {
+        ClearBeatsList();
+
+        for(int i = 0; i < TrackFactory.instance.notes.Count; i++) {
+            RectTransform beat = beatMarkerParent.GetChild(i).GetComponent<RectTransform>();
+            if(!beatMarkers.Contains(beat))
+                beatMarkers.Add(beat);
+        }
+    }
+    public void ClearBeatsList() {
+        beatMarkers.Clear();
+    }
     public void CheckIfInputIsOnBeat() {
         int perfectHitDmg = 3;
         int hitDmg = 1;

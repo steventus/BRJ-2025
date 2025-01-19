@@ -41,6 +41,8 @@ public class PlayerTurn : BaseState
         Debug.Log("exit " + transform.name);
 
         successfulNotesHitCount = 0;
+
+        conductor.completedLoops = 0;
     }
 
     void CountHit(int n) {

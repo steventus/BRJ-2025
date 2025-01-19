@@ -15,6 +15,13 @@ public class TrackFactory : MonoBehaviour
     private Chart currentChart => currentChartPrefab.GetComponent<Chart>();
     public List<GameObject> notes;
 
+    // [[ JOHNNY - adding charts to spawn ]]
+// ================================================================ //
+
+    public Chart chartToSpawn;
+
+// ================================================================ //
+
     [Header("Dynamic Track Generation Settings")]
     //Set Track Length
     public float MinLength; //Base length at minimum notes
@@ -50,7 +57,9 @@ public class TrackFactory : MonoBehaviour
         ClearTrack();
 
         //Receive data from ChartMaker and instantiate new notes under track
-        for (int i = 0; i <= currentChart.notes.Count - 1; i++)
+        // [[ JOHNNY - adding charts to spawn ]]
+// ================================================================ //
+        for (int i = 0; i <= chartToSpawn.notes.Count - 1; i++)
         {
             Note _currentNote = currentChart.notes[i];
 
