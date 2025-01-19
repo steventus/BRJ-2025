@@ -5,20 +5,31 @@ using UnityEngine;
 public class HoldNote : MonoBehaviour, IPlayerInteractable
 {
     public bool isRight;
-    private bool isStart = false;
-    void Start()
-    {
-    }
+    private bool isStart = true;
 
-    void FindEndNote()
+    //Called and set from TrackFactory
+    public void SetStartHold()
+    {
+        //If it is already an start note, skip everything
+        if (isStart)
+        {
+            Debug.Log("Error, current hold note is already a start note");
+            return;
+        }
+
+        isStart = true;
+    }
+    //Called and set from TrackFactory
+    public void SetEndHold()
     {
         //If it is already an end note, skip everything
         if (!isStart)
+        {
+            Debug.Log("Error, current hold note is already an end note");
             return;
+        }
 
-        isStart = true;
-
-        //TODO:In the chart, find the next hold Note
+        isStart = false;
     }
 
 
@@ -26,7 +37,7 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable
     {
         if (isStart)
         {
-            Debug.Log("Good!");
+            Debug.Log("Holding!");
         }
     }
 

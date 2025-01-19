@@ -13001,9 +13001,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e24debe0cee84944894f6f25d690be4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notePrefab: {fileID: 6435385742866039976, guid: 34572071445fc6b4c968d1021b480a3d, type: 3}
+  changeNotePrefab: {fileID: 6435385742866039976, guid: 9d369b6bc66b0184e9d0ea1fb99fdae8, type: 3}
+  scratchNotePrefab: {fileID: 6435385742866039976, guid: 34572071445fc6b4c968d1021b480a3d, type: 3}
+  holdNotePrefab: {fileID: 6435385742866039976, guid: a4b09ead6684c2644b0a26229048d254, type: 3}
+  badNotePrefab: {fileID: 6435385742866039976, guid: 06ba78ee0896e9943a06f9249b22ed1c, type: 3}
+  emptyNotePrefab: {fileID: 6435385742866039976, guid: ee33f7adcd599af49a23534427b4644b, type: 3}
   track: {fileID: 1721142582}
-  currentChartPrefab: {fileID: 3807372231049629929, guid: 8f39518130741d44da19427870186652, type: 3}
+  currentChartPrefab: {fileID: 3807372231049629929, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
   notes:
   - {fileID: 1983371774}
   - {fileID: 324522}
@@ -13013,7 +13017,7 @@ MonoBehaviour:
   - {fileID: 680003015}
   - {fileID: 1766389978}
   - {fileID: 776986891}
-  chartToSpawn: {fileID: 8026011796638699987, guid: 8f39518130741d44da19427870186652, type: 3}
+  chartToSpawn: {fileID: 8026011796638699987, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
   MinLength: 125
   LengthPerBeat: 50
   trackHeight: 10

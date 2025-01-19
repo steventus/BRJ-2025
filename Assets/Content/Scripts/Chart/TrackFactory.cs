@@ -9,18 +9,25 @@ using UnityEngine.UI;
 public class TrackFactory : MonoBehaviour
 {
     public static TrackFactory instance = null;
-    public GameObject notePrefab;
+    [Header("Notes Prefabs")]
+    public GameObject changeNotePrefab;
+    public GameObject scratchNotePrefab;
+    public GameObject holdNotePrefab;
+    public GameObject badNotePrefab;
+    public GameObject emptyNotePrefab;
+
+    [Header("Chart, Track and Gameplay")]
     public RectTransform track;
     public GameObject currentChartPrefab;
     private Chart currentChart => currentChartPrefab.GetComponent<Chart>();
     public List<GameObject> notes;
 
     // [[ JOHNNY - adding charts to spawn ]]
-// ================================================================ //
+    // ================================================================ //
 
     public Chart chartToSpawn;
 
-// ================================================================ //
+    // ================================================================ //
 
     [Header("Dynamic Track Generation Settings")]
     //Set Track Length
@@ -44,7 +51,8 @@ public class TrackFactory : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.U))
+            CreateTrack();
     }
 
     public void CreateTrack()
@@ -53,26 +61,43 @@ public class TrackFactory : MonoBehaviour
 
         //Receive data from ChartMaker and instantiate new notes under track
         // [[ JOHNNY - adding charts to spawn ]]
-// ================================================================ //
+        // ================================================================ //
         for (int i = 0; i <= chartToSpawn.notes.Count - 1; i++)
         {
             Note _currentNote = currentChart.notes[i];
+            GameObject _instantiatedNote = null;
+            switch (_currentNote.noteType)
+            {
+                case NoteType.Note.scratch:
+                    _instantiatedNote = Instantiate(scratchNotePrefab, track);
 
-            if (_currentNote.noteType == NoteType.Note.empty)
-                continue;
+                    break;
+                case NoteType.Note.holdStart:
+                    //Instantiate both start and end hold notes
+                    _instantiatedNote = Instantiate(holdNotePrefab, track);
+                    _instantiatedNote.GetComponent<HoldNote>().SetStartHold();
 
-            GameObject _obj = Instantiate(notePrefab);
+                    GameObject _holdEndNote = Instantiate(holdNotePrefab, track);
+                    _holdEndNote.GetComponent<HoldNote>().SetEndHold();
+                    notes.Add(_holdEndNote);
+                    break;
+                case NoteType.Note.holdEnd:
+                    //Do nothing
+                    break;
+                case NoteType.Note.change:
+                    _instantiatedNote = Instantiate(changeNotePrefab, track);
 
-            //GameObject _obj = Instantiate(currentChart.notes[i].gameObject,track);
+                    break;
+                case NoteType.Note.bad:
+                    _instantiatedNote = Instantiate(badNotePrefab, track);
 
-            Image _objImage = _obj.GetComponent<Image>();
-            _objImage.sprite = _currentNote.GetComponentInChildren<SpriteRenderer>().sprite;
-            _objImage.color = _currentNote.GetComponentInChildren<SpriteRenderer>().color;
+                    break;
+                default:
+                    _instantiatedNote = Instantiate(emptyNotePrefab, track);
+                    break;
+            }
 
-            _obj.transform.SetParent(track, false);
-
-
-            notes.Add(_obj);
+            notes.Add(_instantiatedNote);
         }
 
         ApplyHoldNotes();
@@ -95,9 +120,6 @@ public class TrackFactory : MonoBehaviour
 
                 Note _connectedNote = notes[_currentNote.connectedNoteIndex].GetComponent<Note>();
 
-                LineRenderer lr = _currentNote.gameObject.AddComponent<LineRenderer>();
-                lr.SetPosition(0, _currentNote.transform.position);
-                lr.SetPosition(1, _connectedNote.transform.position);
                 _currentNote.SetNoteType(NoteType.Note.holdStart);
                 _connectedNote.SetNoteType(NoteType.Note.holdEnd);
             }

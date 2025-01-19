@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5898779375123104782}
   - component: {fileID: 1142227742651156163}
   - component: {fileID: 3557055233238957490}
-  - component: {fileID: -5213954426963025774}
+  - component: {fileID: -2274786186417363465}
   m_Layer: 5
-  m_Name: HoldNote
+  m_Name: EmptyNote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.107001305, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-5213954426963025774
+--- !u!114 &-2274786186417363465
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,7 +85,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6435385742866039976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc0c0dbb07dc50408ff13dd29b1b0c6, type: 3}
+  m_Script: {fileID: 11500000, guid: fe4b9241006733a40bd65cc89478b1f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRight: 0
