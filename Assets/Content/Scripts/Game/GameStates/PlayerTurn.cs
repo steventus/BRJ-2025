@@ -8,9 +8,6 @@ public class PlayerTurn : BaseState
     [SerializeField] int successfulNotesHitCount;
     [SerializeField] int hitsRequiredToEndTurn;
 
-    //Adding TurnTable Controls to player
-    [SerializeField] TurntableManager turnTable;
-
     void OnEnable() {
         Events.OnSuccessfulNoteHit += CountHit;
     }
@@ -27,7 +24,7 @@ public class PlayerTurn : BaseState
         
         // player input
         
-        if(turnTable.Scratch()) {
+        if(Input.GetKeyDown(KeyCode.Space)) {
             metronome.CheckIfInputIsOnBeat();
         }
 
