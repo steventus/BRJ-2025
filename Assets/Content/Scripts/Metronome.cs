@@ -7,7 +7,7 @@ public class Metronome : MonoBehaviour
     [SerializeField] Conductor conductor;
     [SerializeField] RectTransform metronomeLine;
     [SerializeField] RectTransform beatMarkerParent;
-    public List<RectTransform> beatMarkers = new();
+    public List<RectTransform> beatMarkers = new List<RectTransform>();
     int beatIndex;
     public RectTransform nextBeat;
     public float lerpSpeed;
@@ -45,7 +45,7 @@ public class Metronome : MonoBehaviour
         ClearBeatsList();
 
         for(int i = 0; i < TrackFactory.instance.notes.Count; i++) {
-            RectTransform beat = beatMarkerParent.GetChild(i).GetComponent<RectTransform>();
+            RectTransform beat = TrackFactory.instance.notes[i].GetComponent<RectTransform>();
             if(!beatMarkers.Contains(beat))
                 beatMarkers.Add(beat);
         }

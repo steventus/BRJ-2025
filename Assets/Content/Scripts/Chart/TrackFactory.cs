@@ -77,12 +77,11 @@ public class TrackFactory : MonoBehaviour
                     _instantiatedNote = Instantiate(holdNotePrefab, track);
                     _instantiatedNote.GetComponent<HoldNote>().SetStartHold();
 
-                    GameObject _holdEndNote = Instantiate(holdNotePrefab, track);
-                    _holdEndNote.GetComponent<HoldNote>().SetEndHold();
-                    notes.Add(_holdEndNote);
+
                     break;
                 case NoteType.Note.holdEnd:
-                    //Do nothing
+                    _instantiatedNote = Instantiate(holdNotePrefab, track);
+                    _instantiatedNote.GetComponent<HoldNote>().SetEndHold();
                     break;
                 case NoteType.Note.change:
                     _instantiatedNote = Instantiate(changeNotePrefab, track);
@@ -100,31 +99,31 @@ public class TrackFactory : MonoBehaviour
             notes.Add(_instantiatedNote);
         }
 
-        ApplyHoldNotes();
+        //ApplyHoldNotes();
 
         AdjustTrackLength();
     }
 
-    public void ApplyHoldNotes()
-    {
-        for (int i = 0; i <= notes.Count; i++)
-        {
-            Note _currentNote = notes[i].GetComponent<Note>();
+    //public void ApplyHoldNotes()
+    //{
+    //    for (int i = 0; i <= notes.Count; i++)
+    //    {
+    //        Note _currentNote = notes[i].GetComponent<Note>();
 
-            //Check if current selected note is connected. 
-            if (_currentNote.isConnected)
-            {
-                //If it is, additionally check if its already assigned.
-                if (_currentNote.noteType != NoteType.Note.holdStart || _currentNote.noteType != NoteType.Note.holdEnd)
-                    continue;
+    //        //Check if current selected note is connected. 
+    //        if (_currentNote.isConnected)
+    //        {
+    //            //If it is, additionally check if its already assigned.
+    //            if (_currentNote.noteType != NoteType.Note.holdStart || _currentNote.noteType != NoteType.Note.holdEnd)
+    //                continue;
 
-                Note _connectedNote = notes[_currentNote.connectedNoteIndex].GetComponent<Note>();
+    //            Note _connectedNote = notes[_currentNote.connectedNoteIndex].GetComponent<Note>();
 
-                _currentNote.SetNoteType(NoteType.Note.holdStart);
-                _connectedNote.SetNoteType(NoteType.Note.holdEnd);
-            }
-        }
-    }
+    //            _currentNote.SetNoteType(NoteType.Note.holdStart);
+    //            _connectedNote.SetNoteType(NoteType.Note.holdEnd);
+    //        }
+    //    }
+    //}
 
     void AdjustTrackLength()
     {
