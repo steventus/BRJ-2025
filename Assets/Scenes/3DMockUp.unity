@@ -1283,7 +1283,7 @@ MonoBehaviour:
   maxTempo: 0
   inGameTempo: 0
   tempoSlider: {fileID: 0}
-  currentDisc: {fileID: 0}
+  currentDisc: {fileID: 986477943}
   currentDiscPos: {x: 0, y: 0, z: 0}
   currentDiscScale: {x: 0, y: 0, z: 0}
 --- !u!1 &195683265
@@ -7747,10 +7747,10 @@ GameObject:
   - component: {fileID: 986477947}
   - component: {fileID: 986477946}
   - component: {fileID: 986477945}
-  - component: {fileID: 986477948}
+  - component: {fileID: 986477949}
   m_Layer: 3
   m_Name: LeftDisc
-  m_TagString: Untagged
+  m_TagString: Disc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7843,7 +7843,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986477943}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &986477948
+--- !u!114 &986477949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7852,11 +7852,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 986477943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7138e948c8fee429db026ae7e3333b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0841fd745116fe24c992f1f3c312d62b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shouldRotate: 0
-  yRot: 60
+  ID: 0
+  track: {fileID: 0}
+  isBeingPlayed: 1
 --- !u!4 &993556366 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8964987690418047298, guid: 24f8413b6bb084942a49d8ac86f491e8, type: 3}

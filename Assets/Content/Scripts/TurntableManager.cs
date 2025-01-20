@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
@@ -47,7 +48,7 @@ public class TurntableManager : MonoBehaviour
     {
         discs = GameObject.FindGameObjectsWithTag("Disc");
 
-        for(int i = 0; i < discs.Length; i++)
+        for (int i = 0; i < discs.Length; i++)
         {
             if (discs[i].GetComponent<Disc>().isBeingPlayed)
             {
@@ -61,8 +62,8 @@ public class TurntableManager : MonoBehaviour
     private void Update()
     {
 
-        if(Camera.main.ScreenToWorldPoint(Input.mousePosition).x != Mathf.Infinity)
-        Scratch();
+        if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x != Mathf.Infinity)
+            Scratch();
 
         VolumeHandling();
         TempoHandling();
@@ -70,49 +71,58 @@ public class TurntableManager : MonoBehaviour
 
     void Scratch()
     {
-        Vector3 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 mousePos2d = new Vector2(MousePos.x, MousePos.y);
-        RaycastHit2D hit;
+        //Vector3 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Vector2 mousePos2d = new Vector2(MousePos.x, MousePos.y);
+        //RaycastHit2D hit;
 
-        hit = Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc);
+        //hit = Physics2D.Raycast(MousePos, Camera.main.transform.forward, Mathf.Infinity, whatIsDisc);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycastHit;
+        Physics.Raycast(ray, out raycastHit, Mathf.Infinity, whatIsDisc);
+        Debug.DrawRay(Camera.main.transform.position, ray.direction * 1000);
 
-        if (Input.GetMouseButton(0) && Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc) && hit.transform.gameObject.GetComponent<Disc>().isBeingPlayed) 
+        Disc playerDisc = null;
+
+        if (Input.GetMouseButton(0))
         {
-
-
-            // Get the mouse position in world space
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            // Calculate the direction from the GameObject to the mouse
-            Vector3 direction = mousePosition - hit.transform.position;
-
-            // Ignore the Z axis for 2D rotation
-            direction.z = 0;
-
-            // Calculate the angle in degrees
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-            // Apply the rotation to the GameObject
-            hit.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-            // Calculate angular velocity (degrees per second)
-            float deltaAngle = Mathf.DeltaAngle(previousAngle, angle);
-            float deltaTime = Time.time - lastMouseInteractionTime;
-
-            if (deltaTime > 0)
+            if (raycastHit.transform != null)
             {
-                angularVelocity = deltaAngle / deltaTime; // Calculate angular velocity
+                raycastHit.transform.gameObject.TryGetComponent(out playerDisc);
+
+                // Get the mouse position in world space
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                // Calculate the direction from the GameObject to the mouse
+                Vector3 direction = mousePosition - raycastHit.transform.position;
+
+                // Ignore the Z axis for 2D rotation
+                direction.z = 0;
+
+                // Calculate the angle in degrees
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+                // Apply the rotation to the GameObject
+                raycastHit.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+                // Calculate angular velocity (degrees per second)
+                float deltaAngle = Mathf.DeltaAngle(previousAngle, angle);
+                float deltaTime = Time.time - lastMouseInteractionTime;
+
+                if (deltaTime > 0)
+                {
+                    angularVelocity = deltaAngle / deltaTime; // Calculate angular velocity
+                }
+
+                // Store the angle and time for the next frame
+                previousAngle = angle;
+                lastMouseInteractionTime = Time.time;
+
+                // Update the current angle
+                currentAngle = angle;
+
+                // Disable autonomous rotation while the mouse is pressed
+                isRotatingOnItsOwn = false;
             }
-
-            // Store the angle and time for the next frame
-            previousAngle = angle;
-            lastMouseInteractionTime = Time.time;
-
-            // Update the current angle
-            currentAngle = angle;
-
-            // Disable autonomous rotation while the mouse is pressed
-            isRotatingOnItsOwn = false;
         }
         if (!isRotatingOnItsOwn) // Transition to autonomous rotation after releasing the mouse
         {
@@ -133,27 +143,20 @@ public class TurntableManager : MonoBehaviour
             {
                 rotationSpeed -= decelerationRate * Time.deltaTime;
                 rotationSpeed = Mathf.Max(rotationSpeed, 0); // Clamp to zero
-                e.text = "Is rotating Right";
+                //e.text = "Is rotating Right";
             }
             else if (rotationSpeed < 0)
             {
                 rotationSpeed += decelerationRate * Time.deltaTime;
                 rotationSpeed = Mathf.Min(rotationSpeed, 0); // Clamp to zero
-                e.text = "Is rotating Left";
+                //e.text = "Is rotating Left";
             }
         }
-
-        if (Input.GetMouseButtonDown(0) && Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc) && !hit.transform.gameObject.GetComponent<Disc>().isBeingPlayed)
-        {
-            changeDisc(hit);
-        }
-
-
     }
 
     void VolumeHandling()
     {
-        if(volumeSlider != null)
+        if (volumeSlider != null)
         {
             volumeSlider.maxValue = maxVolume;
             inGameVolume = volumeSlider.value;
