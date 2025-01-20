@@ -14,7 +14,7 @@ public class Game : MonoBehaviour
     public TextMeshProUGUI stateUIDisplay;
     private TrackFactory trackFactory = TrackFactory.instance;
     public JudgementLineBehaviour judgementLineBehaviour;
-  
+
     void Start()
     {
         stateMachine = new();
@@ -26,20 +26,32 @@ public class Game : MonoBehaviour
         stateMachine.state.UpdateState();
 
         DisplayState();
+
+        #region TO BE REMOVED
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            stateMachine.SetState(stateMachine.state == playerTurn ? enemyTurn : playerTurn);
+        }
+        #endregion
     }
 
-    void DetermineState() {
-        if(stateMachine.state.isComplete) {
-            if(stateMachine.state == enemyTurn) {
+    void DetermineState()
+    {
+        if (stateMachine.state.isComplete)
+        {
+            if (stateMachine.state == enemyTurn)
+            {
                 stateMachine.SetState(playerTurn);
             }
-            else if(stateMachine.state == playerTurn) {
+            else if (stateMachine.state == playerTurn)
+            {
                 stateMachine.SetState(enemyTurn);
             }
         }
     }
 
-    void DisplayState() {
+    void DisplayState()
+    {
         stateUIDisplay.text = stateMachine.state.transform.name;
     }
 }

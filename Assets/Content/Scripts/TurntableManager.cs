@@ -21,15 +21,11 @@ public class TurntableManager : MonoBehaviour
     private float previousAngle = 0f; // Track the previous angle
     private Vector3 angularVelocity; // Track how fast the player was rotating the disc
     private float lastMouseInteractionTime = 0f; // Time of the last mouse movement
-
     private bool isBeingRotated;
-
-    public TMP_Text e;
-
-
     public float decelerationRate = 50f; // Deceleration rate (degrees per second^2)
 
-
+    [Header("Metronome Input")]
+    public Metronome metronome;
 
     //Volume Variables
     [Header("Volume")]
