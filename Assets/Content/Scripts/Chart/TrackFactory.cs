@@ -59,13 +59,19 @@ public class TrackFactory : MonoBehaviour
     {
         ClearTrack();
 
+
         //Receive data from ChartMaker and instantiate new notes under track
         // [[ JOHNNY - adding charts to spawn ]]
         // ================================================================ //
+
+        //Store Hold note data
+        HoldNote _lastHoldStartNote = null;
+
         for (int i = 0; i <= chartToSpawn.notes.Count - 1; i++)
         {
             Note _currentNote = currentChart.notes[i];
             GameObject _instantiatedNote = null;
+
             switch (_currentNote.noteType)
             {
                 case NoteType.Note.scratch:
@@ -73,15 +79,22 @@ public class TrackFactory : MonoBehaviour
 
                     break;
                 case NoteType.Note.holdStart:
-                    //Instantiate both start and end hold notes
+                    //Instantiate start hold notes
                     _instantiatedNote = Instantiate(holdNotePrefab, track);
                     _instantiatedNote.GetComponent<HoldNote>().SetStartHold();
 
-
+                    //Hold start notes are always arranged before hold end notes in a chart, this will store them for next use.
+                    _lastHoldStartNote = _instantiatedNote.GetComponent<HoldNote>();
                     break;
                 case NoteType.Note.holdEnd:
                     _instantiatedNote = Instantiate(holdNotePrefab, track);
                     _instantiatedNote.GetComponent<HoldNote>().SetEndHold();
+
+                    //Hold End notes are always arranged after hold start notes in a chart, this will always be immediately called afterwards
+                    if (_lastHoldStartNote != null)
+                        _lastHoldStartNote.ConnectEndHoldNote(_instantiatedNote.GetComponent<HoldNote>());
+
+                    else Debug.Log("No previous start hold note during track creation");
                     break;
                 case NoteType.Note.change:
                     _instantiatedNote = Instantiate(changeNotePrefab, track);

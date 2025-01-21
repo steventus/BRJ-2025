@@ -8585,7 +8585,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &1040788370
 Canvas:
   m_ObjectHideFlags: 0
@@ -13150,7 +13150,7 @@ MonoBehaviour:
   badNotePrefab: {fileID: 6435385742866039976, guid: 06ba78ee0896e9943a06f9249b22ed1c, type: 3}
   emptyNotePrefab: {fileID: 6435385742866039976, guid: ee33f7adcd599af49a23534427b4644b, type: 3}
   track: {fileID: 1721142582}
-  currentChartPrefab: {fileID: 3450251649365978420, guid: 3778f1fb67d821447abf5d4951f8b3f3, type: 3}
+  currentChartPrefab: {fileID: 2319101068286901357, guid: 218034fdcd6322f419d2a18ca140e50a, type: 3}
   notes:
   - {fileID: 1983371774}
   - {fileID: 324522}
@@ -13160,7 +13160,7 @@ MonoBehaviour:
   - {fileID: 680003015}
   - {fileID: 1766389978}
   - {fileID: 776986891}
-  chartToSpawn: {fileID: 3740517175881901129, guid: 3778f1fb67d821447abf5d4951f8b3f3, type: 3}
+  chartToSpawn: {fileID: 1445097726138763521, guid: 218034fdcd6322f419d2a18ca140e50a, type: 3}
   MinLength: 125
   LengthPerBeat: 50
   trackHeight: 10

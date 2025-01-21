@@ -141,8 +141,9 @@ public class Metronome : MonoBehaviour
 
     public void MissHit()
     {
-        hitMessage.SetActive(false);
         missMessage.SetActive(true);
+        perfectMessage.SetActive(false);
+        hitMessage.SetActive(false);
 
         //invoke failed input event aka miss
         Events.OnUnsuccessfulNoteHit?.Invoke(hitDmg);
