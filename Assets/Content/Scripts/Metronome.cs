@@ -11,8 +11,10 @@ public class Metronome : MonoBehaviour
     [SerializeField] RectTransform beatMarkerParent;
     public List<RectTransform> beatMarkers = new List<RectTransform>();
     int beatIndex;
-    public IPlayerInteractable currentNote => beatMarkers[beatIndex].GetComponent<IPlayerInteractable>();
     public RectTransform nextBeat;
+    public IPlayerInteractable currentNote => nextBeat.GetComponent<IPlayerInteractable>();
+    private IPlayerInteractable oldNote;
+
     public float lerpSpeed;
 
     public enum HitType
@@ -60,6 +62,8 @@ public class Metronome : MonoBehaviour
         }
 
         metronomeLine.anchoredPosition = Vector3.Lerp(metronomeLine.anchoredPosition, nextBeat.anchoredPosition, Time.deltaTime * lerpSpeed);
+
+        //HandleMissedNotes();
     }
 
     public void SetMarkers()
@@ -112,14 +116,11 @@ public class Metronome : MonoBehaviour
     //
     //    Invoke("DisableMessages", 0.25f);
     //}
-
     public HitType CheckIfInputIsOnBeat()
     {
         int perfectHitDmg = 3;
         int hitDmg = 1;
-
         float inputPressDistanceFromBeat = Mathf.Abs((float)beatIndex - conductor.loopPositionInBeats);
-        Debug.Log(inputPressDistanceFromBeat);
 
         Invoke("DisableMessages", 0.25f);
 
@@ -151,6 +152,11 @@ public class Metronome : MonoBehaviour
             Events.OnUnsuccessfulNoteHit?.Invoke(hitDmg);
             return HitType.miss;
         }
+    }
+
+    void HandleMissedNotes()
+    {
+        oldNote.OnMiss();
     }
 
     void DisableMessages()

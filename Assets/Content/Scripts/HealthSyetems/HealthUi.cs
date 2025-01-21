@@ -37,7 +37,7 @@ public class HealthUi : MonoBehaviour
     protected void UpdateView()
     {
         slider.value = (float)health.CurrentHealth / (float)health.MaxHealth;
-        Debug.Log(health.CurrentHealth);
+        //Debug.Log(health.CurrentHealth);
     }
 
     protected void OnHealthChanged()
