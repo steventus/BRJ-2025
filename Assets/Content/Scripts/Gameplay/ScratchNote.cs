@@ -9,19 +9,21 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable
 
     public void OnInputDown()
     {
-        //if (isHit)
-        //    return;
+        if (isHit)
+            return;
             
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
             case Metronome.HitType.perfect:
                 Debug.Log("Perfect!");
                 isHit = true;
+                Metronome.instance.PerfectHit();
                 break;
 
             case Metronome.HitType.good:
                 Debug.Log("Correct!");
                 isHit = true;
+                Metronome.instance.GoodHit();
                 break;
 
             case Metronome.HitType.miss:
@@ -37,7 +39,7 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable
 
     public void OnMiss()
     {
-        //if (!isHit)
+        if (!isHit)
         {
             isHit = true;
             Metronome.instance.MissHit();

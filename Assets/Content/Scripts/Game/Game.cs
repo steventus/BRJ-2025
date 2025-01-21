@@ -60,4 +60,6 @@ public static class Events
 {
     public static UnityAction<int> OnSuccessfulNoteHit;
     public static UnityAction<int> OnUnsuccessfulNoteHit;
+    public static UnityAction<int> OnBadNoteHit;
+
 }

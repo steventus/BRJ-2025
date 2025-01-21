@@ -18,13 +18,14 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
             case Metronome.HitType.perfect:
                 Debug.Log("Perfect!");
                 isHit = true;
+                Metronome.instance.PerfectHit();
                 gameManager.stateMachine.SetState(gameManager.enemyTurn);
-
                 break;
 
             case Metronome.HitType.good:
                 Debug.Log("Correct!");
                 isHit = true;
+                Metronome.instance.GoodHit();
                 gameManager.stateMachine.SetState(gameManager.enemyTurn);
                 break;
 

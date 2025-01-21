@@ -27,6 +27,7 @@ public class Metronome : MonoBehaviour
     public GameObject perfectMessage;
     public GameObject hitMessage;
     public GameObject missMessage;
+    public GameObject badMessage;
 
     [Header("Damage")]
     [SerializeField] private int perfectHitDmg = 3;
@@ -104,17 +105,14 @@ public class Metronome : MonoBehaviour
 
         if (inputPressDistanceFromBeat < perfectHitThreshold)
         {
-            PerfectHit();
             return HitType.perfect;
         }
         else if (inputPressDistanceFromBeat < minThresholdForNoteHit)
         {
-            GoodHit();
             return HitType.good;
         }
         else
         {
-            MissHit();
             return HitType.miss;
         }
     }
@@ -146,8 +144,17 @@ public class Metronome : MonoBehaviour
         hitMessage.SetActive(false);
         missMessage.SetActive(true);
 
-        //invoke failed input event
+        //invoke failed input event aka miss
         Events.OnUnsuccessfulNoteHit?.Invoke(hitDmg);
+        Invoke("DisableMessages", 0.25f);
+    }
+
+    public void BadHit()
+    {
+        badMessage.SetActive(true);
+
+        //invoke bad input event aka. hitting bad notes
+        Events.OnBadNoteHit?.Invoke(hitDmg);
         Invoke("DisableMessages", 0.25f);
     }
 
@@ -168,5 +175,6 @@ public class Metronome : MonoBehaviour
         perfectMessage.SetActive(false);
         hitMessage.SetActive(false);
         missMessage.SetActive(false);
+        badMessage.SetActive(false);
     }
 }
