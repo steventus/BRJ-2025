@@ -1275,8 +1275,8 @@ MonoBehaviour:
   whatIsDisc:
     serializedVersion: 2
     m_Bits: 8
-  e: {fileID: 0}
   decelerationRate: 50
+  metronome: {fileID: 0}
   maxVolume: 0
   inGameVolume: 0
   volumeSlider: {fileID: 0}
@@ -12024,6 +12024,8 @@ MonoBehaviour:
   perfectMessage: {fileID: 1641297802}
   hitMessage: {fileID: 281561861}
   missMessage: {fileID: 839898479}
+  perfectHitDmg: 3
+  hitDmg: 1
   minThresholdForNoteHit: 0.5
   perfectHitThreshold: 0.2
 --- !u!1 &1433321848

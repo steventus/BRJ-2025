@@ -9,8 +9,8 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable
 
     public void OnInputDown()
     {
-        if (isHit)
-            return;
+        //if (isHit)
+        //    return;
             
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
@@ -37,7 +37,7 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable
 
     public void OnMiss()
     {
-        if (!isHit)
+        //if (!isHit)
         {
             isHit = true;
             Metronome.instance.MissHit();
