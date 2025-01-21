@@ -28,8 +28,17 @@ public class Metronome : MonoBehaviour
     public GameObject hitMessage;
     public GameObject missMessage;
 
+    [Header("Damage")]
+    [SerializeField] private int perfectHitDmg = 3;
+    [SerializeField] private int hitDmg = 1;
+
+    [Header("Threshold Adjustment")]
     public float minThresholdForNoteHit = 0.4f;
     public float perfectHitThreshold = 0.2f;
+
+    #region Private
+    private bool ifHandlingMiss = false;
+    #endregion
     void Awake()
     {
         if (instance == null)
@@ -42,6 +51,7 @@ public class Metronome : MonoBehaviour
     {
         beatIndex = 0;
         ClearBeatsList();
+
     }
 
     void Update()
@@ -63,7 +73,7 @@ public class Metronome : MonoBehaviour
 
         metronomeLine.anchoredPosition = Vector3.Lerp(metronomeLine.anchoredPosition, nextBeat.anchoredPosition, Time.deltaTime * lerpSpeed);
 
-        //HandleMissedNotes();
+        HandleMissedNotes();
     }
 
     public void SetMarkers()
@@ -77,86 +87,80 @@ public class Metronome : MonoBehaviour
                 beatMarkers.Add(beat);
         }
     }
+
+    public void InitialiseMissHandling(bool _state)
+    {
+        ifHandlingMiss = _state;
+        oldNote = beatMarkers[0].GetComponent<IPlayerInteractable>();
+    }
     public void ClearBeatsList()
     {
         beatMarkers.Clear();
     }
-    //public void CheckIfInputIsOnBeat()
-    //{
-    //    int perfectHitDmg = 3;
-    //    int hitDmg = 1;
-    //
-    //    float inputPressDistanceFromBeat = Mathf.Abs((float)beatIndex - conductor.loopPositionInBeats);
-    //    Debug.Log(inputPressDistanceFromBeat);
-    //    if (inputPressDistanceFromBeat < perfectHitThreshold)
-    //    {
-    //        perfectMessage.SetActive(true);
-    //        hitMessage.SetActive(false);
-    //        missMessage.SetActive(false);
-    //
-    //        Events.OnSuccessfulNoteHit?.Invoke(perfectHitDmg);
-    //    }
-    //    else if (inputPressDistanceFromBeat < minThresholdForNoteHit)
-    //    {
-    //        hitMessage.SetActive(true);
-    //        perfectMessage.SetActive(false);
-    //        missMessage.SetActive(false);
-    //
-    //        //invoke successful input event
-    //        Events.OnSuccessfulNoteHit?.Invoke(hitDmg);
-    //    }
-    //    else
-    //    {
-    //        hitMessage.SetActive(false);
-    //        missMessage.SetActive(true);
-    //
-    //        //invoke failed input event
-    //        Events.OnUnsuccessfulNoteHit?.Invoke(hitDmg);
-    //    }
-    //
-    //    Invoke("DisableMessages", 0.25f);
-    //}
+
     public HitType CheckIfInputIsOnBeat()
     {
-        int perfectHitDmg = 3;
-        int hitDmg = 1;
         float inputPressDistanceFromBeat = Mathf.Abs((float)beatIndex - conductor.loopPositionInBeats);
-
-        Invoke("DisableMessages", 0.25f);
 
         if (inputPressDistanceFromBeat < perfectHitThreshold)
         {
-            perfectMessage.SetActive(true);
-            hitMessage.SetActive(false);
-            missMessage.SetActive(false);
-
-            Events.OnSuccessfulNoteHit?.Invoke(perfectHitDmg);
+            PerfectHit();
             return HitType.perfect;
         }
         else if (inputPressDistanceFromBeat < minThresholdForNoteHit)
         {
-            hitMessage.SetActive(true);
-            perfectMessage.SetActive(false);
-            missMessage.SetActive(false);
-
-            //invoke successful input event
-            Events.OnSuccessfulNoteHit?.Invoke(hitDmg);
+            GoodHit();
             return HitType.good;
         }
         else
         {
-            hitMessage.SetActive(false);
-            missMessage.SetActive(true);
-
-            //invoke failed input event
-            Events.OnUnsuccessfulNoteHit?.Invoke(hitDmg);
+            MissHit();
             return HitType.miss;
         }
     }
 
+    public void PerfectHit()
+    {
+
+        perfectMessage.SetActive(true);
+        hitMessage.SetActive(false);
+        missMessage.SetActive(false);
+
+        Events.OnSuccessfulNoteHit?.Invoke(perfectHitDmg);
+        Invoke("DisableMessages", 0.25f);
+    }
+
+    public void GoodHit()
+    {
+        hitMessage.SetActive(true);
+        perfectMessage.SetActive(false);
+        missMessage.SetActive(false);
+
+        //invoke successful input event
+        Events.OnSuccessfulNoteHit?.Invoke(hitDmg);
+        Invoke("DisableMessages", 0.25f);
+    }
+
+    public void MissHit()
+    {
+        hitMessage.SetActive(false);
+        missMessage.SetActive(true);
+
+        //invoke failed input event
+        Events.OnUnsuccessfulNoteHit?.Invoke(hitDmg);
+        Invoke("DisableMessages", 0.25f);
+    }
+
     void HandleMissedNotes()
     {
-        oldNote.OnMiss();
+        if (oldNote != null && ifHandlingMiss)
+        {
+            if (oldNote != currentNote)
+            {
+                oldNote.OnMiss();
+                oldNote = currentNote;
+            }
+        }
     }
 
     void DisableMessages()

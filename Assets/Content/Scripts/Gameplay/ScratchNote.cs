@@ -40,6 +40,7 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable
         if (!isHit)
         {
             isHit = true;
+            Metronome.instance.MissHit();
             Debug.Log("Bad!");
         }
     }

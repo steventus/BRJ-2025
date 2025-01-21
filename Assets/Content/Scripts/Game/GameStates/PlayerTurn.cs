@@ -20,6 +20,9 @@ public class PlayerTurn : BaseState
     {
         Debug.Log("enter " + transform.name);
 
+        //Initialise miss handling
+        metronome.InitialiseMissHandling(true);
+
         // change required number of hits based on which chart/boss is being faced against
     }
     public override void UpdateState()
@@ -52,6 +55,9 @@ public class PlayerTurn : BaseState
     public override void ExitState()
     {
         Debug.Log("exit " + transform.name);
+
+        //Initialise miss handling
+        metronome.InitialiseMissHandling(false);
 
         successfulNotesHitCount = 0;
 
