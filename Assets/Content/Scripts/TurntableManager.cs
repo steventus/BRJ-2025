@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
@@ -14,17 +16,16 @@ public class TurntableManager : MonoBehaviour
     private bool isRotatingOnItsOwn = false; // Flag to indicate autonomous rotation
     private float currentAngle = 0f; // Track the current angle
     private float rotationSpeed = 0f; // Speed of autonomous rotation (degrees per second)
-
+    private Vector3 previousMousePosition;
+    private float rotationDirection = 0f;
     private float previousAngle = 0f; // Track the previous angle
-    private float angularVelocity = 0f; // Track how fast the player was rotating the disc
+    private Vector3 angularVelocity; // Track how fast the player was rotating the disc
     private float lastMouseInteractionTime = 0f; // Time of the last mouse movement
-
-    public TMP_Text e;
-
-
+    private bool isBeingRotated;
     public float decelerationRate = 50f; // Deceleration rate (degrees per second^2)
 
-
+    [Header("Metronome Input")]
+    public Metronome metronome;
 
     //Volume Variables
     [Header("Volume")]
@@ -47,7 +48,7 @@ public class TurntableManager : MonoBehaviour
     {
         discs = GameObject.FindGameObjectsWithTag("Disc");
 
-        for(int i = 0; i < discs.Length; i++)
+        for (int i = 0; i < discs.Length; i++)
         {
             if (discs[i].GetComponent<Disc>().isBeingPlayed)
             {
@@ -60,8 +61,6 @@ public class TurntableManager : MonoBehaviour
     }
     private void Update()
     {
-
-        if(Camera.main.ScreenToWorldPoint(Input.mousePosition).x != Mathf.Infinity)
         Scratch();
 
         VolumeHandling();
@@ -70,90 +69,77 @@ public class TurntableManager : MonoBehaviour
 
     void Scratch()
     {
-        Vector3 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 mousePos2d = new Vector2(MousePos.x, MousePos.y);
-        RaycastHit2D hit;
+        //Vector3 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Vector2 mousePos2d = new Vector2(MousePos.x, MousePos.y);
+        //RaycastHit2D hit;
 
-        hit = Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc);
+        //hit = Physics2D.Raycast(MousePos, Camera.main.transform.forward, Mathf.Infinity, whatIsDisc);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycastHit;
+        Physics.Raycast(ray, out raycastHit, Mathf.Infinity, whatIsDisc);
+        Debug.DrawRay(Camera.main.transform.position, ray.direction * 1000);
 
-        if (Input.GetMouseButton(0) && Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc) && hit.transform.gameObject.GetComponent<Disc>().isBeingPlayed) 
+        if (Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out raycastHit, Mathf.Infinity, whatIsDisc)) isBeingRotated = true;
+
+        if (isBeingRotated) // 0 is the left mouse button
         {
+            
+            Plane groundPlane = new Plane(Vector3.up, currentDisc.transform.position);
 
-
-            // Get the mouse position in world space
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            // Calculate the direction from the GameObject to the mouse
-            Vector3 direction = mousePosition - hit.transform.position;
-
-            // Ignore the Z axis for 2D rotation
-            direction.z = 0;
-
-            // Calculate the angle in degrees
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-            // Apply the rotation to the GameObject
-            hit.transform.rotation = Quaternion.Euler(0, 0, angle);
-
-            // Calculate angular velocity (degrees per second)
-            float deltaAngle = Mathf.DeltaAngle(previousAngle, angle);
-            float deltaTime = Time.time - lastMouseInteractionTime;
-
-            if (deltaTime > 0)
+            if (groundPlane.Raycast(ray, out float enter))
             {
-                angularVelocity = deltaAngle / deltaTime; // Calculate angular velocity
-            }
+                Vector3 targetPoint = ray.GetPoint(enter);
+                Vector3 direction = (targetPoint - currentDisc.transform.position).normalized;
+                Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
-            // Store the angle and time for the next frame
-            previousAngle = angle;
-            lastMouseInteractionTime = Time.time;
+                // Apply the rotation to the disc
+                currentDisc.transform.rotation = targetRotation;
 
-            // Update the current angle
-            currentAngle = angle;
+                // Calculate angular velocity
+                Vector3 deltaMouse = Input.mousePosition - previousMousePosition;
+                angularVelocity = deltaMouse / Time.deltaTime;
 
-            // Disable autonomous rotation while the mouse is pressed
-            isRotatingOnItsOwn = false;
+                // Update the previous mouse position
+                previousMousePosition = Input.mousePosition;
+
+                rotationDirection = deltaMouse.x >= 0 ? -1f : 1f;
+
+                // Disable autorotate while the mouse is pressed
+                isRotatingOnItsOwn = false;
+            }        
         }
         if (!isRotatingOnItsOwn) // Transition to autonomous rotation after releasing the mouse
         {
             // Use the last angular velocity as the initial rotation speed
-            rotationSpeed = angularVelocity;
+            rotationSpeed = angularVelocity.magnitude * rotationDirection;
             isRotatingOnItsOwn = true;
         }
+
+        // Rotate autonomously with deceleration
         if (isRotatingOnItsOwn)
         {
-            // Increment the current angle using the rotation speed
-            currentAngle += rotationSpeed * Time.deltaTime;
-
-            // Apply the updated angle to the GameObject
-            currentDisc.transform.rotation = Quaternion.Euler(0, 0, currentAngle);
+            // Apply a self-spin to the GameObject
+            currentDisc.transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
 
             // Decelerate the rotation speed
             if (rotationSpeed > 0)
             {
                 rotationSpeed -= decelerationRate * Time.deltaTime;
                 rotationSpeed = Mathf.Max(rotationSpeed, 0); // Clamp to zero
-                e.text = "Is rotating Right";
             }
-            else if (rotationSpeed < 0)
+            if (rotationSpeed < 0)
             {
                 rotationSpeed += decelerationRate * Time.deltaTime;
-                rotationSpeed = Mathf.Min(rotationSpeed, 0); // Clamp to zero
-                e.text = "Is rotating Left";
+                rotationSpeed = Mathf.Min(rotationSpeed, 0);
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && Physics2D.Raycast(mousePos2d, Vector2.zero, Mathf.Infinity, whatIsDisc) && !hit.transform.gameObject.GetComponent<Disc>().isBeingPlayed)
-        {
-            changeDisc(hit);
-        }
-
-
+        if (Input.GetMouseButtonUp(0)) isBeingRotated = false;
     }
 
     void VolumeHandling()
     {
-        if(volumeSlider != null)
+        if (volumeSlider != null)
         {
             volumeSlider.maxValue = maxVolume;
             inGameVolume = volumeSlider.value;

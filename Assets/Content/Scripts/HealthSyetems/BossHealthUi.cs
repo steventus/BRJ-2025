@@ -7,12 +7,16 @@ public class BossHealthUi : HealthUi
 {
     BossBehaviour selectedBoss;
     BossRotationController thisController;
-    
-    void OnEnable() {
+
+    void OnEnable()
+    {
         Events.OnSuccessfulNoteHit += Damage;
+        Events.OnBadNoteHit += Heal;
     }
-    void OnDisable() {
+    void OnDisable()
+    {
         Events.OnSuccessfulNoteHit -= Damage;
+        Events.OnBadNoteHit -= Heal;
     }
     void Awake()
     {

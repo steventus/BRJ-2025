@@ -59,13 +59,19 @@ public class TrackFactory : MonoBehaviour
     {
         ClearTrack();
 
+
         //Receive data from ChartMaker and instantiate new notes under track
         // [[ JOHNNY - adding charts to spawn ]]
         // ================================================================ //
+
+        //Store Hold note data
+        HoldNote _lastHoldStartNote = null;
+
         for (int i = 0; i <= chartToSpawn.notes.Count - 1; i++)
         {
             Note _currentNote = currentChart.notes[i];
             GameObject _instantiatedNote = null;
+
             switch (_currentNote.noteType)
             {
                 case NoteType.Note.scratch:
@@ -73,16 +79,22 @@ public class TrackFactory : MonoBehaviour
 
                     break;
                 case NoteType.Note.holdStart:
-                    //Instantiate both start and end hold notes
+                    //Instantiate start hold notes
                     _instantiatedNote = Instantiate(holdNotePrefab, track);
                     _instantiatedNote.GetComponent<HoldNote>().SetStartHold();
 
-                    GameObject _holdEndNote = Instantiate(holdNotePrefab, track);
-                    _holdEndNote.GetComponent<HoldNote>().SetEndHold();
-                    notes.Add(_holdEndNote);
+                    //Hold start notes are always arranged before hold end notes in a chart, this will store them for next use.
+                    _lastHoldStartNote = _instantiatedNote.GetComponent<HoldNote>();
                     break;
                 case NoteType.Note.holdEnd:
-                    //Do nothing
+                    _instantiatedNote = Instantiate(holdNotePrefab, track);
+                    _instantiatedNote.GetComponent<HoldNote>().SetEndHold();
+
+                    //Hold End notes are always arranged after hold start notes in a chart, this will always be immediately called afterwards
+                    if (_lastHoldStartNote != null)
+                        _lastHoldStartNote.ConnectEndHoldNote(_instantiatedNote.GetComponent<HoldNote>());
+
+                    else Debug.Log("No previous start hold note during track creation");
                     break;
                 case NoteType.Note.change:
                     _instantiatedNote = Instantiate(changeNotePrefab, track);
@@ -100,31 +112,31 @@ public class TrackFactory : MonoBehaviour
             notes.Add(_instantiatedNote);
         }
 
-        ApplyHoldNotes();
+        //ApplyHoldNotes();
 
         AdjustTrackLength();
     }
 
-    public void ApplyHoldNotes()
-    {
-        for (int i = 0; i <= notes.Count; i++)
-        {
-            Note _currentNote = notes[i].GetComponent<Note>();
+    //public void ApplyHoldNotes()
+    //{
+    //    for (int i = 0; i <= notes.Count; i++)
+    //    {
+    //        Note _currentNote = notes[i].GetComponent<Note>();
 
-            //Check if current selected note is connected. 
-            if (_currentNote.isConnected)
-            {
-                //If it is, additionally check if its already assigned.
-                if (_currentNote.noteType != NoteType.Note.holdStart || _currentNote.noteType != NoteType.Note.holdEnd)
-                    continue;
+    //        //Check if current selected note is connected. 
+    //        if (_currentNote.isConnected)
+    //        {
+    //            //If it is, additionally check if its already assigned.
+    //            if (_currentNote.noteType != NoteType.Note.holdStart || _currentNote.noteType != NoteType.Note.holdEnd)
+    //                continue;
 
-                Note _connectedNote = notes[_currentNote.connectedNoteIndex].GetComponent<Note>();
+    //            Note _connectedNote = notes[_currentNote.connectedNoteIndex].GetComponent<Note>();
 
-                _currentNote.SetNoteType(NoteType.Note.holdStart);
-                _connectedNote.SetNoteType(NoteType.Note.holdEnd);
-            }
-        }
-    }
+    //            _currentNote.SetNoteType(NoteType.Note.holdStart);
+    //            _connectedNote.SetNoteType(NoteType.Note.holdEnd);
+    //        }
+    //    }
+    //}
 
     void AdjustTrackLength()
     {

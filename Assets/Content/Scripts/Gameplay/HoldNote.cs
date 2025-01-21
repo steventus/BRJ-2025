@@ -6,6 +6,9 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable
 {
     public bool isRight;
     private bool isStart = true;
+    private bool isHolding = false;
+    private bool isHit = false;
+    private HoldNote connectedEndHoldNote;
 
     //Called and set from TrackFactory
     public void SetStartHold()
@@ -32,29 +35,101 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable
         isStart = false;
     }
 
+    //Method to set "Connected Hold Note" like a linked list 
+    public void ConnectEndHoldNote(HoldNote _endHoldNote)
+    {
+        connectedEndHoldNote = _endHoldNote;
+    }
 
     public void OnInputDown()
     {
-        if (isStart)
+        if (isHit)
+            return;
+
+        //On a hold start note and you just begun holding onto it
+        if (isStart && !isHolding)
         {
-            Debug.Log("Holding!");
+            isHolding = true;
+
+            switch (Metronome.instance.CheckIfInputIsOnBeat())
+            {
+                case Metronome.HitType.perfect:
+                    Metronome.instance.PerfectHit();
+                    ReadyConnectedEndNote();
+                    break;
+
+                case Metronome.HitType.good:
+                    Metronome.instance.GoodHit();
+                    ReadyConnectedEndNote();
+                    break;
+
+                case Metronome.HitType.miss:
+                    OnMiss();
+                    break;
+            }
         }
+
+        //On a hold end note, nothing happens when you press input again
     }
 
     public void OnInputUp()
     {
-        if (isStart)
+        //On a hold start note, prematurely letting go of input
+        if (isStart && isHolding)
         {
-            Debug.Log("Bad!");
+            Debug.Log("Miss Hold Start");
+            isHolding = false;
+            OnMiss();
         }
 
-        else
+        //On a hold end note, letting go of input at the (hopefully) right timing
+        if (!isStart && isHolding)
         {
-            Debug.Log("Good!");
+            isHit = true;
+            isHolding = false;
+
+            switch (Metronome.instance.CheckIfInputIsOnBeat())
+            {
+                case Metronome.HitType.perfect:
+                    Metronome.instance.PerfectHit();
+                    break;
+
+                case Metronome.HitType.good:
+                    Metronome.instance.GoodHit();
+                    break;
+
+                case Metronome.HitType.miss:
+                    OnMiss();
+                    break;
+            }
         }
     }
     public void OnMiss()
     {
-        Debug.Log("Bad!");
+        //Natural guard
+        if (isHit)
+            return;
+
+        //Guard if holding while its a hold start note
+        if (isStart && isHolding)
+            return;
+
+        //Disable hold note
+        isHit = true;
+
+        //Disable connected end hold note at the same time
+        if (isStart && connectedEndHoldNote != null)
+            connectedEndHoldNote.isHit = true;
+
+        Metronome.instance.MissHit();
+        Debug.Log("Miss!");
+    }
+
+    private void ReadyConnectedEndNote()
+    {
+        if (isStart && connectedEndHoldNote != null)
+        {
+            connectedEndHoldNote.isHolding = true;
+        }
     }
 }

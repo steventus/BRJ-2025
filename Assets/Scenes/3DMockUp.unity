@@ -1275,15 +1275,15 @@ MonoBehaviour:
   whatIsDisc:
     serializedVersion: 2
     m_Bits: 8
-  e: {fileID: 0}
   decelerationRate: 50
+  metronome: {fileID: 0}
   maxVolume: 0
   inGameVolume: 0
   volumeSlider: {fileID: 0}
   maxTempo: 0
   inGameTempo: 0
   tempoSlider: {fileID: 0}
-  currentDisc: {fileID: 0}
+  currentDisc: {fileID: 986477943}
   currentDiscPos: {x: 0, y: 0, z: 0}
   currentDiscScale: {x: 0, y: 0, z: 0}
 --- !u!1 &195683265
@@ -1738,6 +1738,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2686195163331942720, guid: 3e9ba45cb497abc489ea69414950d8e3, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 507133487}
     - target: {fileID: 5206608250182583213, guid: 3e9ba45cb497abc489ea69414950d8e3, type: 3}
       propertyPath: m_Name
       value: PlayerHealth
@@ -3876,7 +3880,7 @@ GameObject:
   - component: {fileID: 511430503}
   - component: {fileID: 511430502}
   m_Layer: 5
-  m_Name: TurnState
+  m_Name: TurnStateUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7747,10 +7751,10 @@ GameObject:
   - component: {fileID: 986477947}
   - component: {fileID: 986477946}
   - component: {fileID: 986477945}
-  - component: {fileID: 986477948}
+  - component: {fileID: 986477949}
   m_Layer: 3
   m_Name: LeftDisc
-  m_TagString: Untagged
+  m_TagString: Disc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7843,7 +7847,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986477943}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &986477948
+--- !u!114 &986477949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7852,11 +7856,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 986477943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7138e948c8fee429db026ae7e3333b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0841fd745116fe24c992f1f3c312d62b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shouldRotate: 0
-  yRot: 60
+  ID: 0
+  track: {fileID: 0}
+  isBeingPlayed: 1
 --- !u!4 &993556366 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8964987690418047298, guid: 24f8413b6bb084942a49d8ac86f491e8, type: 3}
@@ -8580,7 +8585,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &1040788370
 Canvas:
   m_ObjectHideFlags: 0
@@ -8761,6 +8766,7 @@ RectTransform:
   - {fileID: 1641297803}
   - {fileID: 281561862}
   - {fileID: 839898480}
+  - {fileID: 1468541097}
   m_Father: {fileID: 1565383828}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
@@ -9860,7 +9866,7 @@ GameObject:
   - component: {fileID: 1169420565}
   - component: {fileID: 1169420564}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: BossHealthUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12023,6 +12029,9 @@ MonoBehaviour:
   perfectMessage: {fileID: 1641297802}
   hitMessage: {fileID: 281561861}
   missMessage: {fileID: 839898479}
+  badMessage: {fileID: 1468541096}
+  perfectHitDmg: 3
+  hitDmg: 1
   minThresholdForNoteHit: 0.5
   perfectHitThreshold: 0.2
 --- !u!1 &1433321848
@@ -12315,6 +12324,140 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1462750254}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1468541096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1468541097}
+  - component: {fileID: 1468541099}
+  - component: {fileID: 1468541098}
+  m_Layer: 0
+  m_Name: BadText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1468541097
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468541096}
+  m_LocalRotation: {x: 0, y: 0, z: -0.21643952, w: 0.97629607}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1081074834}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -25}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 19.89}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1468541098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468541096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: BAD!
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 32
+  m_fontSizeBase: 32
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1468541099
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468541096}
+  m_CullTransparentMesh: 1
 --- !u!1 &1476299231
 GameObject:
   m_ObjectHideFlags: 0
@@ -13007,7 +13150,7 @@ MonoBehaviour:
   badNotePrefab: {fileID: 6435385742866039976, guid: 06ba78ee0896e9943a06f9249b22ed1c, type: 3}
   emptyNotePrefab: {fileID: 6435385742866039976, guid: ee33f7adcd599af49a23534427b4644b, type: 3}
   track: {fileID: 1721142582}
-  currentChartPrefab: {fileID: 3807372231049629929, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
+  currentChartPrefab: {fileID: 2319101068286901357, guid: 218034fdcd6322f419d2a18ca140e50a, type: 3}
   notes:
   - {fileID: 1983371774}
   - {fileID: 324522}
@@ -13017,7 +13160,7 @@ MonoBehaviour:
   - {fileID: 680003015}
   - {fileID: 1766389978}
   - {fileID: 776986891}
-  chartToSpawn: {fileID: 8026011796638699987, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
+  chartToSpawn: {fileID: 1445097726138763521, guid: 218034fdcd6322f419d2a18ca140e50a, type: 3}
   MinLength: 125
   LengthPerBeat: 50
   trackHeight: 10
@@ -17163,7 +17306,7 @@ GameObject:
   - component: {fileID: 2027149628}
   - component: {fileID: 2027149627}
   m_Layer: 5
-  m_Name: Image
+  m_Name: PlayerHealthUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

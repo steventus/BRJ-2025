@@ -4,9 +4,30 @@ using UnityEngine;
 
 public class BadNote : MonoBehaviour, IPlayerInteractable
 {
+    public bool isHit;
     public void OnInputDown()
     {
-        Debug.Log("Bad!");
+        if (isHit)
+            return;
+
+        Debug.Log("Hitting Bad Note");
+
+        switch (Metronome.instance.CheckIfInputIsOnBeat())
+        {
+            case Metronome.HitType.perfect:
+                isHit = true;
+                Metronome.instance.BadHit();
+                break;
+
+            case Metronome.HitType.good:
+                isHit = true;
+                Metronome.instance.BadHit();
+                break;
+
+            case Metronome.HitType.miss:
+                OnMiss();
+                break;
+        }
     }
 
     public void OnInputUp()
@@ -16,5 +37,9 @@ public class BadNote : MonoBehaviour, IPlayerInteractable
 
     public void OnMiss()
     {
+        if (!isHit)
+        {
+            isHit = true;
+        }
     }
 }
