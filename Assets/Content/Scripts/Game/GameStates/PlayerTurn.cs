@@ -36,7 +36,7 @@ public class PlayerTurn : BaseState
             Metronome.instance.currentNote.OnInputDown();
         }
 
-        if (TurntableManager.instance.Scratch())
+        if (TurntableManager.instance.ScratchInput())
         {
             Debug.Log("Scratch");
             Metronome.instance.currentNote.OnScratch();

@@ -90,7 +90,7 @@ public class TurntableManager : MonoBehaviour
     }
 
     //TODO: Change this to bool scratch, create sensitivity variables to check for scratch sensitivity
-    public bool Scratch()
+    public void Scratch()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycastHit;
@@ -159,13 +159,17 @@ public class TurntableManager : MonoBehaviour
             isRotatingOnItsOwn = true;
             isBeingRotated = false;
         }
+
+    }
+
+    public bool ScratchInput()
+    {
         //By default, return false at all times.
-        #region Input Handling
-        if (isBeingRotated && angularVelocity.magnitude >= scratchRotationThreshold)
+        //Debug.Log("isBeingRotated: " + isBeingRotated + ". angularVelocity.magnitude: " +  angularVelocity.magnitude * Time.deltaTime);
+        if (isBeingRotated && angularVelocity.magnitude * Time.deltaTime >= scratchRotationThreshold)
             return true;
 
         else return false;
-        #endregion
     }
 
     void VolumeHandling()

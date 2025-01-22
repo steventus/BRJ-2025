@@ -13151,7 +13151,7 @@ MonoBehaviour:
   badNotePrefab: {fileID: 6435385742866039976, guid: 06ba78ee0896e9943a06f9249b22ed1c, type: 3}
   emptyNotePrefab: {fileID: 6435385742866039976, guid: ee33f7adcd599af49a23534427b4644b, type: 3}
   track: {fileID: 1721142582}
-  currentChartPrefab: {fileID: 2319101068286901357, guid: 218034fdcd6322f419d2a18ca140e50a, type: 3}
+  currentChartPrefab: {fileID: 1999000329770281984, guid: 4dbe6956650d67b439d31b3b7fbd8795, type: 3}
   notes:
   - {fileID: 1983371774}
   - {fileID: 324522}
@@ -13161,7 +13161,7 @@ MonoBehaviour:
   - {fileID: 680003015}
   - {fileID: 1766389978}
   - {fileID: 776986891}
-  chartToSpawn: {fileID: 1445097726138763521, guid: 218034fdcd6322f419d2a18ca140e50a, type: 3}
+  chartToSpawn: {fileID: 2776115447815908918, guid: 4dbe6956650d67b439d31b3b7fbd8795, type: 3}
   MinLength: 125
   LengthPerBeat: 50
   trackHeight: 10
