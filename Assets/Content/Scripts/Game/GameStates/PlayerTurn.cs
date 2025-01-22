@@ -30,15 +30,21 @@ public class PlayerTurn : BaseState
         base.UpdateState();
 
         // player input
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (TurntableManager.instance.OnInputDown())
         {
-            //metronome.CheckIfInputIsOnBeat();
+            Debug.Log("Click");
             Metronome.instance.currentNote.OnInputDown();
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (TurntableManager.instance.Scratch())
         {
+            Debug.Log("Scratch");
+            Metronome.instance.currentNote.OnScratch();
+        }
+
+        if (TurntableManager.instance.OnInputUp())
+        {
+            Debug.Log("Unclick");
             Metronome.instance.currentNote.OnInputUp();
         }
 

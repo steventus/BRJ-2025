@@ -7,6 +7,11 @@ public class BadNote : MonoBehaviour, IPlayerInteractable
     public bool isHit;
     public void OnInputDown()
     {
+
+    }
+
+    public void OnScratch()
+    {
         if (isHit)
             return;
 

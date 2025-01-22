@@ -7,6 +7,8 @@ public interface IPlayerInteractable
     //Press Input Button
     public void OnInputDown();
 
+    public void OnScratch();
+
     //Release Input Button
     public void OnInputUp();
 

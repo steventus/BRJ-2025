@@ -9,9 +9,14 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable
 
     public void OnInputDown()
     {
+
+    }
+
+    public void OnScratch()
+    {
         if (isHit)
             return;
-            
+
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
             case Metronome.HitType.perfect:

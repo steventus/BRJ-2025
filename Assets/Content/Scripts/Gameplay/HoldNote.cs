@@ -72,9 +72,9 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable
         //On a hold end note, nothing happens when you press input again
     }
 
-    public void OnInputUp()
+    public void OnScratch()
     {
-        //On a hold start note, prematurely letting go of input
+        //On a hold start note, prematurely scratching
         if (isStart && isHolding)
         {
             Debug.Log("Miss Hold Start");
@@ -82,7 +82,7 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable
             OnMiss();
         }
 
-        //On a hold end note, letting go of input at the (hopefully) right timing
+        //On a hold end note, scratching at (hopefully) right timing
         if (!isStart && isHolding)
         {
             isHit = true;
@@ -102,6 +102,17 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable
                     OnMiss();
                     break;
             }
+        }
+    }
+
+    public void OnInputUp()
+    {
+        //On a hold start note, prematurely letting go of input
+        if (isStart && isHolding)
+        {
+            Debug.Log("Miss Hold Start");
+            isHolding = false;
+            OnMiss();
         }
     }
     public void OnMiss()

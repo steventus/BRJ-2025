@@ -1276,6 +1276,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   decelerationRate: 50
+  scratchRotationThreshold: 10
   metronome: {fileID: 0}
   maxVolume: 0
   inGameVolume: 0

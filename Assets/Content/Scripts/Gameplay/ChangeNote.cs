@@ -13,6 +13,11 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
     }
     public void OnInputDown()
     {
+
+    }
+
+    public void OnScratch()
+    {
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
             case Metronome.HitType.perfect:

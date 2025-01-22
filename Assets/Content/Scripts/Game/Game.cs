@@ -62,4 +62,9 @@ public static class Events
     public static UnityAction<int> OnUnsuccessfulNoteHit;
     public static UnityAction<int> OnBadNoteHit;
 
+    //Input Events
+    public static string InputDown = "InputDown";
+    public static string InputScratch = "InputScratch";
+    public static string InputUp = "InputUp";
+
 }
