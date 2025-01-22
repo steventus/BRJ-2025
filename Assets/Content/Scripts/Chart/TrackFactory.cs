@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TrackFactory : MonoBehaviour
 {
@@ -59,13 +56,14 @@ public class TrackFactory : MonoBehaviour
     {
         ClearTrack();
 
-
         //Receive data from ChartMaker and instantiate new notes under track
         // [[ JOHNNY - adding charts to spawn ]]
         // ================================================================ //
 
         //Store Hold note data
         HoldNote _lastHoldStartNote = null;
+
+        Debug.Log("To spawn: " + chartToSpawn.notes.Count);
 
         for (int i = 0; i <= chartToSpawn.notes.Count - 1; i++)
         {
