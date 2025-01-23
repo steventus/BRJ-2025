@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class MainMenuUI : MonoBehaviour
 {
@@ -29,5 +30,10 @@ public class MainMenuUI : MonoBehaviour
     public void SetIndex(int _index) {
         index = _index;
         camTargetPosition = scenePositions[index].position;
+    }
+
+    public void QuitGame() {
+        Application.Quit();
+        EditorApplication.ExitPlaymode();
     }
 }
