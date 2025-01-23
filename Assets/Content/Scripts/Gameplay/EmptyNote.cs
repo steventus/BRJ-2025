@@ -8,6 +8,10 @@ public class EmptyNote : MonoBehaviour, IPlayerInteractable
     public void OnInputDown()
     {
     }
+    public void OnScratch(ScratchDirection.Direction scratchDirection)
+    {
+
+    }
 
     public void OnInputUp()
     {

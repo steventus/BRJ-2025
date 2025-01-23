@@ -1276,6 +1276,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   decelerationRate: 50
+  scratchRotationThreshold: 10
   metronome: {fileID: 0}
   maxVolume: 0
   inGameVolume: 0
@@ -13150,7 +13151,7 @@ MonoBehaviour:
   badNotePrefab: {fileID: 6435385742866039976, guid: 06ba78ee0896e9943a06f9249b22ed1c, type: 3}
   emptyNotePrefab: {fileID: 6435385742866039976, guid: ee33f7adcd599af49a23534427b4644b, type: 3}
   track: {fileID: 1721142582}
-  currentChartPrefab: {fileID: 2319101068286901357, guid: 218034fdcd6322f419d2a18ca140e50a, type: 3}
+  currentChartPrefab: {fileID: 145748345163073426, guid: 68d8ebf7da1729b49a747c88af4dd401, type: 3}
   notes:
   - {fileID: 1983371774}
   - {fileID: 324522}
@@ -13160,7 +13161,7 @@ MonoBehaviour:
   - {fileID: 680003015}
   - {fileID: 1766389978}
   - {fileID: 776986891}
-  chartToSpawn: {fileID: 1445097726138763521, guid: 218034fdcd6322f419d2a18ca140e50a, type: 3}
+  chartToSpawn: {fileID: 512206138305333474, guid: 68d8ebf7da1729b49a747c88af4dd401, type: 3}
   MinLength: 125
   LengthPerBeat: 50
   trackHeight: 10

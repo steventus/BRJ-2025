@@ -9,6 +9,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class TurntableManager : MonoBehaviour
 {
+    public static TurntableManager instance = null;
+
     //Disc Scratching Variables
     [Header("Disc")]
     GameObject[] discs;
@@ -23,6 +25,8 @@ public class TurntableManager : MonoBehaviour
     private float lastMouseInteractionTime = 0f; // Time of the last mouse movement
     private bool isBeingRotated;
     public float decelerationRate = 50f; // Deceleration rate (degrees per second^2)
+    [Header("Scratch Input Thresholds")]
+    public float scratchRotationThreshold;
 
     [Header("Metronome Input")]
     public Metronome metronome;
@@ -44,6 +48,14 @@ public class TurntableManager : MonoBehaviour
     public GameObject currentDisc;
     public Vector3 currentDiscPos, currentDiscScale;
 
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+
+        else if (instance != this)
+            Destroy(gameObject);
+    }
     private void Start()
     {
         discs = GameObject.FindGameObjectsWithTag("Disc");
@@ -62,28 +74,37 @@ public class TurntableManager : MonoBehaviour
     private void Update()
     {
         Scratch();
-
-        VolumeHandling();
-        TempoHandling();
     }
 
-    void Scratch()
+    public bool OnInputDown()
     {
-        //Vector3 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //Vector2 mousePos2d = new Vector2(MousePos.x, MousePos.y);
-        //RaycastHit2D hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit raycastHit;
+        return Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out raycastHit, Mathf.Infinity, whatIsDisc);
+    }
 
-        //hit = Physics2D.Raycast(MousePos, Camera.main.transform.forward, Mathf.Infinity, whatIsDisc);
+    public bool OnInputUp()
+    {
+        //Let go of mouse button anywhere and it will still count as input up
+        return Input.GetMouseButtonUp(0);
+    }
+
+    //TODO: Change this to bool scratch, create sensitivity variables to check for scratch sensitivity
+    public void Scratch()
+    {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycastHit;
         Physics.Raycast(ray, out raycastHit, Mathf.Infinity, whatIsDisc);
         Debug.DrawRay(Camera.main.transform.position, ray.direction * 1000);
 
-        if (Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out raycastHit, Mathf.Infinity, whatIsDisc)) isBeingRotated = true;
+        if (Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out raycastHit, Mathf.Infinity, whatIsDisc))
+        {
+            isBeingRotated = true;
+        }
 
         if (isBeingRotated) // 0 is the left mouse button
         {
-            
+
             Plane groundPlane = new Plane(Vector3.up, currentDisc.transform.position);
 
             if (groundPlane.Raycast(ray, out float enter))
@@ -106,13 +127,12 @@ public class TurntableManager : MonoBehaviour
 
                 // Disable autorotate while the mouse is pressed
                 isRotatingOnItsOwn = false;
-            }        
+            }
         }
         if (!isRotatingOnItsOwn) // Transition to autonomous rotation after releasing the mouse
         {
             // Use the last angular velocity as the initial rotation speed
             rotationSpeed = angularVelocity.magnitude * rotationDirection;
-            isRotatingOnItsOwn = true;
         }
 
         // Rotate autonomously with deceleration
@@ -134,7 +154,27 @@ public class TurntableManager : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonUp(0)) isBeingRotated = false;
+        if (Input.GetMouseButtonUp(0))
+        {
+            isRotatingOnItsOwn = true;
+            isBeingRotated = false;
+        }
+
+    }
+
+    public ScratchDirection.Direction ScratchInput()
+    {
+        //By default, return false at all times.
+        //Debug.Log("isBeingRotated: " + isBeingRotated + ". angularVelocity.magnitude: " +  angularVelocity.magnitude * Time.deltaTime);
+        if (isBeingRotated && angularVelocity.magnitude * Time.deltaTime >= scratchRotationThreshold)
+        {
+            if (rotationDirection > 0) return ScratchDirection.Direction.CW;
+
+            else if (rotationDirection < 0) return ScratchDirection.Direction.ACW;
+
+            else return ScratchDirection.Direction.NoScratch;
+        }
+        return ScratchDirection.Direction.NoScratch;
     }
 
     void VolumeHandling()

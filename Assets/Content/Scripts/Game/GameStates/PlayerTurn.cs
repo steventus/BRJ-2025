@@ -29,18 +29,29 @@ public class PlayerTurn : BaseState
     {
         base.UpdateState();
 
-        // player input
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        #region PlayerInput
+        //Clicking Disc
+        if (TurntableManager.instance.OnInputDown())
         {
-            //metronome.CheckIfInputIsOnBeat();
+            Debug.Log("Click");
             Metronome.instance.currentNote.OnInputDown();
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        //Scratching Disc
+        ScratchDirection.Direction _scratchInput = TurntableManager.instance.ScratchInput();
+        if (_scratchInput != ScratchDirection.Direction.NoScratch)
         {
+            Debug.Log(_scratchInput);
+            Metronome.instance.currentNote.OnScratch(_scratchInput);
+        }
+
+        //Un-clicking Disc
+        if (TurntableManager.instance.OnInputUp())
+        {
+            Debug.Log("Unclick");
             Metronome.instance.currentNote.OnInputUp();
         }
+        #endregion
 
         // checks player has successfully hit min number of notes
         bool hitMinimumNotes = successfulNotesHitCount >= hitsRequiredToEndTurn;
