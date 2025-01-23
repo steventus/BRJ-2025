@@ -16,7 +16,7 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
 
     }
 
-    public void OnScratch()
+    public void OnScratch(ScratchDirection.Direction scratchDirection)
     {
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {

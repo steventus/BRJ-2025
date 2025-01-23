@@ -10,7 +10,7 @@ public class BadNote : MonoBehaviour, IPlayerInteractable
 
     }
 
-    public void OnScratch()
+    public void OnScratch(ScratchDirection.Direction scratchDirection)
     {
         if (isHit)
             return;

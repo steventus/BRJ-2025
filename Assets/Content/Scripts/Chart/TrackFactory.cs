@@ -74,11 +74,14 @@ public class TrackFactory : MonoBehaviour
             {
                 case NoteType.Note.scratch:
                     _instantiatedNote = Instantiate(scratchNotePrefab, track);
+                    _instantiatedNote.GetComponent<ScratchNote>().isRight = _currentNote.ifRight;
 
                     break;
                 case NoteType.Note.holdStart:
                     //Instantiate start hold notes
                     _instantiatedNote = Instantiate(holdNotePrefab, track);
+                    _instantiatedNote.GetComponent<HoldNote>().isRight = _currentNote.ifRight;
+
                     _instantiatedNote.GetComponent<HoldNote>().SetStartHold();
 
                     //Hold start notes are always arranged before hold end notes in a chart, this will store them for next use.
@@ -86,6 +89,8 @@ public class TrackFactory : MonoBehaviour
                     break;
                 case NoteType.Note.holdEnd:
                     _instantiatedNote = Instantiate(holdNotePrefab, track);
+                    _instantiatedNote.GetComponent<HoldNote>().isRight = _currentNote.ifRight;
+
                     _instantiatedNote.GetComponent<HoldNote>().SetEndHold();
 
                     //Hold End notes are always arranged after hold start notes in a chart, this will always be immediately called afterwards

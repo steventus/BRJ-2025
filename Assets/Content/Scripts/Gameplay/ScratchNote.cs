@@ -2,20 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScratchNote : MonoBehaviour, IPlayerInteractable
+public class ScratchNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
 {
     public bool isRight;
     public bool isHit;
-
+    private ScratchDirection.Direction noteDirection => isRight ? ScratchDirection.Direction.CW : ScratchDirection.Direction.ACW;
     public void OnInputDown()
     {
 
     }
 
-    public void OnScratch()
+    public void OnScratch(ScratchDirection.Direction scratchDirection)
     {
         if (isHit)
             return;
+
+        if (noteDirection != scratchDirection)
+        {
+            OnMiss();
+            return;
+        }
 
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
@@ -50,6 +56,10 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable
             Metronome.instance.MissHit();
             Debug.Log("Bad!");
         }
+    }
+
+    public ScratchDirection.Direction GetScratchDirection(){
+        return noteDirection;
     }
 
 }

@@ -162,14 +162,19 @@ public class TurntableManager : MonoBehaviour
 
     }
 
-    public bool ScratchInput()
+    public ScratchDirection.Direction ScratchInput()
     {
         //By default, return false at all times.
         //Debug.Log("isBeingRotated: " + isBeingRotated + ". angularVelocity.magnitude: " +  angularVelocity.magnitude * Time.deltaTime);
         if (isBeingRotated && angularVelocity.magnitude * Time.deltaTime >= scratchRotationThreshold)
-            return true;
+        {
+            if (rotationDirection > 0) return ScratchDirection.Direction.CW;
 
-        else return false;
+            else if (rotationDirection < 0) return ScratchDirection.Direction.ACW;
+
+            else return ScratchDirection.Direction.NoScratch;
+        }
+        return ScratchDirection.Direction.NoScratch;
     }
 
     void VolumeHandling()
