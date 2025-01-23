@@ -5,17 +5,29 @@ using UnityEngine;
 public class MainMenuUI : MonoBehaviour
 {
     public Transform[] scenePositions;
-    Vector3 targetPosition;
+    Vector3 camTargetPosition;
     public float speed;
-    public void MoveCamera(int index) {
-        targetPosition = scenePositions[index].position;
-    }
+
+    [SerializeField] int index;
+
+    [Header("Visuals")]
+    // Menu Graphic showing which option camera is currently looking at
+    public Transform selectedHighlighter;
+    public Transform[] menuButtons;
+
     void Start() {
-        targetPosition = scenePositions[0].position;
+        camTargetPosition = scenePositions[0].position;
     }
     void Update() {
-        Vector3 lerp = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
+        Vector3 lerp = Vector3.Lerp(transform.position, camTargetPosition, speed * Time.deltaTime);
         lerp.z = -10;
         transform.position = lerp;
+
+        selectedHighlighter.position = menuButtons[index].position;
+    }
+
+    public void SetIndex(int _index) {
+        index = _index;
+        camTargetPosition = scenePositions[index].position;
     }
 }

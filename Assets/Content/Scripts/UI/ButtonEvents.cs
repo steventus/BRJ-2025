@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using TMPro;
 
 public class ButtonEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
@@ -10,6 +11,8 @@ public class ButtonEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public Color selectedColor, unselectedColor;
     public float scaler;
     public float zRotation;
+    public UnityEvent OnEnter;
+    public UnityEvent OnExit;
 
     void Awake() {
         tmpComponent = GetComponentInChildren<TextMeshProUGUI>();
@@ -27,6 +30,7 @@ public class ButtonEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         transform.localScale = transform.localScale * scaler;
         transform.rotation = Quaternion.Euler(new Vector3(0,0,zRotation));
 
+        OnEnter?.Invoke();
     }
 
     //Detect when Cursor leaves the GameObject
@@ -37,5 +41,7 @@ public class ButtonEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     
         transform.localScale = transform.localScale / scaler;
         transform.rotation = Quaternion.Euler(Vector3.zero);
+ 
+        OnExit?.Invoke();
     }
 }

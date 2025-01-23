@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 public class DialogueSystem : MonoBehaviour
@@ -13,6 +14,8 @@ public class DialogueSystem : MonoBehaviour
 
     bool dialogueActive = true;
 
+    public UnityEvent OnContinueDialogue;
+
     [Header("Dynamic Buttons")]
     public GameObject continueButton;
     public GameObject replyButton;
@@ -23,9 +26,7 @@ public class DialogueSystem : MonoBehaviour
 
     void Update() {
         if(index == dialogue.Length - 1 && tmp.text == dialogue[index]) {
-            if(dialogueActive) {
-                replyButton.SetActive(true);
-            }
+            replyButton.SetActive(true);
         }
 
         if(Input.GetMouseButtonDown(0)) {
@@ -61,15 +62,13 @@ public class DialogueSystem : MonoBehaviour
     public void ContinueDialogue() {
         if(tmp.text == dialogue[index]) {
             NextLine();
+            OnContinueDialogue?.Invoke();
         }
         else {
             StopAllCoroutines();
             tmp.text = dialogue[index];
             continueButton.SetActive(true);
         }
-    }
 
-    public void DisableDialogue() {
-        dialogueActive = false;
     }
 }
