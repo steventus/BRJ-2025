@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRight: 0
+  noteType: 1
 --- !u!114 &5534078041625555212
 MonoBehaviour:
   m_ObjectHideFlags: 0

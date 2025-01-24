@@ -7,6 +7,8 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
     public bool isRight;
     public bool isHit;
     private ScratchDirection.Direction noteDirection => isRight ? ScratchDirection.Direction.CW : ScratchDirection.Direction.ACW;
+    [SerializeField] private NoteType.Note noteType;
+
     public void OnInputDown()
     {
 
@@ -58,8 +60,14 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         }
     }
 
-    public ScratchDirection.Direction GetScratchDirection(){
+    public ScratchDirection.Direction GetScratchDirection()
+    {
         return noteDirection;
     }
 
+
+    public NoteType.Note GetNoteType()
+    {
+        return noteType;
+    }
 }

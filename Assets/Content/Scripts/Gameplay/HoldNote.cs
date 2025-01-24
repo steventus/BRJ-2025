@@ -12,7 +12,7 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
     private HoldNote connectedEndHoldNote;
 
     private ScratchDirection.Direction noteDirection => isRight ? ScratchDirection.Direction.CW : ScratchDirection.Direction.ACW;
-
+    [SerializeField] private NoteType.Note noteType;
 
     //Called and set from TrackFactory
     public void SetStartHold()
@@ -25,6 +25,7 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         }
 
         isStart = true;
+        noteType = NoteType.Note.holdStart;
     }
     //Called and set from TrackFactory
     public void SetEndHold()
@@ -37,6 +38,7 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         }
 
         isStart = false;
+        noteType = NoteType.Note.holdEnd;
     }
 
     //Method to set "Connected Hold Note" like a linked list 
@@ -158,5 +160,10 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
     public ScratchDirection.Direction GetScratchDirection()
     {
         return noteDirection;
+    }
+
+    public NoteType.Note GetNoteType()
+    {
+        return noteType;
     }
 }

@@ -13,7 +13,6 @@ public class Game : MonoBehaviour
     [Header("Game Components")]
     public TextMeshProUGUI stateUIDisplay;
     private TrackFactory trackFactory = TrackFactory.instance;
-    public JudgementLineBehaviour judgementLineBehaviour;
 
     void Start()
     {
