@@ -15,16 +15,8 @@ public class TrackFactory : MonoBehaviour
 
     [Header("Chart, Track and Gameplay")]
     public RectTransform track;
-    public GameObject currentChartPrefab;
-    private Chart currentChart => currentChartPrefab.GetComponent<Chart>();
     public List<GameObject> notes;
-
-    // [[ JOHNNY - adding charts to spawn ]]
-    // ================================================================ //
-
-    public Chart chartToSpawn;
-
-    // ================================================================ //
+    private Chart chartToSpawn;
 
     [Header("Dynamic Track Generation Settings")]
     //Set Track Length
@@ -49,25 +41,22 @@ public class TrackFactory : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.U))
-            CreateTrack();
+            AdjustTrackLength();
     }
 
-    public void CreateTrack()
+    public void CreateTrack(Chart _chart)
     {
         ClearTrack();
 
-        //Receive data from ChartMaker and instantiate new notes under track
-        // [[ JOHNNY - adding charts to spawn ]]
-        // ================================================================ //
+        //Receive Chart data from EnemyTurn.cs and instantiate new notes under track
+        chartToSpawn = _chart;
 
         //Store Hold note data
         HoldNote _lastHoldStartNote = null;
 
-        Debug.Log("To spawn: " + chartToSpawn.notes.Count);
-
         for (int i = 0; i <= chartToSpawn.notes.Count - 1; i++)
         {
-            Note _currentNote = currentChart.notes[i];
+            Note _currentNote = chartToSpawn.notes[i];
             GameObject _instantiatedNote = null;
 
             switch (_currentNote.noteType)
@@ -115,31 +104,9 @@ public class TrackFactory : MonoBehaviour
             notes.Add(_instantiatedNote);
         }
 
-        //ApplyHoldNotes();
 
         AdjustTrackLength();
     }
-
-    //public void ApplyHoldNotes()
-    //{
-    //    for (int i = 0; i <= notes.Count; i++)
-    //    {
-    //        Note _currentNote = notes[i].GetComponent<Note>();
-
-    //        //Check if current selected note is connected. 
-    //        if (_currentNote.isConnected)
-    //        {
-    //            //If it is, additionally check if its already assigned.
-    //            if (_currentNote.noteType != NoteType.Note.holdStart || _currentNote.noteType != NoteType.Note.holdEnd)
-    //                continue;
-
-    //            Note _connectedNote = notes[_currentNote.connectedNoteIndex].GetComponent<Note>();
-
-    //            _currentNote.SetNoteType(NoteType.Note.holdStart);
-    //            _connectedNote.SetNoteType(NoteType.Note.holdEnd);
-    //        }
-    //    }
-    //}
 
     void AdjustTrackLength()
     {

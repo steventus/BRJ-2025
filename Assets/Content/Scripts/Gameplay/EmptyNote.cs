@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EmptyNote : MonoBehaviour, IPlayerInteractable
 {
+    [SerializeField] private NoteType.Note noteType;
 
     public void OnInputDown()
     {
@@ -19,5 +20,8 @@ public class EmptyNote : MonoBehaviour, IPlayerInteractable
     public void OnMiss()
     {
     }
-
+    public NoteType.Note GetNoteType()
+    {
+        return noteType;
+    }
 }

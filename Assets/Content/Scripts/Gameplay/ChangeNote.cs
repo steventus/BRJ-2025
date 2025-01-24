@@ -6,6 +6,7 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
 {
     public bool isHit = false;
     Game gameManager;
+    [SerializeField] private NoteType.Note noteType;
 
     void Start()
     {
@@ -51,5 +52,9 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
         Metronome.instance.MissHit();
         gameManager.stateMachine.SetState(gameManager.enemyTurn);
         Debug.Log("Bad Change!");
+    }
+
+    public NoteType.Note GetNoteType(){
+        return noteType;
     }
 }

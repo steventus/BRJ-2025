@@ -51,47 +51,22 @@ public class BossPresenter : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        #region TO BE REMOVED IN PRODUCTION
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            CheckNoteType(NoteType.Note.scratch, true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            CheckNoteType(NoteType.Note.holdStart);
-        }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            CheckNoteType(NoteType.Note.bad);
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            CheckNoteType(NoteType.Note.change);
-        }
-        #endregion
-    }
-
     //When chart is created with notes being filled in, run this method for each note filling in.
-    public void CheckNoteType(NoteType.Note noteType, bool ifRight = false)
+    public void CheckNoteType(NoteType.Note noteType, ScratchDirection.Direction _direction)
     {
         //Todo: Need to be connected with Kato's chart loader - so the dance will cue appropriately
         DancePose _chosenDance;
         if (danceDictionary.TryGetValue(noteType, out _chosenDance))
         {
-            PerformDance(_chosenDance, ifRight);
+            PerformDance(_chosenDance, _direction);
         }
 
         else Debug.Log("Error no appropriate dance pose found!");
     }
 
-    public void PerformDance(DancePose dancePose, bool ifRight = false)
+    public void PerformDance(DancePose dancePose, ScratchDirection.Direction _direction)
     {
-        spriteRenderer.flipX = ifRight;
+        spriteRenderer.flipX = _direction == ScratchDirection.Direction.CW ? true : false;;
 
         //Choose corresponding sprite based on dancePose received
         switch (dancePose)

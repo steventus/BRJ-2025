@@ -58,14 +58,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.107001305, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d1cd44b6dd422f346b982bfb10a4bfcf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5898779375123104782}
   - component: {fileID: 1142227742651156163}
   - component: {fileID: -5213954426963025774}
-  - component: {fileID: -8155575869550562345}
+  - component: {fileID: 5534078041625555212}
   m_Layer: 5
   m_Name: HoldNote
   m_TagString: Untagged
@@ -112,7 +112,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 25, y: 25}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1142227742651156163
 CanvasRenderer:
@@ -135,7 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRight: 0
---- !u!114 &-8155575869550562345
+  noteType: 1
+--- !u!114 &5534078041625555212
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,9 +145,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6435385742866039976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f14b9bda32a2efe45a44bf0cef58ba8d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8dbc76db26f8e9d4db4bc51fecf3a666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 6869099390568946858}
-  spriteCW: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  spriteACW: {fileID: 3625043607559282579, guid: 045b15ec09bba42448d89db77fa6f20a, type: 3}
+  spriteCW: {fileID: 21300000, guid: 86e46b0bd9b6bc64c8b61c71143d7a47, type: 3}
+  spriteACW: {fileID: 21300000, guid: d1cd44b6dd422f346b982bfb10a4bfcf, type: 3}
+  holdNote: {fileID: -5213954426963025774}
+  holdEndSpriteCW: {fileID: 21300000, guid: ea4f8b74a16f19441ac9a621a8ab1e58, type: 3}
+  holdEndSpriteACW: {fileID: 21300000, guid: fb0c6538242c1154cb5b0dc2afff1939, type: 3}

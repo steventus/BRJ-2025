@@ -23,4 +23,7 @@ public interface IPlayerInteractable
 
     //Not pressing any button
     public void OnMiss();
+
+    public NoteType.Note GetNoteType();
+    
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class BadNote : MonoBehaviour, IPlayerInteractable
 {
     public bool isHit;
+    [SerializeField] private NoteType.Note noteType;
+
     public void OnInputDown()
     {
 
@@ -46,5 +48,9 @@ public class BadNote : MonoBehaviour, IPlayerInteractable
         {
             isHit = true;
         }
+    }
+    public NoteType.Note GetNoteType()
+    {
+        return noteType;
     }
 }
