@@ -74,8 +74,7 @@ public class EnemyTurn : BaseState
         // [[ ATTACK PHASE ]]
         // INITIALIZE attack phase
 
-        TrackFactory.instance.chartToSpawn = currentChart;
-        TrackFactory.instance.CreateTrack();
+        TrackFactory.instance.CreateTrack(currentChart);
         conductor.beatsPerLoop = currentChart.notes.Count;
         //start attack phase
         inAttackPhase = true;
@@ -93,7 +92,7 @@ public class EnemyTurn : BaseState
             //Boss Dance Presenter
             HandleBossDanceDue();
 
-            //Check end of beat
+            //Check end of track
         }
     }
     public override void ExitState()
