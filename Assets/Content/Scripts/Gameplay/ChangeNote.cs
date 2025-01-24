@@ -25,14 +25,14 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
                 Debug.Log("Perfect!");
                 isHit = true;
                 Metronome.instance.PerfectHit();
-                gameManager.stateMachine.SetState(gameManager.enemyTurn);
+                //gameManager.stateMachine.SetState(gameManager.enemyTurn);
                 break;
 
             case Metronome.HitType.good:
                 Debug.Log("Correct!");
                 isHit = true;
                 Metronome.instance.GoodHit();
-                gameManager.stateMachine.SetState(gameManager.enemyTurn);
+                //gameManager.stateMachine.SetState(gameManager.enemyTurn);
                 break;
 
             case Metronome.HitType.miss:
@@ -50,7 +50,7 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
     {
         isHit = true;
         Metronome.instance.MissHit();
-        gameManager.stateMachine.SetState(gameManager.enemyTurn);
+        //gameManager.stateMachine.SetState(gameManager.enemyTurn);
         Debug.Log("Bad Change!");
     }
 

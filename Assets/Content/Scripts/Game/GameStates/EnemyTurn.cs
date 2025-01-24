@@ -91,18 +91,16 @@ public class EnemyTurn : BaseState
 
             //Boss Dance Presenter
             HandleBossDanceDue();
-
-            //Check end of track
         }
     }
     public override void ExitState()
     {
-        Debug.Log("exit " + transform.name);
+        //Debug.Log("exit " + transform.name);
 
         inAttackPhase = false;
         attackComplete = false;
 
-        conductor.completedLoops = 0;
+        //conductor.completedLoops = 0;
     }
 
     private void HandleBossDanceDue()

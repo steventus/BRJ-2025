@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Events;
@@ -46,6 +47,14 @@ public class Conductor : MonoBehaviour
     void Awake()
     {
         instance = this;
+    }
+
+    void OnEnable(){
+
+    }
+
+    void OnDisable(){
+        
     }
 
     void Start()

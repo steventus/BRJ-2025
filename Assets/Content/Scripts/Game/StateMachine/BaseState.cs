@@ -1,24 +1,38 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-public abstract class BaseState : MonoBehaviour 
+public abstract class BaseState : MonoBehaviour
 {
     public bool isComplete { get; protected set; }
     float startTime;
     protected float timeElapsed => Time.time - startTime;
 
-    public virtual void EnterState() {}
-    public virtual void UpdateState() {
-        RotatePlayerTowardsCurrentBoss();
+    protected virtual void OnEnable()
+    {
+        Events.OnPhraseEnded += CompleteState;
     }
-    public virtual void ExitState() {}
+    protected virtual void OnDisable()
+    {
+        Events.OnPhraseEnded -= CompleteState;
+    }
+    public virtual void EnterState() { }
+    public virtual void UpdateState()
+    {
+        RotatePlayerTowardsCurrentBoss();
 
-    public void Initialize() {
+        //Complete phase on end of chart
+
+    }
+    public virtual void ExitState() { }
+
+    public void Initialize()
+    {
         isComplete = false;
         startTime = Time.time;
     }
 
     //Game specific 
-    
+
     [Header("Game Components")]
     public MusicManager musicManager;
     public BossRotationController bossRotationControl;
@@ -26,18 +40,20 @@ public abstract class BaseState : MonoBehaviour
 
     public Conductor conductor;
     public Metronome metronome;
-    
+
     //Health Bar UI
     public HealthUi healthSlider;
-    
-    //NEED:
-    //  CHART SPAWN && CONTROL
-    //  PLAYER INPUT
 
-    void RotatePlayerTowardsCurrentBoss() {
+    void RotatePlayerTowardsCurrentBoss()
+    {
         Transform currentBoss = bossRotationControl.currentBoss.transform;
         var targetRotation = Quaternion.LookRotation(currentBoss.position - player.position);
         float rotSpeed = 10f;
-        player.rotation = Quaternion.Lerp(player.rotation,targetRotation, rotSpeed * Time.deltaTime);
+        player.rotation = Quaternion.Lerp(player.rotation, targetRotation, rotSpeed * Time.deltaTime);
+    }
+
+    void CompleteState()
+    {
+        isComplete = true;
     }
 }
