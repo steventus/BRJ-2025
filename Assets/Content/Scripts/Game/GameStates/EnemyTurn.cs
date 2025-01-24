@@ -18,7 +18,6 @@ public class EnemyTurn : BaseState
     [SerializeField] float minHealthThreshold = 0.5f;
     [SerializeField] int minAttacksBeforeRotation = 0;
 
-
     public override void EnterState()
     {
         Debug.Log("enter " + transform.name);
@@ -26,6 +25,8 @@ public class EnemyTurn : BaseState
         // [[ ENEMY START PHASE ]]
         if (rotateBoss)
         {
+            //Reset old boss stats
+            bossRotationControl.currentBoss.phrasesCompleted = 0;
 
             musicManager.StartFade();
             bossRotationControl.TriggerRotation();
@@ -100,6 +101,7 @@ public class EnemyTurn : BaseState
         inAttackPhase = false;
         attackComplete = false;
 
+
         //conductor.completedLoops = 0;
     }
 
@@ -116,6 +118,13 @@ public class EnemyTurn : BaseState
         else _direction = ScratchDirection.Direction.CW;
 
         bossRotationControl.currentBoss.GetComponent<BossPresenter>().CheckNoteType(_noteType, _direction);
+    }
+
+    protected override void OnPhraseEnded()
+    {
+        if (inAttackPhase)
+            bossRotationControl.currentBoss.phrasesCompleted++;
+        base.OnPhraseEnded();
     }
 
 }

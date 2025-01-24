@@ -54,9 +54,9 @@ public class Game : MonoBehaviour
     {
         GUI.Box(new Rect(10, 10, 150, 90), "Debug Menu");
 
-        if (GUI.Button(new Rect(20, 40, 100, 20), "Rotate Boss"))
+        if (GUI.Button(new Rect(20, 40, 100, 20), "End Phrase"))
         {
-            stateMachine.SetState(stateMachine.state == playerTurn ? enemyTurn : playerTurn);
+            Events.PhraseEnded.Invoke();
         }
     }
 }
@@ -68,6 +68,6 @@ public static class Events
     public static UnityAction<int> OnBadNoteHit;
 
     //Input Events
-    public static UnityAction OnPhraseEnded;
+    public static UnityAction PhraseEnded;
 
 }

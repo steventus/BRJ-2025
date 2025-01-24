@@ -9,11 +9,11 @@ public abstract class BaseState : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        Events.OnPhraseEnded += CompleteState;
+        Events.PhraseEnded += OnPhraseEnded;
     }
     protected virtual void OnDisable()
     {
-        Events.OnPhraseEnded -= CompleteState;
+        Events.PhraseEnded -= OnPhraseEnded;
     }
     public virtual void EnterState() { }
     public virtual void UpdateState()
@@ -52,7 +52,7 @@ public abstract class BaseState : MonoBehaviour
         player.rotation = Quaternion.Lerp(player.rotation, targetRotation, rotSpeed * Time.deltaTime);
     }
 
-    void CompleteState()
+    protected virtual void OnPhraseEnded()
     {
         isComplete = true;
     }

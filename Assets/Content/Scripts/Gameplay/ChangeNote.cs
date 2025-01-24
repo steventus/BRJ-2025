@@ -19,6 +19,9 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
 
     public void OnScratch(ScratchDirection.Direction scratchDirection)
     {
+        if (isHit)
+            return;
+            
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
             case Metronome.HitType.perfect:
@@ -54,7 +57,8 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
         Debug.Log("Bad Change!");
     }
 
-    public NoteType.Note GetNoteType(){
+    public NoteType.Note GetNoteType()
+    {
         return noteType;
     }
 }

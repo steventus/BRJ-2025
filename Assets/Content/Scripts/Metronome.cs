@@ -175,7 +175,7 @@ public class Metronome : MonoBehaviour
 
     void HandleNewPhrase(){
         if (oldBeatIndex != beatIndex && beatIndex == 0){
-            Events.OnPhraseEnded?.Invoke();
+            Events.PhraseEnded?.Invoke();
         }
         oldBeatIndex = beatIndex;
     }
