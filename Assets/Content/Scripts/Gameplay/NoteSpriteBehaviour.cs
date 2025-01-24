@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class NoteSpriteBehaviour : MonoBehaviour
 {
-    [SerializeField] private Image image;
-    [SerializeField] private IScratchDirection noteBehaviour;
-    [SerializeField] private Sprite spriteCW, spriteACW;
+    [SerializeField] protected Image image;
+    [SerializeField] protected IScratchDirection noteBehaviour;
+    [SerializeField] protected Sprite spriteCW, spriteACW;
     void Start()
     {
         noteBehaviour = GetComponent<IScratchDirection>();

@@ -6,6 +6,7 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
 {
     public bool isRight;
     private bool isStart = true;
+    public bool IsStart => isStart;
     private bool isHolding = false;
     private bool isHit = false;
     private HoldNote connectedEndHoldNote;
