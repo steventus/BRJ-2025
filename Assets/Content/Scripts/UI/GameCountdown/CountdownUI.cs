@@ -9,10 +9,8 @@ public class CountdownUI : MonoBehaviour
     Animator animator;
 
     [Header("Animation Clips")]
-    [SerializeField]
-    AnimationClip BGEnterClip;
-    [SerializeField]
-    AnimationClip countClip;
+    [SerializeField] AnimationClip BGEnterClip;
+    [SerializeField] AnimationClip countClip;
 
     [Header("Events To Call")]
     public UnityEvent OnBGEntered;
