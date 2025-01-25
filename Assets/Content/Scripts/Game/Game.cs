@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
+using Unity.VisualScripting;
 
 public class Game : MonoBehaviour
 {
@@ -25,14 +26,8 @@ public class Game : MonoBehaviour
         stateMachine.state.UpdateState();
 
         DisplayState();
-
-        #region TO BE REMOVED
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            stateMachine.SetState(stateMachine.state == playerTurn ? enemyTurn : playerTurn);
-        }
-        #endregion
     }
+
 
     void DetermineState()
     {
@@ -53,6 +48,17 @@ public class Game : MonoBehaviour
     {
         stateUIDisplay.text = stateMachine.state.transform.name;
     }
+
+    //Debug Menus, won't appear in final builds
+    void OnGUI()
+    {
+        GUI.Box(new Rect(10, 10, 150, 90), "Debug Menu");
+
+        if (GUI.Button(new Rect(20, 40, 100, 20), "End Phrase"))
+        {
+            Events.PhraseEnded.Invoke();
+        }
+    }
 }
 
 public static class Events
@@ -62,8 +68,6 @@ public static class Events
     public static UnityAction<int> OnBadNoteHit;
 
     //Input Events
-    public static string InputDown = "InputDown";
-    public static string InputScratch = "InputScratch";
-    public static string InputUp = "InputUp";
+    public static UnityAction PhraseEnded;
 
 }

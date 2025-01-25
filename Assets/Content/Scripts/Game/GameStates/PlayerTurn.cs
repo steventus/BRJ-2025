@@ -8,13 +8,15 @@ public class PlayerTurn : BaseState
     [SerializeField] int successfulNotesHitCount;
     [SerializeField] int hitsRequiredToEndTurn;
 
-    void OnEnable()
+    protected override void OnEnable()
     {
         Events.OnSuccessfulNoteHit += CountHit;
+        base.OnEnable();
     }
-    void OnDisable()
+    protected override void OnDisable()
     {
         Events.OnSuccessfulNoteHit -= CountHit;
+        base.OnDisable();
     }
     public override void EnterState()
     {
@@ -65,14 +67,13 @@ public class PlayerTurn : BaseState
     }
     public override void ExitState()
     {
-        Debug.Log("exit " + transform.name);
 
         //Initialise miss handling
         metronome.InitialiseMissHandling(false);
 
         successfulNotesHitCount = 0;
 
-        conductor.completedLoops = 0;
+        //conductor.completedLoops = 0;
     }
 
     void CountHit(int n)

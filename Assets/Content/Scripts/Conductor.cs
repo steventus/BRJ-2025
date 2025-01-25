@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Events;
@@ -37,6 +38,9 @@ public class Conductor : MonoBehaviour
     //The current relative position of the song within the loop measured between 0 and 1.
     public float loopPositionInAnalog;
 
+    public int loopPositionInBeatIndex;
+    private float lastSavedtime;
+
     //Conductor instance
     public static Conductor instance;
 
@@ -46,6 +50,16 @@ public class Conductor : MonoBehaviour
     void Awake()
     {
         instance = this;
+    }
+
+    void OnEnable()
+    {
+        Events.PhraseEnded += LastSavedTime;
+    }
+
+    void OnDisable()
+    {
+        Events.PhraseEnded -= LastSavedTime;
     }
 
     void Start()
@@ -70,5 +84,13 @@ public class Conductor : MonoBehaviour
             completedLoops++;
         loopPositionInBeats = songPositionInBeats - completedLoops * beatsPerLoop;
         loopPositionInAnalog = loopPositionInBeats / beatsPerLoop;
+
+        loopPositionInBeatIndex = Mathf.FloorToInt(songPositionInBeats - lastSavedtime);
+    }
+
+    void LastSavedTime()
+    {
+        Debug.Log("Savedtime");
+        lastSavedtime = songPositionInBeats;
     }
 }

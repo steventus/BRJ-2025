@@ -11352,7 +11352,7 @@ MonoBehaviour:
   attackComplete: 0
   stateDuration: 3.75
   minHealthThreshold: 0.5
-  minAttacksBeforeRotation: 0
+  minAttacksBeforeRotation: 3
 --- !u!1 &1468541096
 GameObject:
   m_ObjectHideFlags: 0
@@ -12179,7 +12179,6 @@ MonoBehaviour:
   badNotePrefab: {fileID: 6435385742866039976, guid: 06ba78ee0896e9943a06f9249b22ed1c, type: 3}
   emptyNotePrefab: {fileID: 6435385742866039976, guid: ee33f7adcd599af49a23534427b4644b, type: 3}
   track: {fileID: 1721142582}
-  currentChartPrefab: {fileID: 1999000329770281984, guid: 4dbe6956650d67b439d31b3b7fbd8795, type: 3}
   notes:
   - {fileID: 1983371774}
   - {fileID: 324522}
@@ -12189,7 +12188,6 @@ MonoBehaviour:
   - {fileID: 680003015}
   - {fileID: 1766389978}
   - {fileID: 776986891}
-  chartToSpawn: {fileID: 2776115447815908918, guid: 4dbe6956650d67b439d31b3b7fbd8795, type: 3}
   MinLength: 150
   LengthPerBeat: 80
   trackHeight: 10
@@ -16856,6 +16854,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5624220578287943262, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: triggerRotationChart
+      value: 
+      objectReference: {fileID: 3740517175881901129, guid: 3778f1fb67d821447abf5d4951f8b3f3, type: 3}
+    - target: {fileID: 5624220578287943262, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: randomCharts.Array.data[0]
+      value: 
+      objectReference: {fileID: 3740517175881901129, guid: 3778f1fb67d821447abf5d4951f8b3f3, type: 3}
     - target: {fileID: 8914203177991200846, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
       propertyPath: m_Name
       value: Boss 3
@@ -16916,11 +16922,19 @@ PrefabInstance:
     - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
       propertyPath: triggerRotationChart
       value: 
-      objectReference: {fileID: 2776115447815908918, guid: 4dbe6956650d67b439d31b3b7fbd8795, type: 3}
+      objectReference: {fileID: 8026011796638699987, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
+    - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
+      propertyPath: randomCharts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
       propertyPath: randomCharts.Array.data[0]
       value: 
       objectReference: {fileID: 2776115447815908918, guid: 4dbe6956650d67b439d31b3b7fbd8795, type: 3}
+    - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
+      propertyPath: randomCharts.Array.data[1]
+      value: 
+      objectReference: {fileID: 3740517175881901129, guid: 3778f1fb67d821447abf5d4951f8b3f3, type: 3}
     - target: {fileID: 7040972677900712235, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
       propertyPath: m_Name
       value: Boss 1
@@ -16953,11 +16967,19 @@ PrefabInstance:
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: triggerRotationChart
       value: 
-      objectReference: {fileID: 2776115447815908918, guid: 4dbe6956650d67b439d31b3b7fbd8795, type: 3}
+      objectReference: {fileID: 512206138305333474, guid: 68d8ebf7da1729b49a747c88af4dd401, type: 3}
+    - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: randomCharts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: randomCharts.Array.data[0]
       value: 
-      objectReference: {fileID: 2776115447815908918, guid: 4dbe6956650d67b439d31b3b7fbd8795, type: 3}
+      objectReference: {fileID: 8026011796638699987, guid: c5e4745636e29d34b958d4f242277a59, type: 3}
+    - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: randomCharts.Array.data[1]
+      value: 
+      objectReference: {fileID: 6637234680154833601, guid: ccae414a9409c4445901dc4589ba53a4, type: 3}
     - target: {fileID: 8100662683694486961, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: m_Name
       value: Boss 2
