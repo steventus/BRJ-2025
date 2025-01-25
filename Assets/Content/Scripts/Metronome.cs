@@ -61,11 +61,11 @@ public class Metronome : MonoBehaviour
         if (beatMarkers.Count == 0)
             return;
 
-        beatIndex = Mathf.Clamp(beatIndex, 0, beatMarkers.Count);
-        beatIndex = Mathf.FloorToInt(conductor.loopPositionInBeats);
+        beatIndex = conductor.loopPositionInBeatIndex;
 
         if (beatIndex >= beatMarkers.Count)
         {
+            beatIndex = 0;
             nextBeat = beatMarkers[0];
         }
         else
@@ -173,8 +173,10 @@ public class Metronome : MonoBehaviour
         }
     }
 
-    void HandleNewPhrase(){
-        if (oldBeatIndex != beatIndex && beatIndex == 0){
+    void HandleNewPhrase()
+    {
+        if (oldBeatIndex != beatIndex && beatIndex == 0)
+        {
             Events.PhraseEnded?.Invoke();
         }
         oldBeatIndex = beatIndex;
