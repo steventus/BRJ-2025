@@ -13,6 +13,7 @@ public class BossBehaviour : MonoBehaviour
     public int HealthThreshold => healthThreshold;
     public bool ifReadyToTransition { get; private set; }
     private bool isPhaseTwo = false;
+    public bool IsPhaseTwo => isPhaseTwo;
     #endregion
 
     public bool isDead;
@@ -97,7 +98,7 @@ public class BossBehaviour : MonoBehaviour
     }
 
     // BOSS TRANSITION
-    public void CheckForPhaseTransition()
+    private void CheckForPhaseTransition()
     {
         if (!isPhaseTwo && health.CurrentHealth <= healthThreshold)
             ifReadyToTransition = true;
