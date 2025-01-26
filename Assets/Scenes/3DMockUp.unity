@@ -11350,6 +11350,7 @@ MonoBehaviour:
   rotateBoss: 0
   inAttackPhase: 1
   attackComplete: 0
+  emptyChart: {fileID: 5414787343810204381, guid: 49b240c111b28a841b2b987fa1a26144, type: 3}
   stateDuration: 3.75
   minAttacksBeforeRotation: 3
 --- !u!1 &1468541096

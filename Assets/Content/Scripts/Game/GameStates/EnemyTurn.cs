@@ -11,6 +11,7 @@ public class EnemyTurn : BaseState
     [SerializeField] bool rotateBoss = false;
     [SerializeField] bool inAttackPhase = false;
     [SerializeField] bool attackComplete = false;
+    [SerializeField] Chart emptyChart;
 
     [Header("Variables")]
     //rotation check
@@ -25,7 +26,7 @@ public class EnemyTurn : BaseState
         if (rotateBoss)
         {
             musicManager.StartFade();
-            bossRotationControl.TriggerRotation();
+            bossRotationControl.RotateNextBoss(bossRotationControl.currentBoss);
 
             //TODO: Add Introduction phase here for first-time introductions
 
@@ -48,36 +49,43 @@ public class EnemyTurn : BaseState
         bossHealthUi.SetHealthComponent(currentBossHealth);
         bossHealthUi.OnBossChanged();
 
+        // [[ ATTACK PHASE ]]
+        Chart _chartToSpawn;
 
-        //Only transition boss during the first ever turn
-        if (_currentBoss.phrasesCompleted == 0 && isReadyToTransition)
+        //Check and perform boss transition
+        if (!_currentBoss.IsPhaseTwo && _currentBoss.phrasesCompleted == 0 && isReadyToTransition)
         {
             //Play Transition Animations
             _currentBoss.PhaseTransition();
             Debug.Log("Phase Transition activate!");
+
+            //To make up for additional phase required to accomodate phase transition
+            _currentBoss.phrasesCompleted--;
+
+            _chartToSpawn = emptyChart;
         }
 
-        // [[ ATTACK PHASE ]]
-        Chart _chartToSpawn;
-
-        //Transition boss if in phase 1 and has lost enough health, or has performedenoughattacks at any phase
-        if (!_currentBoss.IsPhaseTwo && isReadyToTransition || hasPerformedEnoughAttacks)
-        {
-            // chosenChart = forcedRotateChart
-            rotateBoss = true;
-            _chartToSpawn = _currentBoss.triggerRotationChart;
-        }
+        //Otherwise nothing
         else
         {
-            // choose a random chart attack
-            _chartToSpawn = _currentBoss.GetRandomChart();
+            //Transition boss if in phase 1 and has lost enough health, or has performedenoughattacks at any phase
+            if (!_currentBoss.IsPhaseTwo && isReadyToTransition || hasPerformedEnoughAttacks)
+            {
+                // chosenChart = forcedRotateChart
+                rotateBoss = true;
+                _chartToSpawn = _currentBoss.triggerRotationChart;
+            }
+            else
+            {
+                // choose a random chart attack
+                _chartToSpawn = _currentBoss.GetRandomChart();
+            }
         }
 
         currentChart = _chartToSpawn;
-
         TrackFactory.instance.CreateTrack(currentChart);
         conductor.beatsPerLoop = currentChart.notes.Count;
-        //start attack phase
+
         inAttackPhase = true;
     }
 
@@ -128,8 +136,9 @@ public class EnemyTurn : BaseState
     protected override void OnPhraseEnded()
     {
         if (inAttackPhase)
+        {
             bossRotationControl.currentBoss.phrasesCompleted++;
+        }
         base.OnPhraseEnded();
     }
-
 }
