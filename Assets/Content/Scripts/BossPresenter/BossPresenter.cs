@@ -80,7 +80,7 @@ public class BossPresenter : MonoBehaviour
                 break;
 
             case DancePose.holdEndNote:
-                spriteRenderer.sprite = holdStartNoteSprite;
+                spriteRenderer.sprite = holdEndNoteSprite;
                 break;
 
             case DancePose.badNote:

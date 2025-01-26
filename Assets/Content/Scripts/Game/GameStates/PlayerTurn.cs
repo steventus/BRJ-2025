@@ -26,6 +26,8 @@ public class PlayerTurn : BaseState
         metronome.InitialiseMissHandling(true);
 
         // change required number of hits based on which chart/boss is being faced against
+
+        HandleBossIdleDanceCue();
     }
     public override void UpdateState()
     {
@@ -79,5 +81,10 @@ public class PlayerTurn : BaseState
     void CountHit(int n)
     {
         successfulNotesHitCount++;
+    }
+
+    private void HandleBossIdleDanceCue()
+    {
+        bossRotationControl.currentBoss.GetComponent<BossPresenter>().CheckNoteType(NoteType.Note.empty, ScratchDirection.Direction.NoScratch);
     }
 }
