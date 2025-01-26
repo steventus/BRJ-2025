@@ -90,7 +90,7 @@ public class Conductor : MonoBehaviour
 
     void LastSavedTime()
     {
-        Debug.Log("Savedtime");
+        //Debug.Log("Savedtime");
         lastSavedtime = songPositionInBeats;
     }
 }

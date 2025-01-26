@@ -35,7 +35,7 @@ public class PlayerTurn : BaseState
         //Clicking Disc
         if (TurntableManager.instance.OnInputDown())
         {
-            Debug.Log("Click");
+            //Debug.Log("Click");
             Metronome.instance.currentNote.OnInputDown();
         }
 
@@ -50,7 +50,7 @@ public class PlayerTurn : BaseState
         //Un-clicking Disc
         if (TurntableManager.instance.OnInputUp())
         {
-            Debug.Log("Unclick");
+            //Debug.Log("Unclick");
             Metronome.instance.currentNote.OnInputUp();
         }
         #endregion

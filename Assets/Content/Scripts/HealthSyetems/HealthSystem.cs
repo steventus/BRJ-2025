@@ -12,6 +12,11 @@ public class HealthSystem : MonoBehaviour
 
     public UnityEvent HealthChangedEvent = new UnityEvent();
 
+    public void SetHealth(int _number){
+        currentHealth = _number;
+        UpdateHealth();
+    }
+
     public void IncreaseHealth(int _delta)
     {
         currentHealth += _delta;
@@ -28,7 +33,7 @@ public class HealthSystem : MonoBehaviour
 
     void UpdateHealth()
     {
-        Debug.Log(name + " " +currentHealth);
+        //Debug.Log(name + " " +currentHealth);
         HealthChangedEvent.Invoke();
     }
 }

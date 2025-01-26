@@ -15,12 +15,11 @@ public class EnemyTurn : BaseState
     [Header("Variables")]
     //rotation check
     [SerializeField] float stateDuration;
-    [SerializeField] float minHealthThreshold = 0.5f;
     [SerializeField] int minAttacksBeforeRotation = 0;
 
     public override void EnterState()
     {
-        Debug.Log("enter " + transform.name);
+        //Debug.Log("enter " + transform.name);
 
         // [[ ENEMY START PHASE ]]
         if (rotateBoss)
@@ -31,7 +30,7 @@ public class EnemyTurn : BaseState
             musicManager.StartFade();
             bossRotationControl.TriggerRotation();
 
-            Debug.Log("rotate");
+            //TODO: Add Introduction phase here for first-time introductions
 
             rotateBoss = false;
         }
@@ -42,15 +41,27 @@ public class EnemyTurn : BaseState
         BossBehaviour _currentBoss = bossRotationControl.currentBoss;
         HealthSystem currentBossHealth = _currentBoss.Health;
 
+        // boss state parameters
+        bool hasLostEnoughHealth = currentBossHealth.CurrentHealth <= _currentBoss.HealthThreshold;
+        bool hasPerformedEnoughAttacks = _currentBoss.phrasesCompleted >= minAttacksBeforeRotation;
+
         //Update which boss' health is being displayed
         BossHealthUi bossHealthUi = healthSlider.GetComponent<BossHealthUi>();
         bossHealthUi.SetHealthComponent(currentBossHealth);
         bossHealthUi.OnBossChanged();
 
-        // boss state parameters
-        float currentHealthInPercent = currentBossHealth.CurrentHealth / currentBossHealth.MaxHealth;
-        bool hasLostEnoughHealth = currentHealthInPercent <= minHealthThreshold;
-        bool hasPerformedEnoughAttacks = _currentBoss.phrasesCompleted >= minAttacksBeforeRotation;
+        bool isReadyToTransition = _currentBoss.ifReadyToTransition;
+
+        //Only transition boss during the first ever turn
+        if (_currentBoss.phrasesCompleted == 0 && isReadyToTransition)
+        {
+            //Play Transition Animations
+            _currentBoss.PhaseTransition();
+            Debug.Log("Phase Transition activate!");
+        }
+
+        // [[ ATTACK PHASE ]]
+
 
         // determine which chart to spawn
         // get list of possible charts from currentBoss
@@ -71,9 +82,6 @@ public class EnemyTurn : BaseState
         }
 
         currentChart = _chartToSpawn;
-
-        // [[ ATTACK PHASE ]]
-        // INITIALIZE attack phase
 
         TrackFactory.instance.CreateTrack(currentChart);
         conductor.beatsPerLoop = currentChart.notes.Count;

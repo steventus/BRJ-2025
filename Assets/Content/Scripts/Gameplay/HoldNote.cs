@@ -146,7 +146,7 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
             connectedEndHoldNote.isHit = true;
 
         Metronome.instance.MissHit();
-        Debug.Log("Miss!");
+        //Debug.Log("Miss!");
     }
 
     private void ReadyConnectedEndNote()
