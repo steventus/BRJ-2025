@@ -34,6 +34,8 @@ public class PlayerTurn : BaseState
         base.UpdateState();
 
         #region PlayerInput
+
+
         //Clicking Disc
         if (TurntableManager.instance.OnInputDown())
         {
@@ -45,7 +47,7 @@ public class PlayerTurn : BaseState
         ScratchDirection.Direction _scratchInput = TurntableManager.instance.ScratchInput();
         if (_scratchInput != ScratchDirection.Direction.NoScratch)
         {
-            Debug.Log(_scratchInput);
+            //Debug.Log(_scratchInput);
             Metronome.instance.currentNote.OnScratch(_scratchInput);
         }
 

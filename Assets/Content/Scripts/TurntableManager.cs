@@ -31,18 +31,6 @@ public class TurntableManager : MonoBehaviour
     [Header("Metronome Input")]
     public Metronome metronome;
 
-    //Volume Variables
-    [Header("Volume")]
-    public float maxVolume;
-    public float inGameVolume;
-    public Slider volumeSlider;
-
-    //Tempo Variables
-    [Header("Tempo")]
-    public float maxTempo;
-    public float inGameTempo;
-    public Slider tempoSlider;
-
     //Disc Change Variables
     [Header("Disc Change")]
     public GameObject currentDisc;
@@ -175,37 +163,5 @@ public class TurntableManager : MonoBehaviour
             else return ScratchDirection.Direction.NoScratch;
         }
         return ScratchDirection.Direction.NoScratch;
-    }
-
-    void VolumeHandling()
-    {
-        if (volumeSlider != null)
-        {
-            volumeSlider.maxValue = maxVolume;
-            inGameVolume = volumeSlider.value;
-            volumeSlider.minValue = 0f;
-        }
-    }
-
-    void TempoHandling()
-    {
-        if (tempoSlider != null)
-        {
-            tempoSlider.maxValue = maxTempo;
-            inGameTempo = tempoSlider.value;
-            tempoSlider.minValue = 0f;
-        }
-    }
-
-    void changeDisc(RaycastHit2D hit)
-    {
-        currentDisc.transform.position = hit.transform.position;
-        currentDisc.transform.localScale = hit.transform.localScale;
-        currentDisc.transform.gameObject.GetComponent<Disc>().isBeingPlayed = false;
-        hit.transform.position = currentDiscPos;
-        hit.transform.localScale = currentDiscScale;
-        currentDisc = hit.transform.gameObject;
-        hit.transform.gameObject.GetComponent<Disc>().isBeingPlayed = true;
-
     }
 }

@@ -63,6 +63,16 @@ public class Game : MonoBehaviour
         {
             Events.OnSuccessfulNoteHit.Invoke(20);
         }
+
+        if (GUI.Button(new Rect(20, 80, 100, 20), "Scratch CW"))
+        {
+            Metronome.instance.currentNote.OnScratch(ScratchDirection.Direction.CW);
+        }
+
+        if (GUI.Button(new Rect(20, 100, 100, 20), "Scratch ACW"))
+        {
+            Metronome.instance.currentNote.OnScratch(ScratchDirection.Direction.ACW);
+        }
     }
 }
 

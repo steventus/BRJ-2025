@@ -120,10 +120,10 @@ public class EnemyTurn : BaseState
 
     private void HandleBossDanceDue()
     {
-        IPlayerInteractable _note = metronome.nextBeat.GetComponent<IPlayerInteractable>();
+        IPlayerInteractable _note = metronome.currentBeat.GetComponent<IPlayerInteractable>();
         NoteType.Note _noteType = _note.GetNoteType();
 
-        IScratchDirection _noteDirection = metronome.nextBeat.GetComponent<IScratchDirection>();
+        IScratchDirection _noteDirection = metronome.currentBeat.GetComponent<IScratchDirection>();
         ScratchDirection.Direction _direction;
         if (_noteDirection != null)
             _direction = _noteDirection.GetScratchDirection();

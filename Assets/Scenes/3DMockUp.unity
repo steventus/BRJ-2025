@@ -1192,15 +1192,9 @@ MonoBehaviour:
   whatIsDisc:
     serializedVersion: 2
     m_Bits: 8
-  decelerationRate: 50
-  scratchRotationThreshold: 10
+  decelerationRate: 1000
+  scratchRotationThreshold: 7
   metronome: {fileID: 0}
-  maxVolume: 0
-  inGameVolume: 0
-  volumeSlider: {fileID: 0}
-  maxTempo: 0
-  inGameTempo: 0
-  tempoSlider: {fileID: 0}
   currentDisc: {fileID: 986477943}
   currentDiscPos: {x: 0, y: 0, z: 0}
   currentDiscScale: {x: 0, y: 0, z: 0}
@@ -10691,6 +10685,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1411554968}
   - component: {fileID: 1411554969}
+  - component: {fileID: 1411554971}
+  - component: {fileID: 1411554970}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -10710,7 +10706,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -1.04, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 1870433289}
   m_Father: {fileID: 1835880303}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!212 &1411554969
@@ -10765,6 +10762,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1411554970
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411554967}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 81aec08f68f1afa47bc814de6b31db2d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1411554971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1411554967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89aa0536abe89a7418def681f2334107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1418941648
 GameObject:
   m_ObjectHideFlags: 0
@@ -11136,7 +11166,9 @@ MonoBehaviour:
   metronomeLine: {fileID: 1081074834}
   beatMarkerParent: {fileID: 1721142582}
   beatMarkers: []
-  nextBeat: {fileID: 0}
+  currentBeat: {fileID: 0}
+  beatIndexSelector: 0
+  debugCurrentNote: {fileID: 0}
   lerpSpeed: 18
   perfectMessage: {fileID: 1641297802}
   hitMessage: {fileID: 281561861}
@@ -11144,7 +11176,7 @@ MonoBehaviour:
   badMessage: {fileID: 1468541096}
   perfectHitDmg: 3
   hitDmg: 1
-  minThresholdForNoteHit: 0.5
+  goodHitThreshold: 0.35
   perfectHitThreshold: 0.2
 --- !u!1 &1433321848
 GameObject:
@@ -14255,7 +14287,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1411554968}
-  - {fileID: 1870433289}
   m_Father: {fileID: 370943272}
   m_LocalEulerAnglesHint: {x: 36.844, y: 0, z: 0}
 --- !u!23 &1835880304
@@ -14417,12 +14448,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1870433288}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.006617815, y: -0, z: -0, w: 0.9999781}
-  m_LocalPosition: {x: 0, y: -3.48, z: -0.03}
-  m_LocalScale: {x: 0.66, y: 1.2850435, z: 1.5109934}
+  m_LocalRotation: {x: -0.70241183, y: -0, z: -0, w: 0.71177083}
+  m_LocalPosition: {x: 0, y: -0.042858124, z: 3.4857154}
+  m_LocalScale: {x: 0.94285715, y: 1.8357759, z: 2.1585615}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1835880303}
+  m_Father: {fileID: 1411554968}
   m_LocalEulerAnglesHint: {x: 0.758, y: 0, z: 0}
 --- !u!212 &1870433290
 SpriteRenderer:
@@ -15935,7 +15966,8 @@ MonoBehaviour:
   completedLoops: 0
   loopPositionInBeats: 0
   loopPositionInAnalog: 0
-  loopPositionInBeatIndex: 0
+  loopBeatIndexPositionAnalog: 0
+  loopBeatIndexPosition: 0
   musicSource: {fileID: 0}
 --- !u!1 &2006703354
 GameObject:
@@ -16942,7 +16974,7 @@ PrefabInstance:
       objectReference: {fileID: 8026011796638699987, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
     - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
       propertyPath: Phase1Charts.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
       propertyPath: Phase2Charts.Array.size
