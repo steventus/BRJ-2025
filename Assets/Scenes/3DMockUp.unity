@@ -1193,7 +1193,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   decelerationRate: 1000
-  scratchRotationThreshold: 6
+  scratchRotationThreshold: 7
   metronome: {fileID: 0}
   currentDisc: {fileID: 986477943}
   currentDiscPos: {x: 0, y: 0, z: 0}
