@@ -11,27 +11,24 @@ public class EnemyTurn : BaseState
     [SerializeField] bool rotateBoss = false;
     [SerializeField] bool inAttackPhase = false;
     [SerializeField] bool attackComplete = false;
+    [SerializeField] Chart emptyChart;
 
     [Header("Variables")]
     //rotation check
     [SerializeField] float stateDuration;
-    [SerializeField] float minHealthThreshold = 0.5f;
     [SerializeField] int minAttacksBeforeRotation = 0;
 
     public override void EnterState()
     {
-        Debug.Log("enter " + transform.name);
+        //Debug.Log("enter " + transform.name);
 
         // [[ ENEMY START PHASE ]]
         if (rotateBoss)
         {
-            //Reset old boss stats
-            bossRotationControl.currentBoss.phrasesCompleted = 0;
-
             musicManager.StartFade();
-            bossRotationControl.TriggerRotation();
+            bossRotationControl.RotateNextBoss(bossRotationControl.currentBoss);
 
-            Debug.Log("rotate");
+            //TODO: Add Introduction phase here for first-time introductions
 
             rotateBoss = false;
         }
@@ -42,42 +39,53 @@ public class EnemyTurn : BaseState
         BossBehaviour _currentBoss = bossRotationControl.currentBoss;
         HealthSystem currentBossHealth = _currentBoss.Health;
 
+        // boss state parameters
+        //bool hasLostEnoughHealth = currentBossHealth.CurrentHealth <= _currentBoss.HealthThreshold;
+        bool hasPerformedEnoughAttacks = _currentBoss.phrasesCompleted >= minAttacksBeforeRotation;
+        bool isReadyToTransition = _currentBoss.ifReadyToTransition;
+
         //Update which boss' health is being displayed
         BossHealthUi bossHealthUi = healthSlider.GetComponent<BossHealthUi>();
         bossHealthUi.SetHealthComponent(currentBossHealth);
         bossHealthUi.OnBossChanged();
 
-        // boss state parameters
-        float currentHealthInPercent = currentBossHealth.CurrentHealth / currentBossHealth.MaxHealth;
-        bool hasLostEnoughHealth = currentHealthInPercent <= minHealthThreshold;
-        bool hasPerformedEnoughAttacks = _currentBoss.phrasesCompleted >= minAttacksBeforeRotation;
-
-        // determine which chart to spawn
-        // get list of possible charts from currentBoss
-
-        // store chart to spawn as a variable   
+        // [[ ATTACK PHASE ]]
         Chart _chartToSpawn;
 
-        if (hasLostEnoughHealth || hasPerformedEnoughAttacks)
+        //Check and perform boss transition
+        if (!_currentBoss.IsPhaseTwo && _currentBoss.phrasesCompleted == 0 && isReadyToTransition)
         {
-            // chosenChart = forcedRotateChart
-            rotateBoss = true;
-            _chartToSpawn = _currentBoss.triggerRotationChart;
+            //Play Transition Animations
+            _currentBoss.PhaseTransition();
+            Debug.Log("Phase Transition activate!");
+
+            //To make up for additional phase required to accomodate phase transition
+            _currentBoss.phrasesCompleted--;
+
+            _chartToSpawn = emptyChart;
         }
+
+        //Otherwise nothing
         else
         {
-            // choose a random chart attack
-            _chartToSpawn = _currentBoss.GetRandomChart();
+            //Transition boss if in phase 1 and has lost enough health, or has performedenoughattacks at any phase
+            if (!_currentBoss.IsPhaseTwo && isReadyToTransition || hasPerformedEnoughAttacks)
+            {
+                // chosenChart = forcedRotateChart
+                rotateBoss = true;
+                _chartToSpawn = _currentBoss.triggerRotationChart;
+            }
+            else
+            {
+                // choose a random chart attack
+                _chartToSpawn = _currentBoss.GetRandomChart();
+            }
         }
 
         currentChart = _chartToSpawn;
-
-        // [[ ATTACK PHASE ]]
-        // INITIALIZE attack phase
-
         TrackFactory.instance.CreateTrack(currentChart);
         conductor.beatsPerLoop = currentChart.notes.Count;
-        //start attack phase
+
         inAttackPhase = true;
     }
 
@@ -97,6 +105,11 @@ public class EnemyTurn : BaseState
     public override void ExitState()
     {
         //Debug.Log("exit " + transform.name);
+
+        //Reset old boss stats
+        if (rotateBoss)
+            bossRotationControl.currentBoss.phrasesCompleted = 0;
+
 
         inAttackPhase = false;
         attackComplete = false;
@@ -123,8 +136,9 @@ public class EnemyTurn : BaseState
     protected override void OnPhraseEnded()
     {
         if (inAttackPhase)
+        {
             bossRotationControl.currentBoss.phrasesCompleted++;
+        }
         base.OnPhraseEnded();
     }
-
 }

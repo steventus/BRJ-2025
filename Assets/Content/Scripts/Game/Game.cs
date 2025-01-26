@@ -53,10 +53,15 @@ public class Game : MonoBehaviour
     void OnGUI()
     {
         GUI.Box(new Rect(10, 10, 150, 90), "Debug Menu");
-
+        
         if (GUI.Button(new Rect(20, 40, 100, 20), "End Phrase"))
         {
             Events.PhraseEnded.Invoke();
+        }
+
+        if (GUI.Button(new Rect(20, 60, 100, 20), "Damage Boss 20"))
+        {
+            Events.OnSuccessfulNoteHit.Invoke(20);
         }
     }
 }

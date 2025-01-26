@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2935683066331346002, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
       propertyPath: m_Name
-      value: boss1 Variant
+      value: Boss 1 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4750014327939727621, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,6 +52,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5375532791569305515, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 7290555171265347702, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 95878767520e3584a85f9a289e74b761, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: badNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d84770a582f95a346a8eb9d5f906d383, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: emptyNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 95878767520e3584a85f9a289e74b761, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: changeNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd603628e98e9f244b12074521c733f6, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: holdEndNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd603628e98e9f244b12074521c733f6, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: scratchNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd603628e98e9f244b12074521c733f6, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: holdStartNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5a2a582b31a97db48b8a88ee274afdcf, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

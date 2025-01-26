@@ -22,23 +22,6 @@ public class BossRotationController : MonoBehaviour
         currentBoss = activeBossList.Dequeue();
     }
 
-    void Update()
-    {
-        //TEST --- TO BE REMOVED AFTERWARDS
-        #region TEST
-        if (swapTriggered)
-        {
-            RotateNextBoss(currentBoss);
-        }
-        #endregion
-
-        //TEST --- TO BE REMOVED AFTERWARDS
-        if (Input.GetKeyDown(KeyCode.P)){
-            currentBoss.Damage(10);
-        }
-
-    }
-
     public BossBehaviour RotateNextBoss(BossBehaviour _currentBoss)
     {
         swapTriggered = false;

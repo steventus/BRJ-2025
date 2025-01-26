@@ -11350,8 +11350,8 @@ MonoBehaviour:
   rotateBoss: 0
   inAttackPhase: 1
   attackComplete: 0
+  emptyChart: {fileID: 5414787343810204381, guid: 49b240c111b28a841b2b987fa1a26144, type: 3}
   stateDuration: 3.75
-  minHealthThreshold: 0.5
   minAttacksBeforeRotation: 3
 --- !u!1 &1468541096
 GameObject:
@@ -15935,6 +15935,7 @@ MonoBehaviour:
   completedLoops: 0
   loopPositionInBeats: 0
   loopPositionInAnalog: 0
+  loopPositionInBeatIndex: 0
   musicSource: {fileID: 0}
 --- !u!1 &2006703354
 GameObject:
@@ -16857,7 +16858,23 @@ PrefabInstance:
     - target: {fileID: 5624220578287943262, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
       propertyPath: triggerRotationChart
       value: 
-      objectReference: {fileID: 3740517175881901129, guid: 3778f1fb67d821447abf5d4951f8b3f3, type: 3}
+      objectReference: {fileID: 8026011796638699987, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
+    - target: {fileID: 5624220578287943262, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: Phase1Charts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624220578287943262, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: Phase2Charts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624220578287943262, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: Phase1Charts.Array.data[0]
+      value: 
+      objectReference: {fileID: 8026011796638699987, guid: 8f39518130741d44da19427870186652, type: 3}
+    - target: {fileID: 5624220578287943262, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: Phase2Charts.Array.data[0]
+      value: 
+      objectReference: {fileID: 1445097726138763521, guid: 218034fdcd6322f419d2a18ca140e50a, type: 3}
     - target: {fileID: 5624220578287943262, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
       propertyPath: randomCharts.Array.data[0]
       value: 
@@ -16885,7 +16902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 639611976687979644, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.25
+      value: 1.778
       objectReference: {fileID: 0}
     - target: {fileID: 639611976687979644, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -16924,9 +16941,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8026011796638699987, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
     - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
+      propertyPath: Phase1Charts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
+      propertyPath: Phase2Charts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
       propertyPath: randomCharts.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
+      propertyPath: Phase1Charts.Array.data[0]
+      value: 
+      objectReference: {fileID: 2776115447815908918, guid: 4dbe6956650d67b439d31b3b7fbd8795, type: 3}
+    - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
+      propertyPath: Phase1Charts.Array.data[1]
+      value: 
+      objectReference: {fileID: 1445097726138763521, guid: 218034fdcd6322f419d2a18ca140e50a, type: 3}
+    - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
+      propertyPath: Phase2Charts.Array.data[0]
+      value: 
+      objectReference: {fileID: 3740517175881901129, guid: 3778f1fb67d821447abf5d4951f8b3f3, type: 3}
     - target: {fileID: 6056828054114215739, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
       propertyPath: randomCharts.Array.data[0]
       value: 
@@ -16969,9 +17006,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 512206138305333474, guid: 68d8ebf7da1729b49a747c88af4dd401, type: 3}
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: Phase1Charts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: Phase2Charts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: randomCharts.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: Phase1Charts.Array.data[0]
+      value: 
+      objectReference: {fileID: 6637234680154833601, guid: ccae414a9409c4445901dc4589ba53a4, type: 3}
+    - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: Phase1Charts.Array.data[1]
+      value: 
+      objectReference: {fileID: 8026011796638699987, guid: c5e4745636e29d34b958d4f242277a59, type: 3}
+    - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: Phase2Charts.Array.data[0]
+      value: 
+      objectReference: {fileID: 5470252498066182064, guid: ef10c1a16d31dfd41a9f1239efbedcec, type: 3}
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: randomCharts.Array.data[0]
       value: 

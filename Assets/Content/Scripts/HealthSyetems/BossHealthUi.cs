@@ -10,13 +10,11 @@ public class BossHealthUi : HealthUi
 
     void OnEnable()
     {
-        Events.OnSuccessfulNoteHit += Damage;
-        Events.OnBadNoteHit += Heal;
+        
     }
     void OnDisable()
     {
-        Events.OnSuccessfulNoteHit -= Damage;
-        Events.OnBadNoteHit -= Heal;
+        
     }
     void Awake()
     {
