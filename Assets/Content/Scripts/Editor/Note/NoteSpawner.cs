@@ -4,9 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using TMPro;
 using System;
-using Unity.VisualScripting;
-using UnityEngine.AI;
-using UnityEngine.Assertions.Must;
 
 public class NoteSpawner : MonoBehaviour
 {
