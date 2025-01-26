@@ -38,7 +38,8 @@ public class Conductor : MonoBehaviour
     //The current relative position of the song within the loop measured between 0 and 1.
     public float loopPositionInAnalog;
 
-    public int loopPositionInBeatIndex;
+    public float loopBeatIndexPositionAnalog;
+    public int loopBeatIndexPosition;
     private float lastSavedtime;
 
     //Conductor instance
@@ -85,7 +86,8 @@ public class Conductor : MonoBehaviour
         loopPositionInBeats = songPositionInBeats - completedLoops * beatsPerLoop;
         loopPositionInAnalog = loopPositionInBeats / beatsPerLoop;
 
-        loopPositionInBeatIndex = Mathf.FloorToInt(songPositionInBeats - lastSavedtime);
+        loopBeatIndexPositionAnalog = songPositionInBeats - lastSavedtime;
+        loopBeatIndexPosition = Mathf.FloorToInt(loopBeatIndexPositionAnalog);
     }
 
     void LastSavedTime()

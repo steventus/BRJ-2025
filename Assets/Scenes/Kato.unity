@@ -154,8 +154,9 @@ MonoBehaviour:
   whatIsDisc:
     serializedVersion: 2
     m_Bits: 8
-  e: {fileID: 246137621}
   decelerationRate: 500
+  scratchRotationThreshold: 0
+  metronome: {fileID: 0}
   maxVolume: 100
   inGameVolume: 0
   volumeSlider: {fileID: 1508109418}
@@ -3353,7 +3354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2027268857240785042, guid: 0f4e904eda0f8f84eb0d2d21ac956eea, type: 3}
       propertyPath: m_Name
-      value: BossSwitch
+      value: ChangeNote
       objectReference: {fileID: 0}
     - target: {fileID: 8978372557021977207, guid: 0f4e904eda0f8f84eb0d2d21ac956eea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3410,7 +3411,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3908922870779152970, guid: 3168e4321d10d0345afeca59fa66ad62, type: 3}
       propertyPath: m_Name
-      value: ScrathL
+      value: ScrathACW
       objectReference: {fileID: 0}
     - target: {fileID: 4425810387126340923, guid: 3168e4321d10d0345afeca59fa66ad62, type: 3}
       propertyPath: isOccupied
@@ -3418,11 +3419,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8136968219454621680, guid: 3168e4321d10d0345afeca59fa66ad62, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.73
+      value: -0.65
       objectReference: {fileID: 0}
     - target: {fileID: 8136968219454621680, guid: 3168e4321d10d0345afeca59fa66ad62, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.03
+      value: 4.01
       objectReference: {fileID: 0}
     - target: {fileID: 8136968219454621680, guid: 3168e4321d10d0345afeca59fa66ad62, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3475,7 +3476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 905386603885433147, guid: 1154cbf40c1609f46bc4d6f009ff975a, type: 3}
       propertyPath: m_Name
-      value: ScrathR
+      value: ScrathCW
       objectReference: {fileID: 0}
     - target: {fileID: 7869604738203997373, guid: 1154cbf40c1609f46bc4d6f009ff975a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3536,7 +3537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1996023513606157969, guid: d0f8b52f3397bda47832a6306044e5ce, type: 3}
       propertyPath: m_Name
-      value: Avoid
+      value: BadNote
       objectReference: {fileID: 0}
     - target: {fileID: 3013852997466047807, guid: d0f8b52f3397bda47832a6306044e5ce, type: 3}
       propertyPath: m_SortingOrder

@@ -28,13 +28,13 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
             case Metronome.HitType.perfect:
-                Debug.Log("Perfect!");
+                //Debug.Log("Perfect!");
                 isHit = true;
                 Metronome.instance.PerfectHit();
                 break;
 
             case Metronome.HitType.good:
-                Debug.Log("Correct!");
+                //Debug.Log("Correct!");
                 isHit = true;
                 Metronome.instance.GoodHit();
                 break;
@@ -56,7 +56,7 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         {
             isHit = true;
             Metronome.instance.MissHit();
-            Debug.Log("Bad!");
+            //Debug.Log("Bad!");
         }
     }
 

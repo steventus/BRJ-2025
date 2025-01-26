@@ -12,8 +12,20 @@ public class Metronome : MonoBehaviour
     public List<RectTransform> beatMarkers = new List<RectTransform>();
     int beatIndex;
     int oldBeatIndex;
-    public RectTransform nextBeat;
-    public IPlayerInteractable currentNote => nextBeat.GetComponent<IPlayerInteractable>();
+    public RectTransform currentBeat;
+    public RectTransform nextBeat
+    {
+        get
+        {
+            int _selection = beatIndex + 1;
+            if (_selection >= beatMarkers.Count)
+                _selection = 0;
+            return beatMarkers[_selection];
+        }
+    }
+    public IPlayerInteractable currentNote;
+    public int beatIndexSelector;
+    public GameObject debugCurrentNote;
     private IPlayerInteractable oldNote;
 
     public float lerpSpeed;
@@ -35,7 +47,7 @@ public class Metronome : MonoBehaviour
     [SerializeField] private int hitDmg = 1;
 
     [Header("Threshold Adjustment")]
-    public float minThresholdForNoteHit = 0.4f;
+    public float goodHitThreshold = 0.4f;
     public float perfectHitThreshold = 0.2f;
 
     #region Private
@@ -61,22 +73,30 @@ public class Metronome : MonoBehaviour
         if (beatMarkers.Count == 0)
             return;
 
-        beatIndex = conductor.loopPositionInBeatIndex;
+        beatIndex = conductor.loopBeatIndexPosition;
 
         if (beatIndex >= beatMarkers.Count)
         {
             beatIndex = 0;
-            nextBeat = beatMarkers[0];
+            currentBeat = beatMarkers[0];
         }
         else
         {
-            nextBeat = beatMarkers[beatIndex];
+            currentBeat = beatMarkers[beatIndex];
         }
 
-        metronomeLine.anchoredPosition = Vector3.Lerp(metronomeLine.anchoredPosition, nextBeat.anchoredPosition, Time.deltaTime * lerpSpeed);
-
-        HandleNewPhrase();
+        HandleCurrentNote();
         HandleMissedNotes();
+        HandleNewPhrase();
+
+
+        float _analog;
+        if (Conductor.instance.loopBeatIndexPositionAnalog < 1)
+            _analog = Conductor.instance.loopBeatIndexPositionAnalog;
+
+        else _analog = Conductor.instance.loopBeatIndexPositionAnalog % Conductor.instance.loopBeatIndexPosition;
+        //Debug.Log("Analog : " + _analog);
+        metronomeLine.anchoredPosition = Vector3.Lerp(currentBeat.anchoredPosition, nextBeat.anchoredPosition, _analog);
     }
 
     public void SetMarkers()
@@ -101,15 +121,33 @@ public class Metronome : MonoBehaviour
         beatMarkers.Clear();
     }
 
+    private void HandleCurrentNote()
+    {
+        //Select note of reference based on Mathf.Round - if target is near to the next note, use next note instead
+        beatIndexSelector = (int)Mathf.Round(Conductor.instance.loopBeatIndexPositionAnalog);
+        beatIndexSelector = Mathf.Clamp(beatIndexSelector, 0, beatMarkers.Count);
+
+        //If upcoming note is at the next phrase, prepare for it.
+        if (beatIndexSelector >= beatMarkers.Count)
+        {
+            beatIndexSelector = 0;
+        }
+
+        currentNote = beatMarkers[beatIndexSelector].GetComponent<IPlayerInteractable>();
+        debugCurrentNote = beatMarkers[beatIndexSelector].gameObject;
+        oldNote = currentNote;
+    }
+
     public HitType CheckIfInputIsOnBeat()
     {
-        float inputPressDistanceFromBeat = Mathf.Abs((float)beatIndex - conductor.loopPositionInBeats);
+        float inputPressDistanceFromBeat = Mathf.Abs(beatIndexSelector - Conductor.instance.loopBeatIndexPositionAnalog);
+        Debug.Log("Input: " + inputPressDistanceFromBeat);
 
         if (inputPressDistanceFromBeat < perfectHitThreshold)
         {
             return HitType.perfect;
         }
-        else if (inputPressDistanceFromBeat < minThresholdForNoteHit)
+        else if (inputPressDistanceFromBeat < goodHitThreshold)
         {
             return HitType.good;
         }
@@ -168,7 +206,6 @@ public class Metronome : MonoBehaviour
             if (oldNote != currentNote)
             {
                 oldNote.OnMiss();
-                oldNote = currentNote;
             }
         }
     }
