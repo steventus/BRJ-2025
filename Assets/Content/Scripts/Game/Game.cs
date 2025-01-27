@@ -99,5 +99,6 @@ public static class Events
 
     //Input Events
     public static UnityAction PhraseEnded;
+    public static UnityAction BarEnded;
 
 }

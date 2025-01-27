@@ -68,12 +68,13 @@ public class MusicManager : MonoBehaviour
         
         //currentMusic.SetMute(true);
         //currentMusic.StopAll();
-        //currentMusic.FadeOutTransition();
+        Metronome.instance.barIndex = 0;
+        currentMusic.FadeOutTransition();
 
         //nextMusic.SetMute(false);
         //nextMusic.PlayAllAtLoop();
         
-        nextMusic.FadeInTransition();
+        //nextMusic.FadeInTransition();
 
         currentMusic = nextMusic;
     }

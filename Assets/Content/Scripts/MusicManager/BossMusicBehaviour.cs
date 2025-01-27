@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BossMusicBehaviour : MonoBehaviour
 {
@@ -72,9 +73,12 @@ public class BossMusicBehaviour : MonoBehaviour
     public void FadeOutTransition()
     {
         //Stop Scheduled melody, chords, fx
-        StartCoroutine(ScheduleStop(melody, Count.BarsToSamples(projectSampleRate, phaseOneMusic.melodyTransitionOutDurInBars)));
-        StartCoroutine(ScheduleStop(chords, Count.BarsToSamples(projectSampleRate, phaseOneMusic.chordsTransitionOutDurInBars)));
-        StartCoroutine(ScheduleStop(fx, Count.BarsToSamples(projectSampleRate, phaseOneMusic.fxTransitionOutDurInBars)));
+        //StartCoroutine(ScheduleStop(melody, Count.BarsToSamples(projectSampleRate, phaseOneMusic.melodyTransitionOutDurInBars)));
+        //StartCoroutine(ScheduleStop(chords, Count.BarsToSamples(projectSampleRate, phaseOneMusic.chordsTransitionOutDurInBars)));
+        //StartCoroutine(ScheduleStop(fx, Count.BarsToSamples(projectSampleRate, phaseOneMusic.fxTransitionOutDurInBars)));
+        StartCoroutine(CoroScheduleStop(melody, phaseOneMusic.melodyTransitionOutDurInBars));
+        StartCoroutine(CoroScheduleStop(chords, phaseOneMusic.chordsTransitionOutDurInBars));
+        StartCoroutine(CoroScheduleStop(fx, phaseOneMusic.fxTransitionOutDurInBars));
 
         //Stop immediately low drums, bassline
         lowDrums.Stop();
@@ -82,23 +86,34 @@ public class BossMusicBehaviour : MonoBehaviour
 
         //Fade out High Drums beyond transition
         #region TODO: Schedule it to fade over time instead of smash cut
-        StartCoroutine(ScheduleStop(highDrums, Count.BarsToSamples(projectSampleRate, phaseOneMusic.highDrumsTransitionOutDurInBars)));
+        //StartCoroutine(ScheduleStop(highDrums, Count.BarsToSamples(projectSampleRate, phaseOneMusic.highDrumsTransitionOutDurInBars)));
+        StartCoroutine(CoroScheduleStop(highDrums, phaseOneMusic.highDrumsTransitionOutDurInBars));
+
         #endregion
     }
 
-    private IEnumerator ScheduleStop(AudioSource _source, int _samples)
+    private IEnumerator CoroScheduleStop(AudioSource _source, int _numberOfBars)
     {
-        //Debug.Log("Stopping in: " + _time);
-        //yield return new WaitForSeconds(_time);
-        //_source.Stop();
+        //Subscribe to PhaseEnded, and count
+        int _count = 0; 
+        UnityAction _addCount = new UnityAction(() =>
+        {
+            _count++;
+        });
 
-        int _timeToStop = _source.timeSamples + _samples;
-        Debug.Log(_samples);
-        while (_source.timeSamples <= _timeToStop)
-            yield return null;
+        Events.BarEnded += _addCount;
+        while (_count <= _numberOfBars-1) //MINUS 1 (-1) instead of normal value due to racing conditions - where the Bar End is just being invoked one bar too late, Not sure why it occurs but this is the fix atm -Steventus
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        Events.BarEnded -= _addCount;
 
+        //After PhrasesEnded a number of Phrases aka Bars, run event.
         _source.Stop();
+
     }
+
+
 
     public void FadeInTransition()
     {
