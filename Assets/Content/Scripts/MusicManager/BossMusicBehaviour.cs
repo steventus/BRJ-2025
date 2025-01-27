@@ -10,7 +10,6 @@ public class BossMusicBehaviour : MonoBehaviour
 {
     [SerializeField] private AudioSource highDrums, lowDrums, melody, chords, fx, bassline;
     [SerializeField] private BossMusicScriptable phaseOneMusic, phaseTwoMusic;
-    private float chorusTimeInSecs => phaseOneMusic.timeAtDropOrChorusInSeconds;
     private int loopStartTimeInSamples => phaseOneMusic.timeAtDropOrChorusInSamples;
     private int loopEndTimeInSamples => phaseOneMusic.timeEndInSamples;
     private bool isLooping;
@@ -81,35 +80,31 @@ public class BossMusicBehaviour : MonoBehaviour
         StartCoroutine(CoroScheduleStop(fx, phaseOneMusic.fxTransitionOutDurInBars));
 
         //Stop immediately low drums, bassline
-        lowDrums.Stop();
-        bassline.Stop();
+        lowDrums.mute = true;
+        bassline.mute = true;
 
         //Fade out High Drums beyond transition
-        #region TODO: Schedule it to fade over time instead of smash cut
-        //StartCoroutine(ScheduleStop(highDrums, Count.BarsToSamples(projectSampleRate, phaseOneMusic.highDrumsTransitionOutDurInBars)));
         StartCoroutine(CoroScheduleStop(highDrums, phaseOneMusic.highDrumsTransitionOutDurInBars));
-
-        #endregion
     }
 
     private IEnumerator CoroScheduleStop(AudioSource _source, int _numberOfBars)
     {
         //Subscribe to PhaseEnded, and count
-        int _count = 0; 
+        int _count = 0;
         UnityAction _addCount = new UnityAction(() =>
         {
             _count++;
         });
 
         Events.BarEnded += _addCount;
-        while (_count <= _numberOfBars-1) //MINUS 1 (-1) instead of normal value due to racing conditions - where the Bar End is just being invoked one bar too late, Not sure why it occurs but this is the fix atm -Steventus
+        while (_count <= _numberOfBars - 1) //MINUS 1 (-1) instead of normal value due to racing conditions - where the Bar End is just being invoked one bar too late, Not sure why it occurs but this is the fix atm -Steventus
         {
             yield return new WaitForEndOfFrame();
         }
         Events.BarEnded -= _addCount;
 
         //After PhrasesEnded a number of Phrases aka Bars, run event.
-        _source.Stop();
+        _source.mute = true;
 
     }
 
@@ -119,19 +114,34 @@ public class BossMusicBehaviour : MonoBehaviour
     {
         //PlayScheduled Low Drums, Melody, Chords, Bassline
         //TODO: Play immediately and use timesamples to start at specific points
-        lowDrums.SetScheduledStartTime(chorusTimeInSecs);
-        melody.SetScheduledStartTime(chorusTimeInSecs);
-        chords.SetScheduledStartTime(chorusTimeInSecs);
-        bassline.SetScheduledStartTime(chorusTimeInSecs);
-
-        lowDrums.PlayScheduled(Conductor.instance.songPosition + Count.BeatsToSeconds(8));
-        melody.PlayScheduled(Conductor.instance.songPosition + Count.BeatsToSeconds(8));
-        chords.PlayScheduled(Conductor.instance.songPosition + Count.BeatsToSeconds(8));
-        bassline.PlayScheduled(Conductor.instance.songPosition + Count.BeatsToSeconds(8));
+        StartCoroutine(CoroSchedulePlay(melody, phaseOneMusic.melodyTransitionInDurInBars));
+        StartCoroutine(CoroSchedulePlay(chords, phaseOneMusic.chordsTransitionInDurInBars));
+        StartCoroutine(CoroSchedulePlay(fx, phaseOneMusic.fxTransitionInDurInBars));
+        StartCoroutine(CoroSchedulePlay(lowDrums, phaseOneMusic.lowDrumsTransitionInDurInBars));
 
         //Play immediately high drums, FX
-        PlayAtSample(highDrums, loopStartTimeInSamples - Count.BarsToSamples(projectSampleRate, phaseOneMusic.highDrumsTransitionInDurInBars));
-        PlayAtSample(fx, loopStartTimeInSamples - Count.BarsToSamples(projectSampleRate, phaseOneMusic.fxTransitionInDurInBars));
+        highDrums.mute = false;
+        fx.mute = false;
+    }
+
+    private IEnumerator CoroSchedulePlay(AudioSource _source, int _numberOfBars)
+    {
+        //Subscribe to PhaseEnded, and count
+        int _count = 0;
+        UnityAction _addCount = new UnityAction(() =>
+        {
+            _count++;
+        });
+
+        Events.BarEnded += _addCount;
+        while (_count <= _numberOfBars - 1) //MINUS 1 (-1) instead of normal value due to racing conditions - where the Bar End is just being invoked one bar too late, Not sure why it occurs but this is the fix atm -Steventus
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        Events.BarEnded -= _addCount;
+
+        //After PhrasesEnded a number of Phrases aka Bars, run event.
+        _source.mute = false;
     }
 
     private void LoopSong()

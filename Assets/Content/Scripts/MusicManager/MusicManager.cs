@@ -19,17 +19,20 @@ public class MusicManager : MonoBehaviour
     public int currentBossIndex = 0;
     private BossMusicBehaviour currentMusic;
     private BossMusicBehaviour nextMusic;
-    void Awake() {
+    void Awake()
+    {
         //Get and store all Boss objs
-        foreach(Transform boss in bossContainer) {
-            if(boss.TryGetComponent(out BossMusicBehaviour _bossMusicBehaviour)) {
+        foreach (Transform boss in bossContainer)
+        {
+            if (boss.TryGetComponent(out BossMusicBehaviour _bossMusicBehaviour))
+            {
                 _bossMusicBehaviour.SetVolume(volume);
-
-                //Mute all audio sources
-                _bossMusicBehaviour.SetMute(true);
 
                 //Initialise all audio sources to prevent lag spikes in game
                 _bossMusicBehaviour.PlayAll();
+
+                //Mute all audio sources
+                _bossMusicBehaviour.SetMute(true);
 
                 //Let them all loop, in order for them to play out the intro, use PlayAll method instead of PlayAllAtLoop.
                 _bossMusicBehaviour.SetLoop(true);
@@ -37,35 +40,37 @@ public class MusicManager : MonoBehaviour
                 bossMusicBehaviours.Add(_bossMusicBehaviour);
             }
         }
-
-        //currentMusicSource = bossMusicBehaviours[0].musicSource; 
-
     }
 
-    void Start() {
+    void Start()
+    {
         //set starting music source (first boss)
-        currentMusic = bossMusicBehaviours[0]; 
+        currentMusic = bossMusicBehaviours[0];
 
         currentMusic.SetMute(false);
         bossMusicBehaviours[0].PlayAll();
     }
 
-    public void DebugStartAtLoop(){
+    public void DebugStartAtLoop()
+    {
         currentMusic.PlayAllAtLoop();
     }
 
-    void Update(){
+    void Update()
+    {
         currentMusic.HandleUpdate();
     }
-    
-    public void StartFade() {
+
+    public void StartFade()
+    {
         currentBossIndex++;
-        if(currentBossIndex >= bossMusicBehaviours.Count) {
+        if (currentBossIndex >= bossMusicBehaviours.Count)
+        {
             currentBossIndex = 0;
         }
 
-        nextMusic = bossMusicBehaviours[currentBossIndex]; 
-        
+        nextMusic = bossMusicBehaviours[currentBossIndex];
+
         //currentMusic.SetMute(true);
         //currentMusic.StopAll();
         Metronome.instance.barIndex = 0;
@@ -73,8 +78,8 @@ public class MusicManager : MonoBehaviour
 
         //nextMusic.SetMute(false);
         //nextMusic.PlayAllAtLoop();
-        
-        //nextMusic.FadeInTransition();
+
+        nextMusic.FadeInTransition();
 
         currentMusic = nextMusic;
     }
