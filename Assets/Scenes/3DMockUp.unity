@@ -8085,7 +8085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &956546634
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9854,6 +9854,7 @@ GameObject:
   - component: {fileID: 1126766512}
   - component: {fileID: 1126766511}
   - component: {fileID: 1126766513}
+  - component: {fileID: 1126766514}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -9914,6 +9915,20 @@ MonoBehaviour:
   BossChangedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1126766514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126766510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecdde16ada3101a4b8563ed69e023c04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  losePanel: {fileID: 1886103348}
+  winPanel: {fileID: 956546633}
 --- !u!1 &1130629420
 GameObject:
   m_ObjectHideFlags: 0
@@ -10796,7 +10811,7 @@ MonoBehaviour:
   volume: 7
   fadeDuration: 0.05
   bossContainer: {fileID: 1409290359}
-  bossBehaviours: []
+  bossMusicBehaviours: []
   currentBossIndex: 0
 --- !u!1 &1247756133
 GameObject:
@@ -16877,7 +16892,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1886103349
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19293,7 +19308,7 @@ PrefabInstance:
       objectReference: {fileID: 3740517175881901129, guid: 3778f1fb67d821447abf5d4951f8b3f3, type: 3}
     - target: {fileID: 8914203177991200846, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
       propertyPath: m_Name
-      value: Boss 3
+      value: Funk
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19386,7 +19401,7 @@ PrefabInstance:
       objectReference: {fileID: 3740517175881901129, guid: 3778f1fb67d821447abf5d4951f8b3f3, type: 3}
     - target: {fileID: 7040972677900712235, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
       propertyPath: m_Name
-      value: Boss 1
+      value: Electro Swing
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19451,7 +19466,7 @@ PrefabInstance:
       objectReference: {fileID: 6637234680154833601, guid: ccae414a9409c4445901dc4589ba53a4, type: 3}
     - target: {fileID: 8100662683694486961, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: m_Name
-      value: Boss 2
+      value: Digital
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

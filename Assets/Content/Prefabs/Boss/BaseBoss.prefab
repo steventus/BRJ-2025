@@ -511,8 +511,6 @@ MonoBehaviour:
   isDead: 0
   phrasesCompleted: 0
   musicSource: {fileID: 0}
-  phaseOneMusic: {fileID: 0}
-  phaseTwoMusic: {fileID: 0}
   triggerRotationChart: {fileID: 8026011796638699987, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
   Phase1Charts: []
   Phase2Charts: []
@@ -564,6 +562,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af49a0d004ba45343978fac073fc773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highDrums: {fileID: 5919826487231368617}
+  lowDrums: {fileID: 132557073213087988}
+  melody: {fileID: 5551955227670310267}
+  chords: {fileID: 4802352634051420585}
+  fx: {fileID: 7237155715074711388}
+  bassline: {fileID: 8621406433599155143}
+  phaseOneMusic: {fileID: 0}
+  phaseTwoMusic: {fileID: 0}
 --- !u!1 &4986677951471322160
 GameObject:
   m_ObjectHideFlags: 0

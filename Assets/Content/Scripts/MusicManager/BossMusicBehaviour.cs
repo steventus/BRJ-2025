@@ -17,6 +17,14 @@ public class BossMusicBehaviour : MonoBehaviour
         bassline.Play();
     }
 
+    public void SetVolume(float _volume){
+        highDrums.volume = lowDrums.volume = melody.volume = chords.volume = fx.volume = bassline.volume = _volume;
+    }
+
+    public void SetMute(bool _ifTrue){
+        highDrums.mute = lowDrums.mute = melody.mute = chords.mute = fx.mute = bassline.mute = _ifTrue;
+    }
+
     public void FadeOutTransition()
     {
         //Stop Scheduled melody, chords, fx

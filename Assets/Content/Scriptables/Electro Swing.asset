@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd8a06df626c364da6b078b03864aef, type: 3}
   m_Name: Electro Swing
   m_EditorClassIdentifier: 
-  highDrums: {fileID: 0}
-  lowDrums: {fileID: 0}
-  melody: {fileID: 0}
-  chords: {fileID: 0}
-  fx: {fileID: 0}
-  bassline: {fileID: 0}
+  highDrums: {fileID: 8300000, guid: 2c3c5705ee639fc47a1a37bee72df86f, type: 3}
+  lowDrums: {fileID: 8300000, guid: 185a4d0e9c206a54081d5bb3c50f6f96, type: 3}
+  melody: {fileID: 8300000, guid: 12e0d8c5fc6705c4387b32088e168e50, type: 3}
+  chords: {fileID: 8300000, guid: f3ccdbb1641e346498f5c7a95150d1ae, type: 3}
+  fx: {fileID: 8300000, guid: 8fe0050fdd5e26f478806b818a34ee8c, type: 3}
+  bassline: {fileID: 8300000, guid: b34fa0c136873db409b23304454cafe0, type: 3}

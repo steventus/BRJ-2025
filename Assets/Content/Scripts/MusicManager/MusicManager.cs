@@ -6,42 +6,48 @@ using TMPro;
 
 public class MusicManager : MonoBehaviour
 {
-    [SerializeField] AudioSource currentMusicSource;
-    [SerializeField] AudioSource nextMusicSource;
     [SerializeField] float volume = 1;
     [SerializeField] float fadeDuration;
     bool isFadingBetweenSongs = false;
     [Header("Bosses")]
     public Transform bossContainer;
-    public List<BossBehaviour> bossBehaviours = new();
+    public List<BossMusicBehaviour> bossMusicBehaviours = new();
     public int currentBossIndex = 0;
+    private BossMusicBehaviour currentMusic;
+    private BossMusicBehaviour nextMusic;
     void Awake() {
         //Get and store all Boss objs
         foreach(Transform boss in bossContainer) {
-            if(boss.TryGetComponent(out BossBehaviour bossBehaviour)) {
-                bossBehaviours.Add(bossBehaviour);
+            if(boss.TryGetComponent(out BossMusicBehaviour _bossMusicBehaviour)) {
+                _bossMusicBehaviour.SetVolume(volume);
+                _bossMusicBehaviour.SetMute(true);
+                bossMusicBehaviours.Add(_bossMusicBehaviour);
             }
         }
-        currentMusicSource = bossBehaviours[0].musicSource; 
+
+        //currentMusicSource = bossMusicBehaviours[0].musicSource; 
+
     }
 
     void Start() {
         //set starting music source (first boss)
-        currentMusicSource = bossBehaviours[0].musicSource; 
+        currentMusic = bossMusicBehaviours[0]; 
 
-        currentMusicSource.volume = volume;
+        currentMusic.SetMute(false);
+        bossMusicBehaviours[0].PlayAll();
     }
     
     public void StartFade() {
         currentBossIndex++;
-        if(currentBossIndex >= bossBehaviours.Count) {
+        if(currentBossIndex >= bossMusicBehaviours.Count) {
             currentBossIndex = 0;
         }
 
-        nextMusicSource = bossBehaviours[currentBossIndex].musicSource; 
+        nextMusic = bossMusicBehaviours[currentBossIndex]; 
         
-        currentMusicSource.volume = 0;
-        nextMusicSource.volume = volume;
-        currentMusicSource = nextMusicSource;
+        currentMusic.SetMute(true);
+        nextMusic.SetMute(false);
+
+        currentMusic = nextMusic;
     }
 }

@@ -27,7 +27,7 @@ public class BossBehaviour : MonoBehaviour
     int songIndex;
     void OnEnable()
     {
-        musicSource = GetComponentInChildren<AudioSource>();
+        //musicSource = GetComponentInChildren<AudioSource>();
         Events.OnSuccessfulNoteHit += Damage;
         Events.OnBadNoteHit += Heal;
     }
