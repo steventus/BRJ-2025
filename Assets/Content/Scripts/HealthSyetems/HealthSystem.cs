@@ -12,6 +12,25 @@ public class HealthSystem : MonoBehaviour
 
     public UnityEvent HealthChangedEvent = new UnityEvent();
 
+    //unit type using health system
+    public enum UnitType { Player, Boss }
+    public UnitType unitType;
+    void OnEnable() 
+    {
+        if(unitType == UnitType.Player)
+        {
+            Events.OnUnsuccessfulNoteHit += DecreaseHealth;
+            Events.OnBadNoteHit += DecreaseHealth;
+        }
+    }
+    void OnDisable() 
+    {
+        if(unitType == UnitType.Player)
+        {
+            Events.OnUnsuccessfulNoteHit += DecreaseHealth;
+            Events.OnBadNoteHit += DecreaseHealth;
+        }
+    }
     public void SetHealth(int _number){
         currentHealth = _number;
         UpdateHealth();

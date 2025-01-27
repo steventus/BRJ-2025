@@ -213,13 +213,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 4103461382285470692}
+  healthThreshold: 50
   isDead: 0
   phrasesCompleted: 0
   musicSource: {fileID: 0}
   bossSongs: []
   triggerRotationChart: {fileID: 8026011796638699987, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
-  randomCharts:
-  - {fileID: 8026011796638699987, guid: 9bb140da0a4b8fd4a954b6a28c0f1072, type: 3}
+  Phase1Charts: []
+  Phase2Charts: []
 --- !u!114 &4103461382285470692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +238,7 @@ MonoBehaviour:
   HealthChangedEvent:
     m_PersistentCalls:
       m_Calls: []
+  unitType: 1
 --- !u!114 &7389650251321976993
 MonoBehaviour:
   m_ObjectHideFlags: 0
