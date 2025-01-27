@@ -16,6 +16,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss 3 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3725533459882352762, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: phaseOneMusic
+      value: 
+      objectReference: {fileID: 11400000, guid: e95766cabe930024681bc4b3e2476957, type: 2}
+    - target: {fileID: 3725533459882352762, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: phaseTwoMusic
+      value: 
+      objectReference: {fileID: 11400000, guid: e95766cabe930024681bc4b3e2476957, type: 2}
     - target: {fileID: 4750014327939727621, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.32032603

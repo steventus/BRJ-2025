@@ -77,7 +77,6 @@ public class Game : MonoBehaviour
             Metronome.instance.currentNote.OnScratch(ScratchDirection.Direction.ACW);
         }
 
-        GUI.Label(new Rect(20, 160, 100, 20), "Never Rotate: " + FindObjectOfType<EnemyTurn>().debugNeverRotate.ToString());
         if (GUI.Button(new Rect(20, 180, 100, 20), "Set Never Rotate Boss"))
         {
             bool _debugNeverRotate = FindObjectOfType<EnemyTurn>().debugNeverRotate;

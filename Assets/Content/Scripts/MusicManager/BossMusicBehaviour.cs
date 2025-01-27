@@ -29,17 +29,19 @@ public class BossMusicBehaviour : MonoBehaviour
         fx.Stop();
         bassline.Stop();
     }
+
+    //Call when transitioning songs to immediately start at loop section
+    public void PlayAllAtLoop()
+    {
+        PlayAll();
+        highDrums.timeSamples = lowDrums.timeSamples = melody.timeSamples = chords.timeSamples = fx.timeSamples = bassline.timeSamples = loopStartTimeInSamples;
+    }
     public void HandleUpdate()
     {
-        //if (!isLooping)
-        //    return;
-
-        if (highDrums.timeSamples >= loopEndTimeInSamples)
+        if (isLooping && highDrums.timeSamples >= loopEndTimeInSamples)
         {
-            highDrums.timeSamples = lowDrums.timeSamples = melody.timeSamples = chords.timeSamples = fx.timeSamples = bassline.timeSamples = loopStartTimeInSamples;
+            LoopSong();
         }
-
-        Debug.Log("HighDrums: " + highDrums.timeSamples);
     }
 
     public void SetVolume(float _volume)
@@ -60,6 +62,7 @@ public class BossMusicBehaviour : MonoBehaviour
     public void FadeOutTransition()
     {
         //Stop Scheduled melody, chords, fx
+        //TODO: Use Timesamples to start at specific points
         #region Test
         melody.Stop();
         chords.Stop();
@@ -79,6 +82,7 @@ public class BossMusicBehaviour : MonoBehaviour
     public void FadeInTransition()
     {
         //PlayScheduled Low Drums, Melody, Chords, Bassline
+        //TODO: Play immediately and use timesamples to start at specific points
         lowDrums.SetScheduledStartTime(chorusTimeInSecs);
         melody.SetScheduledStartTime(chorusTimeInSecs);
         chords.SetScheduledStartTime(chorusTimeInSecs);
@@ -92,5 +96,10 @@ public class BossMusicBehaviour : MonoBehaviour
         //Play immediately high drums, FX
         highDrums.Play();
         fx.Play();
+    }
+
+    private void LoopSong()
+    {
+        highDrums.timeSamples = lowDrums.timeSamples = melody.timeSamples = chords.timeSamples = fx.timeSamples = bassline.timeSamples = loopStartTimeInSamples;
     }
 }

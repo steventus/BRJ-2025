@@ -24,10 +24,15 @@ public class MusicManager : MonoBehaviour
         foreach(Transform boss in bossContainer) {
             if(boss.TryGetComponent(out BossMusicBehaviour _bossMusicBehaviour)) {
                 _bossMusicBehaviour.SetVolume(volume);
+
+                //Mute all audio sources
                 _bossMusicBehaviour.SetMute(true);
 
                 //Initialise all audio sources to prevent lag spikes in game
                 _bossMusicBehaviour.PlayAll();
+
+                //Let them all loop, in order for them to play out the intro, use PlayAll method instead of PlayAllAtLoop.
+                _bossMusicBehaviour.SetLoop(true);
 
                 bossMusicBehaviours.Add(_bossMusicBehaviour);
             }
@@ -61,7 +66,7 @@ public class MusicManager : MonoBehaviour
         currentMusic.StopAll();
 
         nextMusic.SetMute(false);
-        nextMusic.PlayAll();
+        nextMusic.PlayAllAtLoop();
 
         currentMusic = nextMusic;
     }
