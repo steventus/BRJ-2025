@@ -50,6 +50,10 @@ public class MusicManager : MonoBehaviour
         bossMusicBehaviours[0].PlayAll();
     }
 
+    public void DebugStartAtLoop(){
+        currentMusic.PlayAllAtLoop();
+    }
+
     void Update(){
         currentMusic.HandleUpdate();
     }
@@ -62,11 +66,14 @@ public class MusicManager : MonoBehaviour
 
         nextMusic = bossMusicBehaviours[currentBossIndex]; 
         
-        currentMusic.SetMute(true);
-        currentMusic.StopAll();
+        //currentMusic.SetMute(true);
+        //currentMusic.StopAll();
+        //currentMusic.FadeOutTransition();
 
-        nextMusic.SetMute(false);
-        nextMusic.PlayAllAtLoop();
+        //nextMusic.SetMute(false);
+        //nextMusic.PlayAllAtLoop();
+        
+        nextMusic.FadeInTransition();
 
         currentMusic = nextMusic;
     }

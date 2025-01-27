@@ -26,7 +26,6 @@ public class EnemyTurn : BaseState
         // [[ ENEMY START PHASE ]]
         if (rotateBoss && !debugNeverRotate)
         {
-            musicManager.StartFade();
             bossRotationControl.RotateNextBoss(bossRotationControl.currentBoss);
 
             //TODO: Add Introduction phase here for first-time introductions
@@ -75,6 +74,7 @@ public class EnemyTurn : BaseState
                 // chosenChart = forcedRotateChart
                 rotateBoss = true;
                 _chartToSpawn = _currentBoss.triggerRotationChart;
+                musicManager.StartFade();
             }
             else
             {

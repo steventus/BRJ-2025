@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossMusicBehaviour : MonoBehaviour
@@ -10,6 +13,8 @@ public class BossMusicBehaviour : MonoBehaviour
     private int loopStartTimeInSamples => phaseOneMusic.timeAtDropOrChorusInSamples;
     private int loopEndTimeInSamples => phaseOneMusic.timeEndInSamples;
     private bool isLooping;
+    private int projectSampleRate => phaseOneMusic.projectSampleRate;
+    private int projectBeatsPerBar => phaseOneMusic.beatsPerBar;
     public void PlayAll()
     {
         highDrums.Play();
@@ -35,6 +40,11 @@ public class BossMusicBehaviour : MonoBehaviour
     {
         PlayAll();
         highDrums.timeSamples = lowDrums.timeSamples = melody.timeSamples = chords.timeSamples = fx.timeSamples = bassline.timeSamples = loopStartTimeInSamples;
+    }
+
+    private void PlayAtSample(AudioSource _source, int sample)
+    {
+        _source.timeSamples = sample;
     }
     public void HandleUpdate()
     {
@@ -62,21 +72,32 @@ public class BossMusicBehaviour : MonoBehaviour
     public void FadeOutTransition()
     {
         //Stop Scheduled melody, chords, fx
-        //TODO: Use Timesamples to start at specific points
-        #region Test
-        melody.Stop();
-        chords.Stop();
-        fx.Stop();
-        #endregion
+        StartCoroutine(ScheduleStop(melody, Count.BarsToSamples(projectSampleRate, phaseOneMusic.melodyTransitionOutDurInBars)));
+        StartCoroutine(ScheduleStop(chords, Count.BarsToSamples(projectSampleRate, phaseOneMusic.chordsTransitionOutDurInBars)));
+        StartCoroutine(ScheduleStop(fx, Count.BarsToSamples(projectSampleRate, phaseOneMusic.fxTransitionOutDurInBars)));
 
         //Stop immediately low drums, bassline
         lowDrums.Stop();
         bassline.Stop();
 
         //Fade out High Drums beyond transition
-        #region Test
-        highDrums.Stop();
+        #region TODO: Schedule it to fade over time instead of smash cut
+        StartCoroutine(ScheduleStop(highDrums, Count.BarsToSamples(projectSampleRate, phaseOneMusic.highDrumsTransitionOutDurInBars)));
         #endregion
+    }
+
+    private IEnumerator ScheduleStop(AudioSource _source, int _samples)
+    {
+        //Debug.Log("Stopping in: " + _time);
+        //yield return new WaitForSeconds(_time);
+        //_source.Stop();
+
+        int _timeToStop = _source.timeSamples + _samples;
+        Debug.Log(_samples);
+        while (_source.timeSamples <= _timeToStop)
+            yield return null;
+
+        _source.Stop();
     }
 
     public void FadeInTransition()
@@ -94,8 +115,8 @@ public class BossMusicBehaviour : MonoBehaviour
         bassline.PlayScheduled(Conductor.instance.songPosition + Count.BeatsToSeconds(8));
 
         //Play immediately high drums, FX
-        highDrums.Play();
-        fx.Play();
+        PlayAtSample(highDrums, loopStartTimeInSamples - Count.BarsToSamples(projectSampleRate, phaseOneMusic.highDrumsTransitionInDurInBars));
+        PlayAtSample(fx, loopStartTimeInSamples - Count.BarsToSamples(projectSampleRate, phaseOneMusic.fxTransitionInDurInBars));
     }
 
     private void LoopSong()
