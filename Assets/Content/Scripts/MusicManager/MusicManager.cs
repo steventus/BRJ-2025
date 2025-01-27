@@ -21,6 +21,10 @@ public class MusicManager : MonoBehaviour
             if(boss.TryGetComponent(out BossMusicBehaviour _bossMusicBehaviour)) {
                 _bossMusicBehaviour.SetVolume(volume);
                 _bossMusicBehaviour.SetMute(true);
+
+                //Initialise all audio sources to prevent lag spikes in game
+                _bossMusicBehaviour.PlayAll();
+
                 bossMusicBehaviours.Add(_bossMusicBehaviour);
             }
         }
@@ -46,7 +50,10 @@ public class MusicManager : MonoBehaviour
         nextMusic = bossMusicBehaviours[currentBossIndex]; 
         
         currentMusic.SetMute(true);
+        currentMusic.StopAll();
+
         nextMusic.SetMute(false);
+        nextMusic.PlayAll();
 
         currentMusic = nextMusic;
     }
