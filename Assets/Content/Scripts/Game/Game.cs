@@ -52,7 +52,7 @@ public class Game : MonoBehaviour
     //Debug Menus, won't appear in final builds
     void OnGUI()
     {
-        GUI.Box(new Rect(10, 10, 300, 150), "Debug Menu");
+        GUI.Box(new Rect(10, 10, 300, 200), "Debug Menu");
         GUI.Label(new Rect(20, 30, 300, 90), "Metronome position: " + Conductor.instance.loopBeatIndexPositionAnalog.ToString());
         GUI.Label(new Rect(20, 60, 150, 90), "Conductor beat index: " + Conductor.instance.loopBeatIndexPosition.ToString());
         GUI.Label(new Rect(20, 45, 150, 90), "Metronome target beat: " + Metronome.instance.beatIndexSelector);
@@ -75,6 +75,13 @@ public class Game : MonoBehaviour
         if (GUI.Button(new Rect(20, 140, 100, 20), "Scratch ACW"))
         {
             Metronome.instance.currentNote.OnScratch(ScratchDirection.Direction.ACW);
+        }
+
+        GUI.Label(new Rect(20, 160, 100, 20), "Never Rotate: " + FindObjectOfType<EnemyTurn>().debugNeverRotate.ToString());
+        if (GUI.Button(new Rect(20, 180, 100, 20), "Set Never Rotate Boss"))
+        {
+            bool _debugNeverRotate = FindObjectOfType<EnemyTurn>().debugNeverRotate;
+            FindObjectOfType<EnemyTurn>().debugNeverRotate = !_debugNeverRotate;
         }
     }
 }

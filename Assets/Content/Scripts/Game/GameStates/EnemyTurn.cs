@@ -12,6 +12,7 @@ public class EnemyTurn : BaseState
     [SerializeField] bool inAttackPhase = false;
     [SerializeField] bool attackComplete = false;
     [SerializeField] Chart emptyChart;
+    [HideInInspector] public bool debugNeverRotate = false;
 
     [Header("Variables")]
     //rotation check
@@ -23,7 +24,7 @@ public class EnemyTurn : BaseState
         //Debug.Log("enter " + transform.name);
 
         // [[ ENEMY START PHASE ]]
-        if (rotateBoss)
+        if (rotateBoss && !debugNeverRotate)
         {
             musicManager.StartFade();
             bossRotationControl.RotateNextBoss(bossRotationControl.currentBoss);

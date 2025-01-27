@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// In the future, this can totally be retrofitted as a statemachine as well with BossMusicBehaviour as the States. But for the sake of putting this together, I'm doing a haphazard approach.
+/// - Steventus
+/// </summary>
 public class MusicManager : MonoBehaviour
 {
     [SerializeField] float volume = 1;
@@ -39,6 +43,10 @@ public class MusicManager : MonoBehaviour
 
         currentMusic.SetMute(false);
         bossMusicBehaviours[0].PlayAll();
+    }
+
+    void Update(){
+        currentMusic.HandleUpdate();
     }
     
     public void StartFade() {

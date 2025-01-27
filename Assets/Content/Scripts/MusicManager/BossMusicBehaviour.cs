@@ -6,7 +6,10 @@ public class BossMusicBehaviour : MonoBehaviour
 {
     [SerializeField] private AudioSource highDrums, lowDrums, melody, chords, fx, bassline;
     [SerializeField] private BossMusicScriptable phaseOneMusic, phaseTwoMusic;
-    private float timeAtDropOrChorusInSeconds => phaseOneMusic.timeAtDropOrChorusInSeconds;
+    private float chorusTimeInSecs => phaseOneMusic.timeAtDropOrChorusInSeconds;
+    private int loopStartTimeInSamples => phaseOneMusic.timeAtDropOrChorusInSamples;
+    private int loopEndTimeInSamples => phaseOneMusic.timeEndInSamples;
+    private bool isLooping;
     public void PlayAll()
     {
         highDrums.Play();
@@ -26,6 +29,18 @@ public class BossMusicBehaviour : MonoBehaviour
         fx.Stop();
         bassline.Stop();
     }
+    public void HandleUpdate()
+    {
+        //if (!isLooping)
+        //    return;
+
+        if (highDrums.timeSamples >= loopEndTimeInSamples)
+        {
+            highDrums.timeSamples = lowDrums.timeSamples = melody.timeSamples = chords.timeSamples = fx.timeSamples = bassline.timeSamples = loopStartTimeInSamples;
+        }
+
+        Debug.Log("HighDrums: " + highDrums.timeSamples);
+    }
 
     public void SetVolume(float _volume)
     {
@@ -35,6 +50,11 @@ public class BossMusicBehaviour : MonoBehaviour
     public void SetMute(bool _ifTrue)
     {
         highDrums.mute = lowDrums.mute = melody.mute = chords.mute = fx.mute = bassline.mute = _ifTrue;
+    }
+
+    public void SetLoop(bool _state)
+    {
+        isLooping = _state;
     }
 
     public void FadeOutTransition()
@@ -59,10 +79,10 @@ public class BossMusicBehaviour : MonoBehaviour
     public void FadeInTransition()
     {
         //PlayScheduled Low Drums, Melody, Chords, Bassline
-        lowDrums.SetScheduledStartTime(timeAtDropOrChorusInSeconds);
-        melody.SetScheduledStartTime(timeAtDropOrChorusInSeconds);
-        chords.SetScheduledStartTime(timeAtDropOrChorusInSeconds);
-        bassline.SetScheduledStartTime(timeAtDropOrChorusInSeconds);
+        lowDrums.SetScheduledStartTime(chorusTimeInSecs);
+        melody.SetScheduledStartTime(chorusTimeInSecs);
+        chords.SetScheduledStartTime(chorusTimeInSecs);
+        bassline.SetScheduledStartTime(chorusTimeInSecs);
 
         lowDrums.PlayScheduled(Conductor.instance.songPosition + Count.BeatsToSeconds(8));
         melody.PlayScheduled(Conductor.instance.songPosition + Count.BeatsToSeconds(8));
