@@ -82,7 +82,7 @@ public class MusicManager : MonoBehaviour
         drumfillSource.mute = true;
     }
 
-    void Start()
+    public void StartMusic()
     {
         //set starting music source (first boss)
         currentMusic = bossMusicBehaviours[0];
