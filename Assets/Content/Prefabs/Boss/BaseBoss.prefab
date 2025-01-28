@@ -531,6 +531,7 @@ MonoBehaviour:
   HealthChangedEvent:
     m_PersistentCalls:
       m_Calls: []
+  unitType: 1
 --- !u!114 &7389650251321976993
 MonoBehaviour:
   m_ObjectHideFlags: 0
