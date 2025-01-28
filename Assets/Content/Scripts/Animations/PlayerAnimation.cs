@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    Animator animator;
-    void OnEnable() {
-        Events.OnSuccessfulNoteHit += Scratch;
+    [SerializeField] Transform playerHand;
+    [SerializeField] Vector3 moveVector;
+    RaycastHit hit;
+    void OnEnable() 
+    {
     }
-    void OnDisable() {
-        Events.OnSuccessfulNoteHit -= Scratch;
+    void OnDisable()
+    {
     }
-    void Awake() {
-        animator = GetComponent<Animator>();
-    }
-    void Scratch(int i) {
-        animator.Play("Scratch");
+    void Update() {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        bool testRay = Physics.Raycast(ray, out hit, Mathf.Infinity, TurntableManager.instance.whatIsDisc);
+        
+        if(testRay) 
+        {
+            Vector3 point = hit.point;
+            if(TurntableManager.instance.OnInputDown()) 
+            {
+                point += moveVector;
+            }
+            playerHand.position = point;
+        }
     }
 }
