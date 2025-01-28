@@ -12,9 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd8a06df626c364da6b078b03864aef, type: 3}
   m_Name: Digital
   m_EditorClassIdentifier: 
-  highDrums: {fileID: 0}
-  lowDrums: {fileID: 0}
-  melody: {fileID: 0}
-  chords: {fileID: 0}
-  fx: {fileID: 0}
-  bassline: {fileID: 0}
+  projectSampleRate: 44100
+  timeAtDropOrChorusInSeconds: 45
+  loopEndTimeInSeconds: 105
+  beatsPerBar: 4
+  musicGenre: 1
+  highDrumsTransitionOutDurInBars: 4
+  lowDrumsTransitionOutDurInBars: 0
+  melodyTransitionOutDurInBars: 2
+  chordsTransitionOutDurInBars: 2
+  fxTransitionOutDurInBars: 2
+  basslineTransitionOutDurInBars: 0
+  highDrumsTransitionInDurInBars: 0
+  lowDrumsTransitionInDurInBars: 2
+  melodyTransitionInDurInBars: 2
+  chordsTransitionInDurInBars: 2
+  fxTransitionInDurInBars: 0
+  basslineTransitionInDurInBars: 2

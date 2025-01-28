@@ -15,6 +15,7 @@ public class BossMusicBehaviour : MonoBehaviour
     private bool isLooping;
     private int projectSampleRate => phaseOneMusic.projectSampleRate;
     private int projectBeatsPerBar => phaseOneMusic.beatsPerBar;
+    public BossMusicScriptable.Genre genre => phaseOneMusic.musicGenre;
     public void PlayAll()
     {
         highDrums.Play();
@@ -48,6 +49,9 @@ public class BossMusicBehaviour : MonoBehaviour
     }
     public void HandleUpdate()
     {
+        Debug.Log(highDrums.timeSamples);
+        Debug.Log(loopStartTimeInSamples);
+        Debug.Log(loopEndTimeInSamples);
         if (isLooping && highDrums.timeSamples >= loopEndTimeInSamples)
         {
             LoopSong();
@@ -72,9 +76,6 @@ public class BossMusicBehaviour : MonoBehaviour
     public void FadeOutTransition()
     {
         //Stop Scheduled melody, chords, fx
-        //StartCoroutine(ScheduleStop(melody, Count.BarsToSamples(projectSampleRate, phaseOneMusic.melodyTransitionOutDurInBars)));
-        //StartCoroutine(ScheduleStop(chords, Count.BarsToSamples(projectSampleRate, phaseOneMusic.chordsTransitionOutDurInBars)));
-        //StartCoroutine(ScheduleStop(fx, Count.BarsToSamples(projectSampleRate, phaseOneMusic.fxTransitionOutDurInBars)));
         StartCoroutine(CoroScheduleStop(melody, phaseOneMusic.melodyTransitionOutDurInBars));
         StartCoroutine(CoroScheduleStop(chords, phaseOneMusic.chordsTransitionOutDurInBars));
         StartCoroutine(CoroScheduleStop(fx, phaseOneMusic.fxTransitionOutDurInBars));
@@ -107,9 +108,6 @@ public class BossMusicBehaviour : MonoBehaviour
         _source.mute = true;
 
     }
-
-
-
     public void FadeInTransition()
     {
         //PlayScheduled Low Drums, Melody, Chords, Bassline

@@ -25,6 +25,12 @@ public class BossMusicScriptable : ScriptableObject
     public int timeAtDropOrChorusInSamples => projectSampleRate * timeAtDropOrChorusInSeconds;
     public int timeEndInSamples => projectSampleRate * loopEndTimeInSeconds;
     public int beatsPerBar = 4;
+    public enum Genre {
+        ElectroSwing,
+        Digital,
+        Funk
+    }
+    public Genre musicGenre;
 
     /// <summary>
     /// 0 means instantaneous upon called from the moment the Transition Chart is LOADED in from ENEMY TURN
