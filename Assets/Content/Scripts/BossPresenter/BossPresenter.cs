@@ -26,6 +26,8 @@ public class BossPresenter : MonoBehaviour
     public Sprite badNoteSprite;
     public Sprite changeNoteSprite;
     public Sprite emptyNoteSprite;
+    public Sprite UIPortraitSprite;
+
     public enum DancePose
     {
         scratchNote,

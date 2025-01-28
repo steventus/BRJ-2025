@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BossBehaviour : MonoBehaviour
 {
+    [Header("NAME")]
+    public string bossName;
     [Header("HP")]
     [SerializeField] HealthSystem health;
     public HealthSystem Health => health;

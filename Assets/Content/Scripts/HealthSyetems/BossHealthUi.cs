@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BossHealthUi : HealthUi
 {
     BossBehaviour selectedBoss;
     BossRotationController thisController;
 
+    [SerializeField] TextMeshProUGUI bossNameTmp;
     void OnEnable()
     {
         Events.OnSuccessfulNoteHit += Damage;   
@@ -28,6 +30,7 @@ public class BossHealthUi : HealthUi
         health.HealthChangedEvent.AddListener(OnHealthChanged);
 
     }
+
     protected override void OnDestroy()
     {
         //TODO: Add observer event to connect call OnBossChanged
@@ -49,6 +52,12 @@ public class BossHealthUi : HealthUi
 
         //Subscribe to new selected boss
         health.HealthChangedEvent.AddListener(OnHealthChanged);
+
+        // change portrait
+        portrait.sprite = selectedBoss.GetComponent<BossPresenter>().UIPortraitSprite;
+
+        // change boss name text
+        bossNameTmp.text = selectedBoss.bossName;
 
         //Call for immediate update
         UpdateView();
