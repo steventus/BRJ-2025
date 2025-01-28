@@ -8,10 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 132557073213087988, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5fce0db7768ed6a4c857ba5fee61c178, type: 3}
     - target: {fileID: 2935683066331346002, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
       propertyPath: m_Name
       value: Boss 2 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3725533459882352762, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: phaseOneMusic
+      value: 
+      objectReference: {fileID: 11400000, guid: f5b5fede8cfdbdd469dd940bf5cf3856, type: 2}
+    - target: {fileID: 3725533459882352762, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: phaseTwoMusic
+      value: 
+      objectReference: {fileID: 11400000, guid: f5b5fede8cfdbdd469dd940bf5cf3856, type: 2}
     - target: {fileID: 4750014327939727621, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.32032603
@@ -64,6 +76,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4802352634051420585, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3ddec2b5d1e036844b9be2890e6542c0, type: 3}
+    - target: {fileID: 5551955227670310267, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 12222af13235daf488a83f42f87aa286, type: 3}
+    - target: {fileID: 5919826487231368617, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f0e19336daeaed34ea1e7aec61a38dd4, type: 3}
+    - target: {fileID: 7237155715074711388, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 51e47e3f89c6aab45bed9d93139facc8, type: 3}
+    - target: {fileID: 8621406433599155143, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cfdb39b7bcd8c45469a88566534aeeea, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

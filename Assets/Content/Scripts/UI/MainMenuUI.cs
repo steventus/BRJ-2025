@@ -33,7 +33,7 @@ public class MainMenuUI : MonoBehaviour
     }
 
     public void QuitGame() {
-        Application.Quit();
-        EditorApplication.ExitPlaymode();
+        //Application.Quit();
+        //EditorApplication.ExitPlaymode();
     }
 }

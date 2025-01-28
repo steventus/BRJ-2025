@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acd8a06df626c364da6b078b03864aef, type: 3}
+  m_Name: Digital
+  m_EditorClassIdentifier: 
+  projectSampleRate: 44100
+  timeAtDropOrChorusInSeconds: 45
+  loopEndTimeInSeconds: 105
+  beatsPerBar: 4
+  musicGenre: 1
+  highDrumsTransitionOutDurInBars: 4
+  lowDrumsTransitionOutDurInBars: 0
+  melodyTransitionOutDurInBars: 2
+  chordsTransitionOutDurInBars: 2
+  fxTransitionOutDurInBars: 2
+  basslineTransitionOutDurInBars: 0
+  highDrumsTransitionInDurInBars: 0
+  lowDrumsTransitionInDurInBars: 2
+  melodyTransitionInDurInBars: 2
+  chordsTransitionInDurInBars: 2
+  fxTransitionInDurInBars: 0
+  basslineTransitionInDurInBars: 2

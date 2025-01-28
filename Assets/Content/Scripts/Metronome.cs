@@ -12,6 +12,7 @@ public class Metronome : MonoBehaviour
     public List<RectTransform> beatMarkers = new List<RectTransform>();
     int beatIndex;
     int oldBeatIndex;
+    public int barIndex;
     public RectTransform currentBeat;
     public RectTransform nextBeat
     {
@@ -88,6 +89,7 @@ public class Metronome : MonoBehaviour
         HandleCurrentNote();
         HandleMissedNotes();
         HandleNewPhrase();
+        HandleNewBar();
 
 
         float _analog;
@@ -97,6 +99,8 @@ public class Metronome : MonoBehaviour
         else _analog = Conductor.instance.loopBeatIndexPositionAnalog % Conductor.instance.loopBeatIndexPosition;
         //Debug.Log("Analog : " + _analog);
         metronomeLine.anchoredPosition = Vector3.Lerp(currentBeat.anchoredPosition, nextBeat.anchoredPosition, _analog);
+
+        oldBeatIndex = beatIndex;
     }
 
     public void SetMarkers()
@@ -210,13 +214,25 @@ public class Metronome : MonoBehaviour
         }
     }
 
+    void HandleNewBar(){
+        if (oldBeatIndex != beatIndex){
+            barIndex++;
+
+            if (barIndex >= 4){
+                barIndex = 0;
+                Events.BarEnded?.Invoke();
+                Debug.Log("Bar End");
+            }
+        }
+       
+    }
+
     void HandleNewPhrase()
     {
         if (oldBeatIndex != beatIndex && beatIndex == 0)
         {
             Events.PhraseEnded?.Invoke();
         }
-        oldBeatIndex = beatIndex;
     }
 
     void DisableMessages()
