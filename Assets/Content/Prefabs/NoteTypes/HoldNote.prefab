@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d1cd44b6dd422f346b982bfb10a4bfcf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86e46b0bd9b6bc64c8b61c71143d7a47, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 1142227742651156163}
   - component: {fileID: -5213954426963025774}
   - component: {fileID: 5534078041625555212}
+  - component: {fileID: 4189378687915215263}
   m_Layer: 5
   m_Name: HoldNote
   m_TagString: Untagged
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cc0c0dbb07dc50408ff13dd29b1b0c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRight: 0
+  isCW: 0
   noteType: 1
 --- !u!114 &5534078041625555212
 MonoBehaviour:
@@ -152,5 +153,20 @@ MonoBehaviour:
   spriteCW: {fileID: 21300000, guid: 86e46b0bd9b6bc64c8b61c71143d7a47, type: 3}
   spriteACW: {fileID: 21300000, guid: d1cd44b6dd422f346b982bfb10a4bfcf, type: 3}
   holdNote: {fileID: -5213954426963025774}
-  holdEndSpriteCW: {fileID: 21300000, guid: ea4f8b74a16f19441ac9a621a8ab1e58, type: 3}
-  holdEndSpriteACW: {fileID: 21300000, guid: fb0c6538242c1154cb5b0dc2afff1939, type: 3}
+  holdEndSpriteCW: {fileID: 21300000, guid: bec44197d2be3ba4080aa2ee744eb8c6, type: 3}
+  holdEndSpriteACW: {fileID: 21300000, guid: bec44197d2be3ba4080aa2ee744eb8c6, type: 3}
+--- !u!114 &4189378687915215263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435385742866039976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8367a50cc4b14d42bf6bea7d89ea7ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdNoteConnectionPrefab: {fileID: 4307609366668928690, guid: d750ef39b5a62e144a5e025ff341b8d1, type: 3}
+  CWColour: {r: 0.9725491, g: 0.37254903, b: 0.59607846, a: 1}
+  ACWColor: {r: 0.5254902, g: 0.9568628, b: 1, a: 1}

@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
 {
-    public bool isRight;
+    public bool isCW;
     private bool isStart = true;
     public bool IsStart => isStart;
     private bool isHolding = false;
     private bool isHit = false;
     private HoldNote connectedEndHoldNote;
+    public HoldNote ConnectedEndHoldNote => connectedEndHoldNote;
 
-    private ScratchDirection.Direction noteDirection => isRight ? ScratchDirection.Direction.CW : ScratchDirection.Direction.ACW;
+    private ScratchDirection.Direction noteDirection => isCW ? ScratchDirection.Direction.CW : ScratchDirection.Direction.ACW;
     [SerializeField] private NoteType.Note noteType;
 
     //Called and set from TrackFactory

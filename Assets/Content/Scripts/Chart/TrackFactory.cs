@@ -69,7 +69,7 @@ public class TrackFactory : MonoBehaviour
                 case NoteType.Note.holdStart:
                     //Instantiate start hold notes
                     _instantiatedNote = Instantiate(holdNotePrefab, track);
-                    _instantiatedNote.GetComponent<HoldNote>().isRight = _currentNote.ifRight;
+                    _instantiatedNote.GetComponent<HoldNote>().isCW = _currentNote.ifRight;
 
                     _instantiatedNote.GetComponent<HoldNote>().SetStartHold();
 
@@ -78,7 +78,7 @@ public class TrackFactory : MonoBehaviour
                     break;
                 case NoteType.Note.holdEnd:
                     _instantiatedNote = Instantiate(holdNotePrefab, track);
-                    _instantiatedNote.GetComponent<HoldNote>().isRight = _currentNote.ifRight;
+                    _instantiatedNote.GetComponent<HoldNote>().isCW = _currentNote.ifRight;
 
                     _instantiatedNote.GetComponent<HoldNote>().SetEndHold();
 
