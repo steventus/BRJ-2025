@@ -17,6 +17,7 @@ public class SyncedAnimation : MonoBehaviour
 
     void Update()
     {
+        //The error was due to conductor being disabled in the main menu, I enabled it but removed it from the turn state
         animator.Play(currentState, -1, Conductor.instance.loopPositionInBeats);
         animator.speed = 0;
     }

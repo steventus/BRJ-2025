@@ -45,9 +45,9 @@ public class BossMusicBehaviour : MonoBehaviour
     }
     public void HandleUpdate()
     {
-        Debug.Log(highDrums.timeSamples);
-        Debug.Log(loopStartTimeInSamples);
-        Debug.Log(loopEndTimeInSamples);
+        //Debug.Log(highDrums.timeSamples);
+        //Debug.Log(loopStartTimeInSamples);
+        //Debug.Log(loopEndTimeInSamples);
         if (isLooping && highDrums.timeSamples >= loopEndTimeInSamples)
         {
             LoopSong();
