@@ -9,8 +9,12 @@ public class WinLose : MonoBehaviour
     HealthSystem playerHealth;
     public GameObject losePanel, winPanel;
 
-    
 
+    private void Awake()
+    {
+        losePanel.SetActive(false);
+        winPanel.SetActive(false);
+    }
     private void Start()
     {
         playerHealth = GameObject.Find("Player").GetComponent<HealthSystem>();
@@ -29,13 +33,13 @@ public class WinLose : MonoBehaviour
             }
         }
 
-        if(deadBosses == 3 )
+        if (deadBosses == 3)
         {
             winPanel.SetActive(true);
             Time.timeScale = 0;
         }
 
-        if(playerHealth.CurrentHealth <= 0)
+        if (playerHealth.CurrentHealth <= 0)
         {
             losePanel.SetActive(true);
             Time.timeScale = 0;

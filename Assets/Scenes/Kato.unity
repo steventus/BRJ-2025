@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &30657676 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 905386603885433147, guid: 1154cbf40c1609f46bc4d6f009ff975a, type: 3}
+  m_PrefabInstance: {fileID: 4945716670891577252}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &120175190
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,12 +162,6 @@ MonoBehaviour:
   decelerationRate: 500
   scratchRotationThreshold: 0
   metronome: {fileID: 0}
-  maxVolume: 100
-  inGameVolume: 0
-  volumeSlider: {fileID: 1508109418}
-  maxTempo: 240
-  inGameTempo: 0
-  tempoSlider: {fileID: 1408031496}
   currentDisc: {fileID: 0}
   currentDiscPos: {x: 0, y: 0, z: 0}
   currentDiscScale: {x: 0, y: 0, z: 0}
@@ -530,10 +529,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4f13fcb7f7e9b4083db457df163197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scratchL: {fileID: 3908922870779152970, guid: 3168e4321d10d0345afeca59fa66ad62, type: 3}
-  scratchR: {fileID: 905386603885433147, guid: 1154cbf40c1609f46bc4d6f009ff975a, type: 3}
-  bossChange: {fileID: 2027268857240785042, guid: 0f4e904eda0f8f84eb0d2d21ac956eea, type: 3}
-  avoid: {fileID: 1996023513606157969, guid: d0f8b52f3397bda47832a6306044e5ce, type: 3}
+  scratchL: {fileID: 30657676}
+  scratchR: {fileID: 1288577145}
+  bossChange: {fileID: 1241334861}
+  avoid: {fileID: 1547216883}
   emptyNote: {fileID: 7483325105139226529, guid: 86bf20730d8ddd74e8de7dc4260444b6, type: 3}
   whatIsNote:
     serializedVersion: 2
@@ -542,7 +541,7 @@ MonoBehaviour:
   notesPerBeat: 
   trackNum: 
   noteTypes: 
-  noteOffset: 2
+  noteOffset: 0
 --- !u!4 &615669656
 Transform:
   m_ObjectHideFlags: 0
@@ -2062,6 +2061,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128533616}
   m_CullTransparentMesh: 1
+--- !u!1 &1241334861 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2027268857240785042, guid: 0f4e904eda0f8f84eb0d2d21ac956eea, type: 3}
+  m_PrefabInstance: {fileID: 320775653857973588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1247181040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,6 +2235,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286463937}
   m_CullTransparentMesh: 1
+--- !u!1 &1288577145 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3908922870779152970, guid: 3168e4321d10d0345afeca59fa66ad62, type: 3}
+  m_PrefabInstance: {fileID: 3432902632507919811}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1377747568
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2623,6 +2632,11 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1547216883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1996023513606157969, guid: d0f8b52f3397bda47832a6306044e5ce, type: 3}
+  m_PrefabInstance: {fileID: 5189172763921203709}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1556027347
 GameObject:
   m_ObjectHideFlags: 0

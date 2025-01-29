@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BossBehaviour : MonoBehaviour
 {
+    [Header("NAME")]
+    public string bossName;
     [Header("HP")]
     [SerializeField] HealthSystem health;
     public HealthSystem Health => health;
@@ -19,17 +21,15 @@ public class BossBehaviour : MonoBehaviour
     public bool isDead;
     [Header("Attack Stats")]
     public int phrasesCompleted = 0;
-
-    [Header("Audio")]
     public AudioSource musicSource;
-    public AudioClip[] bossSongs;
+    [Header("Charts")]
     public Chart triggerRotationChart;
     public Chart[] Phase1Charts;
     public Chart[] Phase2Charts;
     int songIndex;
     void OnEnable()
     {
-        musicSource = GetComponentInChildren<AudioSource>();
+        //musicSource = GetComponentInChildren<AudioSource>();
         Events.OnSuccessfulNoteHit += Damage;
         Events.OnBadNoteHit += Heal;
     }

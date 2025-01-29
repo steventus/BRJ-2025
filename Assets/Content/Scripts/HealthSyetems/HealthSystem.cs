@@ -31,6 +31,10 @@ public class HealthSystem : MonoBehaviour
             Events.OnBadNoteHit += DecreaseHealth;
         }
     }
+    void Start() 
+    {
+        currentHealth = MaxHealth;
+    }
     public void SetHealth(int _number){
         currentHealth = _number;
         UpdateHealth();

@@ -8,7 +8,7 @@ public class HealthUi : MonoBehaviour
     [SerializeField] protected HealthSystem health;
     [SerializeField] protected Slider slider;
 
-    [SerializeField] Image portrait;
+    [SerializeField] protected Image portrait;
     public Color startColor;
 
     protected virtual void Start()
