@@ -153,4 +153,9 @@ public class MusicManager : MonoBehaviour
         drumfillSource.timeSamples = 0;
         drumfillSource.mute = false;
     }
+
+    //STOP ALL MUSIC ON GAME COMPLETE
+    public void StopBossMusic() {
+        bossMusicBehaviours[0].StopAll();
+    }
 }

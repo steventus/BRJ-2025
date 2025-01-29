@@ -61,33 +61,46 @@ public class Game : MonoBehaviour
         {
             Events.PhraseEnded.Invoke();
         }
+        if (GUI.Button(new Rect(20, 100, 100, 20), "Damage Player"))
+        {
+            Events.OnBadNoteHit.Invoke(20);
+        }
 
-        if (GUI.Button(new Rect(20, 100, 100, 20), "Damage Boss 20"))
+        if (GUI.Button(new Rect(20, 120, 100, 20), "Damage Boss 20"))
         {
             Events.OnSuccessfulNoteHit.Invoke(20);
         }
-
-        if (GUI.Button(new Rect(20, 120, 100, 20), "Scratch CW"))
+        if (GUI.Button(new Rect(20, 140, 100, 20), "WIN"))
         {
-            Metronome.instance.currentNote.OnScratch(ScratchDirection.Direction.CW);
+            GetComponent<WinLose>().TriggerWin();
         }
 
-        if (GUI.Button(new Rect(20, 140, 100, 20), "Scratch ACW"))
+        if (GUI.Button(new Rect(20, 180, 100, 20), "LOSE"))
         {
-            Metronome.instance.currentNote.OnScratch(ScratchDirection.Direction.ACW);
+            GetComponent<WinLose>().TriggerLose();
         }
 
-        if (GUI.Button(new Rect(20, 180, 100, 20), "Set Never Rotate Boss"))
-        {
-            bool _debugNeverRotate = FindObjectOfType<EnemyTurn>().debugNeverRotate;
-            FindObjectOfType<EnemyTurn>().debugNeverRotate = !_debugNeverRotate;
-        }
+        // if (GUI.Button(new Rect(20, 120, 100, 20), "Scratch CW"))
+        // {
+        //     Metronome.instance.currentNote.OnScratch(ScratchDirection.Direction.CW);
+        // }
 
-        if (GUI.Button(new Rect(20, 200, 100, 20), "Start Current Music at loop"))
-        {
-            Events.PhraseEnded.Invoke();
-            FindObjectOfType<MusicManager>().DebugStartAtLoop();
-        }
+        // if (GUI.Button(new Rect(20, 140, 100, 20), "Scratch ACW"))
+        // {
+        //     Metronome.instance.currentNote.OnScratch(ScratchDirection.Direction.ACW);
+        // }
+
+        // if (GUI.Button(new Rect(20, 180, 100, 20), "Set Never Rotate Boss"))
+        // {
+        //     bool _debugNeverRotate = FindObjectOfType<EnemyTurn>().debugNeverRotate;
+        //     FindObjectOfType<EnemyTurn>().debugNeverRotate = !_debugNeverRotate;
+        // }
+
+        // if (GUI.Button(new Rect(20, 200, 100, 20), "Start Current Music at loop"))
+        // {
+        //     Events.PhraseEnded.Invoke();
+        //     FindObjectOfType<MusicManager>().DebugStartAtLoop();
+        // }
     }
 }
 

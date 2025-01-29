@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 7cd81ba6a17765b4b8ef745f1755bccb, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: bossName
+      value: FUNK
+      objectReference: {fileID: 0}
     - target: {fileID: 2935683066331346002, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
       propertyPath: m_Name
       value: Boss 3 Variant

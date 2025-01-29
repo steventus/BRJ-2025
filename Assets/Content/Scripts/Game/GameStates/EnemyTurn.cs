@@ -19,6 +19,10 @@ public class EnemyTurn : BaseState
     [SerializeField] float stateDuration;
     [SerializeField] int minAttacksBeforeRotation = 0;
 
+    [Header("Current Boss")]
+    [SerializeField] BossBehaviour _currentBoss;
+    HealthSystem currentBossHealth;
+
     public override void EnterState()
     {
         //Debug.Log("enter " + transform.name);
@@ -36,8 +40,8 @@ public class EnemyTurn : BaseState
         // [[ TRANSITION PHASE ]]
 
         // intialize data needed for transition checks (boss health, attack counter)
-        BossBehaviour _currentBoss = bossRotationControl.currentBoss;
-        HealthSystem currentBossHealth = _currentBoss.Health;
+        _currentBoss = bossRotationControl.currentBoss;
+        currentBossHealth = _currentBoss.Health;
 
         // boss state parameters
         //bool hasLostEnoughHealth = currentBossHealth.CurrentHealth <= _currentBoss.HealthThreshold;
@@ -101,6 +105,15 @@ public class EnemyTurn : BaseState
 
             //Boss Dance Presenter
             HandleBossDanceDue();
+
+// ## TEST IMMEDIATE ROTATION ON BOSS DEFEATED
+            if(currentBossHealth.CurrentHealth <= 0)
+            {
+                //Boss Defeated, @ end of current chart, rotate to next boss at end of chart
+                rotateBoss = true;
+            }
+// ## TEST IMMEDIATE ROTATION ON BOSS DEFEATED
+       
         }
     }
     public override void ExitState()
@@ -114,8 +127,7 @@ public class EnemyTurn : BaseState
 
         inAttackPhase = false;
         attackComplete = false;
-
-
+        
         //conductor.completedLoops = 0;
     }
 

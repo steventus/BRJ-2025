@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WinLose : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class WinLose : MonoBehaviour
     HealthSystem playerHealth;
     public GameObject losePanel, winPanel;
 
-
+    public UnityEvent OnLose;
+    public UnityEvent OnWin;
     private void Awake()
     {
         losePanel.SetActive(false);
@@ -35,14 +37,12 @@ public class WinLose : MonoBehaviour
 
         if (deadBosses == 3)
         {
-            winPanel.SetActive(true);
-            Time.timeScale = 0;
+            OnWin?.Invoke();
         }
 
         if (playerHealth.CurrentHealth <= 0)
         {
-            losePanel.SetActive(true);
-            Time.timeScale = 0;
+            OnLose?.Invoke();
         }
     }
 
@@ -52,6 +52,19 @@ public class WinLose : MonoBehaviour
     }
     public void MainMenu()
     {
-        //SceneManager.LoadScene(MAINMENUINDEX);
+        SceneManager.LoadScene(0);
+    }
+
+    //DEBUG 
+
+    public void TriggerWin() 
+    {
+            OnWin?.Invoke();
+
+    }
+    public void TriggerLose()
+    {
+            OnLose?.Invoke();
+
     }
 }

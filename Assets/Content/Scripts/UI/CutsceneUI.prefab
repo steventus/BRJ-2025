@@ -99,9 +99,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   numbers:
-  - {fileID: 7207365745869241138}
-  - {fileID: 357327063777718538}
   - {fileID: 7874036426921049703}
+  - {fileID: 357327063777718538}
+  - {fileID: 7207365745869241138}
   - {fileID: 3780935244314145281}
   countIndex: 0
 --- !u!95 &8351681709981817454
@@ -1252,9 +1252,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 7207365745869241138}
-  - {fileID: 357327063777718538}
   - {fileID: 7874036426921049703}
+  - {fileID: 357327063777718538}
+  - {fileID: 7207365745869241138}
   - {fileID: 3780935244314145281}
   m_Father: {fileID: 7886976114307878275}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
