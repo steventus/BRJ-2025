@@ -101,6 +101,7 @@ public class Metronome : MonoBehaviour
         metronomeLine.anchoredPosition = Vector3.Lerp(currentBeat.anchoredPosition, nextBeat.anchoredPosition, _analog);
 
         oldBeatIndex = beatIndex;
+        oldNote = currentNote;
     }
 
     public void SetMarkers()
@@ -139,7 +140,6 @@ public class Metronome : MonoBehaviour
 
         currentNote = beatMarkers[beatIndexSelector].GetComponent<IPlayerInteractable>();
         debugCurrentNote = beatMarkers[beatIndexSelector].gameObject;
-        oldNote = currentNote;
     }
 
     public HitType CheckIfInputIsOnBeat()
