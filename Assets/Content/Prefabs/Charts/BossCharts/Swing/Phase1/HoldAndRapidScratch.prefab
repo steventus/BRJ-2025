@@ -692,7 +692,7 @@ GameObject:
   - component: {fileID: 6109260263478426688}
   - component: {fileID: 2208981962867856726}
   m_Layer: 0
-  m_Name: Swing2
+  m_Name: HoldAndRapidScratch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
