@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
@@ -8,7 +9,10 @@ public class DialogueSystem : MonoBehaviour
 {
     public TextMeshProUGUI tmp;
     public string[] dialogue;
+    public Sprite[] dialoguer;
     public float textSpeed;
+
+    public Image interlocutorIMG;
 
     private int index;
 
@@ -22,6 +26,8 @@ public class DialogueSystem : MonoBehaviour
     void Start() {
         tmp.text = string.Empty;
         StartDialogue();
+
+        if (dialoguer[0] != null) interlocutorIMG.sprite = dialoguer[0];
     }
 
     void Update() {
@@ -57,9 +63,14 @@ public class DialogueSystem : MonoBehaviour
             tmp.text = string.Empty;
             StartCoroutine(TypeLine());
         }
+        if (dialoguer[index] != null)
+        {
+            interlocutorIMG.sprite = dialoguer[index];
+        }
     }
 
     public void ContinueDialogue() {
+
         if(tmp.text == dialogue[index]) {
             NextLine();
             OnContinueDialogue?.Invoke();
