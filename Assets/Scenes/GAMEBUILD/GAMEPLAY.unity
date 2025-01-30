@@ -12933,6 +12933,7 @@ MonoBehaviour:
   debugNeverRotate: 0
   stateDuration: 3.75
   minAttacksBeforeRotation: 3
+  _currentBoss: {fileID: 0}
 --- !u!1 &1468541096
 GameObject:
   m_ObjectHideFlags: 0
@@ -15992,7 +15993,9 @@ MonoBehaviour:
   dialogue:
   - You...you're stronger than you look.
   - Alright, we give. You win...
+  dialoguer: []
   textSpeed: 0.05
+  interlocutorIMG: {fileID: 0}
   OnContinueDialogue:
     m_PersistentCalls:
       m_Calls: []
@@ -18109,6 +18112,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 329001777}
     m_Modifications:
+    - target: {fileID: 576085631873748466, guid: a0910b515bf944e438be5c3bb21253d0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 755548600184066141, guid: a0910b515bf944e438be5c3bb21253d0, type: 3}
       propertyPath: PlayHurtSFX.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -18681,7 +18688,9 @@ MonoBehaviour:
   dialogue:
   - HAHAHA That's the best you can do??
   - Better luck next time, kid!
+  dialoguer: []
   textSpeed: 0.05
+  interlocutorIMG: {fileID: 0}
   OnContinueDialogue:
     m_PersistentCalls:
       m_Calls: []
@@ -19736,9 +19745,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3856620039338851517, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: badNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0412e84d5f067474fa118a2cc283bc18, type: 3}
+    - target: {fileID: 3856620039338851517, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: emptyNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0412e84d5f067474fa118a2cc283bc18, type: 3}
+    - target: {fileID: 3856620039338851517, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
       propertyPath: UIPortraitSprite
       value: 
       objectReference: {fileID: 21300000, guid: 75d0769c2f707e146918fbb9d2fa6a47, type: 3}
+    - target: {fileID: 3856620039338851517, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: changeNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 378087dcc5f950a4b9101f08da6bc5ef, type: 3}
+    - target: {fileID: 3856620039338851517, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: holdEndNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 73dd5526f7aadfa4eaea430a6efdd932, type: 3}
+    - target: {fileID: 3856620039338851517, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: scratchNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 378087dcc5f950a4b9101f08da6bc5ef, type: 3}
+    - target: {fileID: 3856620039338851517, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+      propertyPath: holdStartNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b26fed616e693bf4d9f61390499ac246, type: 3}
     - target: {fileID: 5624220578287943262, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
       propertyPath: triggerRotationChart
       value: 
@@ -19885,6 +19918,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: badNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a51e0da9aaded1f4bb13f47679dacd5e, type: 3}
+    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: emptyNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 08b21b24ee2c8b4448ddeb85df05c7e2, type: 3}
+    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: UIPortraitSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e2adcd289971cd34a831ed7113e73abe, type: 3}
+    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: changeNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 404f733246b102b4ba9c6dfd1209d67d, type: 3}
+    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: holdEndNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e2adcd289971cd34a831ed7113e73abe, type: 3}
+    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: scratchNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 404f733246b102b4ba9c6dfd1209d67d, type: 3}
+    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: holdStartNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 08b21b24ee2c8b4448ddeb85df05c7e2, type: 3}
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: triggerRotationChart
       value: 
