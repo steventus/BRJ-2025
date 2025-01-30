@@ -367,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57c2db21f3b9c64fbaca7e19630f9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
   selectedColor: {r: 0.19607845, g: 1, b: 0.63529414, a: 1}
   unselectedColor: {r: 1, g: 1, b: 1, a: 1}
   scaler: 1.1
@@ -584,6 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57c2db21f3b9c64fbaca7e19630f9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
   selectedColor: {r: 0.19607845, g: 1, b: 0.63529414, a: 1}
   unselectedColor: {r: 1, g: 1, b: 1, a: 1}
   scaler: 1.1
@@ -1126,6 +1128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57c2db21f3b9c64fbaca7e19630f9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
   selectedColor: {r: 0.19607845, g: 1, b: 0.63529414, a: 1}
   unselectedColor: {r: 1, g: 1, b: 1, a: 1}
   scaler: 1.1
@@ -1386,6 +1389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57c2db21f3b9c64fbaca7e19630f9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
   selectedColor: {r: 0.19607845, g: 1, b: 0.63529414, a: 1}
   unselectedColor: {r: 1, g: 1, b: 1, a: 1}
   scaler: 1.1
@@ -2427,6 +2431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b57c2db21f3b9c64fbaca7e19630f9e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
   selectedColor: {r: 0.19607845, g: 1, b: 0.63529414, a: 1}
   unselectedColor: {r: 1, g: 1, b: 1, a: 1}
   scaler: 1.1
@@ -2834,6 +2839,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openSceneClip: {fileID: 7400000, guid: a103649024d44304a9d726312054cca1, type: 2}
   closeSceneClip: {fileID: 7400000, guid: c685e3dfaa6280b4c9f12532646d9140, type: 2}
+  OnSceneOpenComplete:
+    m_PersistentCalls:
+      m_Calls: []
   OnSceneCloseComplete:
     m_PersistentCalls:
       m_Calls:
@@ -3623,7 +3631,22 @@ MonoBehaviour:
   - Hope we made the right call hiring you...
   - 'Looks like it''s time for the show to start. '
   - You know the rules of the game?
+  - You know the rules of the game?
+  - You know the rules of the game?
+  - YEAAAAAAAA
+  - You know the rules of the game?
+  dialoguer:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 21300000, guid: 4523918f5b8deca409297460eb145a53, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 21300000, guid: 75d0769c2f707e146918fbb9d2fa6a47, type: 3}
+  - {fileID: 21300000, guid: 4523918f5b8deca409297460eb145a53, type: 3}
   textSpeed: 0.05
+  interlocutorIMG: {fileID: 2030235827}
   OnContinueDialogue:
     m_PersistentCalls:
       m_Calls:
