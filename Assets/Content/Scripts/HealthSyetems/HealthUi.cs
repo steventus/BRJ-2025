@@ -32,7 +32,7 @@ public class HealthUi : MonoBehaviour
         health.DecreaseHealth(_amount);
 
         // Test
-        Debug.Log(name);
+        //Debug.Log(name);
         StartCoroutine(DamageReaction());
     }
 

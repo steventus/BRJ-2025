@@ -16,6 +16,66 @@ PrefabInstance:
       propertyPath: bossName
       value: DIGITAL
       objectReference: {fileID: 0}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: triggerRotationChart
+      value: 
+      objectReference: {fileID: 6324000771720499898, guid: e72fe5aa46736764191ef3e37445d1a3, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase1Charts.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase2Charts.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase1Charts.Array.data[0]
+      value: 
+      objectReference: {fileID: 7849827316020783492, guid: 68a34e1d3f420a84898c04df17e00e30, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase1Charts.Array.data[1]
+      value: 
+      objectReference: {fileID: 3070557777540980822, guid: 52ade58b252e04941a87499a210c3a56, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase1Charts.Array.data[2]
+      value: 
+      objectReference: {fileID: 2111146814170992166, guid: 85d952156c70735429f6191b4941b80e, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase1Charts.Array.data[3]
+      value: 
+      objectReference: {fileID: 1448890127926916673, guid: 163b1366ac5583f46b46c22807c32301, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase1Charts.Array.data[4]
+      value: 
+      objectReference: {fileID: 1642548939126655550, guid: f22ed8b8e2c4b654e82f755a2c939a8b, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase1Charts.Array.data[5]
+      value: 
+      objectReference: {fileID: 8026011796638699987, guid: 019578d0b81ee0b4891b7fefd5db75a8, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase1Charts.Array.data[6]
+      value: 
+      objectReference: {fileID: 8026011796638699987, guid: 019578d0b81ee0b4891b7fefd5db75a8, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase1Charts.Array.data[7]
+      value: 
+      objectReference: {fileID: 8026011796638699987, guid: 019578d0b81ee0b4891b7fefd5db75a8, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase2Charts.Array.data[0]
+      value: 
+      objectReference: {fileID: 6994818124481097455, guid: 16777f69d5bd9364d954411618e223c7, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase2Charts.Array.data[1]
+      value: 
+      objectReference: {fileID: 3134119826928227846, guid: 3e42b18f28d8d7d45b7427800f88a617, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase2Charts.Array.data[2]
+      value: 
+      objectReference: {fileID: 4812547673888499434, guid: 6e1020971cfb0fd4faf3a9d2f32de004, type: 3}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: Phase2Charts.Array.data[3]
+      value: 
+      objectReference: {fileID: 5240163641546426719, guid: ac677fe1bd843c745adf4a5661bea8c0, type: 3}
     - target: {fileID: 2935683066331346002, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
       propertyPath: m_Name
       value: Boss 2 Variant
@@ -100,6 +160,34 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 51e47e3f89c6aab45bed9d93139facc8, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: badNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 17ef3488f2e38454197cc912c732b51e, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: emptyNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 01e4ea2101e637c4dbc73457e50098a9, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: UIPortraitSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b5e142af089140140b46b7393716d4d8, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: changeNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 491128abc4dc255408dc39cb0234d298, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: holdEndNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 17ef3488f2e38454197cc912c732b51e, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: scratchNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 01f2938f51e28bc448a7653de56879df, type: 3}
+    - target: {fileID: 7389650251321976993, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: holdStartNoteSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 491128abc4dc255408dc39cb0234d298, type: 3}
     - target: {fileID: 8621406433599155143, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
       propertyPath: m_audioClip
       value: 
