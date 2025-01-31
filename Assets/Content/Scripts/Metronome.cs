@@ -145,7 +145,7 @@ public class Metronome : MonoBehaviour
     public HitType CheckIfInputIsOnBeat()
     {
         float inputPressDistanceFromBeat = Mathf.Abs(beatIndexSelector - Conductor.instance.loopBeatIndexPositionAnalog);
-        Debug.Log("Input: " + inputPressDistanceFromBeat);
+        //Debug.Log("Input: " + inputPressDistanceFromBeat);
 
         if (inputPressDistanceFromBeat < perfectHitThreshold)
         {
@@ -221,7 +221,7 @@ public class Metronome : MonoBehaviour
             if (barIndex >= 4){
                 barIndex = 0;
                 Events.BarEnded?.Invoke();
-                Debug.Log("Bar End");
+                //Debug.Log("Bar End");
             }
         }
        
@@ -231,6 +231,7 @@ public class Metronome : MonoBehaviour
     {
         if (oldBeatIndex != beatIndex && beatIndex == 0)
         {
+            Debug.Log("New Phrase");
             Events.PhraseEnded?.Invoke();
         }
     }

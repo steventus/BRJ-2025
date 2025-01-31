@@ -16024,7 +16024,9 @@ MonoBehaviour:
   dialogue:
   - You...you're stronger than you look.
   - Alright, we give. You win...
+  dialoguer: []
   textSpeed: 0.05
+  interlocutorIMG: {fileID: 0}
   OnContinueDialogue:
     m_PersistentCalls:
       m_Calls: []
@@ -18713,7 +18715,9 @@ MonoBehaviour:
   dialogue:
   - HAHAHA That's the best you can do??
   - Better luck next time, kid!
+  dialoguer: []
   textSpeed: 0.05
+  interlocutorIMG: {fileID: 0}
   OnContinueDialogue:
     m_PersistentCalls:
       m_Calls: []
@@ -19977,45 +19981,9 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 01e4ea2101e637c4dbc73457e50098a9, type: 3}
-    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
-      propertyPath: badNoteSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 17ef3488f2e38454197cc912c732b51e, type: 3}
-    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
-      propertyPath: emptyNoteSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 01e4ea2101e637c4dbc73457e50098a9, type: 3}
-    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
-      propertyPath: UIPortraitSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: b5e142af089140140b46b7393716d4d8, type: 3}
-    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
-      propertyPath: changeNoteSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 491128abc4dc255408dc39cb0234d298, type: 3}
-    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
-      propertyPath: holdEndNoteSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 17ef3488f2e38454197cc912c732b51e, type: 3}
-    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
-      propertyPath: scratchNoteSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 01f2938f51e28bc448a7653de56879df, type: 3}
-    - target: {fileID: 4493394214574115138, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
-      propertyPath: holdStartNoteSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 491128abc4dc255408dc39cb0234d298, type: 3}
-    - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
-      propertyPath: triggerRotationChart
-      value: 
-      objectReference: {fileID: 512206138305333474, guid: 68d8ebf7da1729b49a747c88af4dd401, type: 3}
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: Phase1Charts.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
-      propertyPath: Phase2Charts.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: randomCharts.Array.size
@@ -20024,15 +19992,19 @@ PrefabInstance:
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: Phase1Charts.Array.data[0]
       value: 
-      objectReference: {fileID: 6637234680154833601, guid: ccae414a9409c4445901dc4589ba53a4, type: 3}
+      objectReference: {fileID: 5240163641546426719, guid: ac677fe1bd843c745adf4a5661bea8c0, type: 3}
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: Phase1Charts.Array.data[1]
       value: 
-      objectReference: {fileID: 8026011796638699987, guid: c5e4745636e29d34b958d4f242277a59, type: 3}
+      objectReference: {fileID: 6994818124481097455, guid: 16777f69d5bd9364d954411618e223c7, type: 3}
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
-      propertyPath: Phase2Charts.Array.data[0]
+      propertyPath: Phase1Charts.Array.data[2]
       value: 
-      objectReference: {fileID: 5470252498066182064, guid: ef10c1a16d31dfd41a9f1239efbedcec, type: 3}
+      objectReference: {fileID: 3134119826928227846, guid: 3e42b18f28d8d7d45b7427800f88a617, type: 3}
+    - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+      propertyPath: Phase1Charts.Array.data[3]
+      value: 
+      objectReference: {fileID: 4812547673888499434, guid: 6e1020971cfb0fd4faf3a9d2f32de004, type: 3}
     - target: {fileID: 5031637425714547617, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
       propertyPath: randomCharts.Array.data[0]
       value: 
