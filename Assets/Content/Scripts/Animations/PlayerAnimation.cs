@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] Transform playerHand;
-    [SerializeField] Vector3 moveVector;
     RaycastHit hit;
+    
+    public GameObject hitSprite;
     void OnEnable() 
     {
     }
@@ -20,11 +21,23 @@ public class PlayerAnimation : MonoBehaviour
         if(testRay) 
         {
             Vector3 point = hit.point;
-            if(TurntableManager.instance.OnInputDown()) 
-            {
-                point += moveVector;
-            }
             playerHand.position = point;
         }
+
+        //Feedback animation on click disk
+        if(TurntableManager.instance.OnInputDown())
+        {
+            StartCoroutine(HitFX());
+        }
+    }
+
+    IEnumerator HitFX()
+    {
+        hitSprite.SetActive(true);
+
+        float hitDuration = 0.1f;
+        yield return new WaitForSeconds(hitDuration);
+
+        hitSprite.SetActive(false);
     }
 }

@@ -7,6 +7,7 @@ public class PlayerSFX : MonoBehaviour
 {
     public UnityEvent PlayScratchSFX;
     public UnityEvent PlayHurtSFX;
+    public UnityEvent PlayClickSFX;
     void OnEnable()
     {
         Events.OnSuccessfulNoteHit += ScratchSFX;
@@ -21,6 +22,15 @@ public class PlayerSFX : MonoBehaviour
         Events.OnBadNoteHit -= HurtSFX;
         Events.OnUnsuccessfulNoteHit -= HurtSFX;
     }
+
+    void Update()
+    {
+        if(TurntableManager.instance.OnInputDown())
+        {
+            PlayClickSFX?.Invoke();
+        }
+    }
+
     void ScratchSFX(int n)
     {
         PlayScratchSFX?.Invoke();

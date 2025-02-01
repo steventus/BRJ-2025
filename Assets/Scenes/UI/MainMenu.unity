@@ -852,7 +852,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'SCRATCH: Swipe Right  /  Swipe Left'
+  m_text: 'SCRATCH: Swipe Clockwise /  Swipe CounterClockwise'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 07977d3cdba6cce40ace661708c1b671, type: 2}
   m_sharedMaterial: {fileID: 5023653876571374919, guid: 07977d3cdba6cce40ace661708c1b671, type: 2}
@@ -3359,9 +3359,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '[  Kylie A Popa  ]
 
-    UI & Environment
-
-    Art'
+    UI & BG Art'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2c36b67e2849b4f458a6314ed3ab2e8e, type: 2}
   m_sharedMaterial: {fileID: -3220547675398607115, guid: 2c36b67e2849b4f458a6314ed3ab2e8e, type: 2}
@@ -3998,8 +3996,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.49}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 7.649994, y: 0}
+  m_SizeDelta: {x: -15.300013, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &473677712
 MonoBehaviour:
@@ -4021,7 +4019,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: START GAME
+  m_text: DANCE FLOOR
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e2e2903b6c339ec49af0fc3bf8d2754a, type: 2}
   m_sharedMaterial: {fileID: -332727118826882652, guid: e2e2903b6c339ec49af0fc3bf8d2754a, type: 2}
@@ -4048,8 +4046,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6087,7 +6085,8 @@ MonoBehaviour:
     on the disk
 
 
-    then swipe LEFT or RIGHT to scratch'
+    then swipe Clockwise or CounterClockwise
+    to scratch'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8166ba22532a2cd4ebd4246bce55a39d, type: 2}
   m_sharedMaterial: {fileID: 4212759584578067381, guid: 8166ba22532a2cd4ebd4246bce55a39d, type: 2}
@@ -7342,7 +7341,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '[  JohnnyUmami  ]
 
-    - UI & Game Design'
+    UI & Programming'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2c36b67e2849b4f458a6314ed3ab2e8e, type: 2}
   m_sharedMaterial: {fileID: -3220547675398607115, guid: 2c36b67e2849b4f458a6314ed3ab2e8e, type: 2}
@@ -12352,8 +12351,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.49}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 7.649994, y: 0}
+  m_SizeDelta: {x: -15.300013, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1641958091
 MonoBehaviour:
@@ -12375,7 +12374,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: QUIT
+  m_text: EXIT CLUB
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e2e2903b6c339ec49af0fc3bf8d2754a, type: 2}
   m_sharedMaterial: {fileID: -332727118826882652, guid: e2e2903b6c339ec49af0fc3bf8d2754a, type: 2}
@@ -12402,8 +12401,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13453,8 +13452,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.49}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 7.649994, y: 0}
+  m_SizeDelta: {x: -15.300013, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1742160463
 MonoBehaviour:
@@ -13476,7 +13475,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: CREDITS
+  m_text: SNAX MACHINE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e2e2903b6c339ec49af0fc3bf8d2754a, type: 2}
   m_sharedMaterial: {fileID: -332727118826882652, guid: e2e2903b6c339ec49af0fc3bf8d2754a, type: 2}
@@ -13503,8 +13502,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
