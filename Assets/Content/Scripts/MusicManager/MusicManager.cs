@@ -150,12 +150,14 @@ public class MusicManager : MonoBehaviour
         Debug.Log(_drumFillSelection.genreTransition);
 
         drumfillSource.clip = _drumFillSelection.drumfillAudioClip;
-        drumfillSource.timeSamples = 0;
         drumfillSource.mute = false;
+        drumfillSource.Play();
+        Debug.Log("Playing " + drumfillSource.name + " at: " + Conductor.instance.songPosition);
     }
 
     //STOP ALL MUSIC ON GAME COMPLETE
-    public void StopBossMusic() {
+    public void StopBossMusic()
+    {
         bossMusicBehaviours[0].StopAll();
     }
 }
