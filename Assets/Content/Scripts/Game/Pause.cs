@@ -15,12 +15,10 @@ public class Pause : MonoBehaviour
         {
             if(!isPaused)
             {
-                isPaused = true;
                 PauseGame();
             }
             else
             {
-                isPaused = false;
                 UnpauseGame();
             }
         }
@@ -28,11 +26,13 @@ public class Pause : MonoBehaviour
 
     public void PauseGame() 
     {
+        isPaused = true;
         Time.timeScale = 0;
         OnPause?.Invoke();
     }
     public void UnpauseGame()
     {
+        isPaused = false;
         Time.timeScale = 1;
         OnUnpause?.Invoke();
     }
