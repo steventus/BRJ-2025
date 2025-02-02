@@ -34,6 +34,9 @@ public class MusicManager : MonoBehaviour
     bool isFadingBetweenSongs = false;
     [Header("Bosses")]
     [SerializeField] private Transform bossContainer;
+
+    public BossMusicBehaviour[] bossMusicBehavioursss;
+
     private List<BossMusicBehaviour> bossMusicBehaviours = new();
     private int currentBossIndex = 0;
 
@@ -51,14 +54,14 @@ public class MusicManager : MonoBehaviour
 
         else if (instance != this)
             Destroy(gameObject);
-
-
     }
 
     public void StartMusic()
     {
         //Get and store all Boss objs - let them all play simultaneously to make sure they're all in sync
-        foreach (Transform boss in bossContainer)
+        
+        
+        /*foreach (Transform boss in bossContainer)
         {
             if (boss.TryGetComponent(out BossMusicBehaviour _bossMusicBehaviour))
             {
@@ -66,7 +69,7 @@ public class MusicManager : MonoBehaviour
 
                 //Initialise all audio sources to prevent lag spikes in game
                 _bossMusicBehaviour.PlayAll();
-
+                
                 //Mute all audio sources
                 _bossMusicBehaviour.SetMute(true);
 
@@ -77,6 +80,16 @@ public class MusicManager : MonoBehaviour
 
                 Debug.Log("StartTime for:" + _bossMusicBehaviour.name + " at " + Conductor.instance.songPosition);
             }
+        }*/
+
+        foreach (BossMusicBehaviour BMB in bossMusicBehavioursss)
+        {
+            BMB.SetVolume(volume);
+            BMB.PlayAll();
+            BMB.SetMute(true);
+            BMB.SetLoop(true);
+
+            bossMusicBehaviours.Add(BMB);
         }
 
         drumFills = new List<DrumFill>

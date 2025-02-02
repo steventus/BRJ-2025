@@ -14654,6 +14654,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980b80fe16ed95d4584a589de69600fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1663254585 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6970437866891736166, guid: 4d686b262f2e8bd4192a36fc31535c0b, type: 3}
+  m_PrefabInstance: {fileID: 2047751292042753016}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af49a0d004ba45343978fac073fc773e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1664247452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7416643760389372780, guid: 80d048b3af6314a47bb200584beb710d, type: 3}
@@ -16345,6 +16356,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847800376}
   m_CullTransparentMesh: 1
+--- !u!114 &1850117338 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8843076906498731267, guid: b0ac88a945d05254194f31a3a794e5d1, type: 3}
+  m_PrefabInstance: {fileID: 5768340472154226004}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af49a0d004ba45343978fac073fc773e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1858271073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18816,6 +18838,22 @@ PrefabInstance:
       propertyPath: bossContainer
       value: 
       objectReference: {fileID: 1409290359}
+    - target: {fileID: 6101286476101155223, guid: 4906c8d71dbc96e42830aaf028bb9d9c, type: 3}
+      propertyPath: bossMusicBehavioursss.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101286476101155223, guid: 4906c8d71dbc96e42830aaf028bb9d9c, type: 3}
+      propertyPath: bossMusicBehavioursss.Array.data[0]
+      value: 
+      objectReference: {fileID: 1850117338}
+    - target: {fileID: 6101286476101155223, guid: 4906c8d71dbc96e42830aaf028bb9d9c, type: 3}
+      propertyPath: bossMusicBehavioursss.Array.data[1]
+      value: 
+      objectReference: {fileID: 8509694981925445101}
+    - target: {fileID: 6101286476101155223, guid: 4906c8d71dbc96e42830aaf028bb9d9c, type: 3}
+      propertyPath: bossMusicBehavioursss.Array.data[2]
+      value: 
+      objectReference: {fileID: 1663254585}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19429,6 +19467,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0fb364d1bc58a74c8313d2beb9fa649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8509694981925445101 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7738645454330446233, guid: 6a2bab53487937a43b5f023a834cf32c, type: 3}
+  m_PrefabInstance: {fileID: 8509694981925445099}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af49a0d004ba45343978fac073fc773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8542932187545006548
