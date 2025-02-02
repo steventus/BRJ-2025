@@ -8,11 +8,13 @@ public static class Count
     {
         return 60 / Conductor.instance.songBpm * _numberOfBeats;
     }
-    public static int BarsToSamples(int ProjectSampleRate, int _numberOfBars){
+    public static int BarsToSamples(int ProjectSampleRate, int _numberOfBars)
+    {
         return ProjectSampleRate * _numberOfBars;
     }
-    public static float BarsToSeconds(int _numberOfBars, float songBpm){
-        return _numberOfBars * songBpm/60;
+    public static float BarsToSeconds(int _numberOfBars, float songBpm)
+    {
+        return 60 / Conductor.instance.songBpm * _numberOfBars * 4;
     }
 }
 [CreateAssetMenu(fileName = "BossMusic", menuName = "ScriptableObjects/New Boss Music", order = 1)]
@@ -25,7 +27,8 @@ public class BossMusicScriptable : ScriptableObject
     public int timeAtDropOrChorusInSamples => projectSampleRate * timeAtDropOrChorusInSeconds;
     public int timeEndInSamples => projectSampleRate * loopEndTimeInSeconds;
     public int beatsPerBar = 4;
-    public enum Genre {
+    public enum Genre
+    {
         ElectroSwing,
         Digital,
         Funk

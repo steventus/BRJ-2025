@@ -43,6 +43,7 @@ public class MusicManager : MonoBehaviour
     private List<DrumFill> drumFills;
     private BossMusicBehaviour currentMusic;
     private BossMusicBehaviour nextMusic;
+    private bool ifScheduled = false;
     void Awake()
     {
         if (instance == null)
@@ -51,7 +52,12 @@ public class MusicManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
-        //Get and store all Boss objs
+
+    }
+
+    public void StartMusic()
+    {
+        //Get and store all Boss objs - let them all play simultaneously to make sure they're all in sync
         foreach (Transform boss in bossContainer)
         {
             if (boss.TryGetComponent(out BossMusicBehaviour _bossMusicBehaviour))
@@ -68,6 +74,8 @@ public class MusicManager : MonoBehaviour
                 _bossMusicBehaviour.SetLoop(true);
 
                 bossMusicBehaviours.Add(_bossMusicBehaviour);
+
+                Debug.Log("StartTime for:" + _bossMusicBehaviour.name + " at " + Conductor.instance.songPosition);
             }
         }
 
@@ -80,15 +88,11 @@ public class MusicManager : MonoBehaviour
 
         drumfillSource.Play();
         drumfillSource.mute = true;
-    }
 
-    public void StartMusic()
-    {
         //set starting music source (first boss)
         currentMusic = bossMusicBehaviours[0];
 
         currentMusic.SetMute(false);
-        bossMusicBehaviours[0].PlayAll();
     }
 
     public void DebugStartAtLoop()
@@ -118,6 +122,31 @@ public class MusicManager : MonoBehaviour
 
         currentMusic.FadeOutTransition();
         PlayTransitionFill();
+        nextMusic.FadeInTransition();
+
+        currentMusic = nextMusic;
+    }
+
+    public void ScheduleFade(float timeToRun)
+    {
+        //Check only run once
+        if (ifScheduled)
+            return;
+
+        ifScheduled = true;
+
+        //Fade out etc all from time to run
+        currentBossIndex++;
+        if (currentBossIndex >= bossMusicBehaviours.Count)
+        {
+            currentBossIndex = 0;
+        }
+
+        nextMusic = bossMusicBehaviours[currentBossIndex];
+
+        //Apply appropriate scheduling here
+        currentMusic.FadeOutTransition();
+        ScheduleTransitionFill(timeToRun);
         nextMusic.FadeInTransition();
 
         currentMusic = nextMusic;
@@ -153,6 +182,38 @@ public class MusicManager : MonoBehaviour
         drumfillSource.mute = false;
         drumfillSource.Play();
         Debug.Log("Playing " + drumfillSource.name + " at: " + Conductor.instance.songPosition);
+    }
+
+    public void ScheduleTransitionFill(float _time)
+    {
+        DrumFill.Transition _genreTransition = DrumFill.Transition.electroSwingToFunk;
+
+        switch (currentMusic.genre)
+        {
+            case BossMusicScriptable.Genre.ElectroSwing:
+                if (nextMusic.genre == BossMusicScriptable.Genre.Digital) _genreTransition = DrumFill.Transition.electroSwingToDigital;
+                else if (nextMusic.genre == BossMusicScriptable.Genre.Funk) _genreTransition = DrumFill.Transition.electroSwingToFunk;
+                break;
+
+            case BossMusicScriptable.Genre.Digital:
+                if (nextMusic.genre == BossMusicScriptable.Genre.ElectroSwing) _genreTransition = DrumFill.Transition.electroSwingToDigital;
+                else if (nextMusic.genre == BossMusicScriptable.Genre.Funk) _genreTransition = DrumFill.Transition.digitalToFunk;
+                break;
+
+            case BossMusicScriptable.Genre.Funk:
+                if (nextMusic.genre == BossMusicScriptable.Genre.ElectroSwing) _genreTransition = DrumFill.Transition.electroSwingToFunk;
+                else if (nextMusic.genre == BossMusicScriptable.Genre.Digital) _genreTransition = DrumFill.Transition.digitalToFunk;
+                break;
+        }
+
+        DrumFill _drumFillSelection = drumFills.FirstOrDefault(x => x.genreTransition == _genreTransition);
+
+        Debug.Log(_drumFillSelection.genreTransition);
+
+        drumfillSource.clip = _drumFillSelection.drumfillAudioClip;
+        drumfillSource.mute = false;
+        drumfillSource.PlayScheduled(_time);
+        Debug.Log("Playing " + drumfillSource.name + " at: " + _time);
     }
 
     //STOP ALL MUSIC ON GAME COMPLETE

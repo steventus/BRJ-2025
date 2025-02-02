@@ -43,6 +43,9 @@ public class BossMusicBehaviour : MonoBehaviour
     {
         _source.timeSamples = sample;
     }
+    void Update(){
+        Debug.Log(gameObject.name + " high Drums at: " + highDrums.timeSamples);
+    }
     public void HandleUpdate()
     {
         //Debug.Log(highDrums.timeSamples);
@@ -87,6 +90,17 @@ public class BossMusicBehaviour : MonoBehaviour
         StartCoroutine(CoroScheduleStop(highDrums, phaseOneMusic.highDrumsTransitionOutDurInBars));
     }
 
+    public void ScheduleFadeOutTransition(float _zeroTime)
+    {
+        //lowDrums.PlayScheduled(_zeroTime);
+        //bassline.PlayScheduled(_zeroTime);
+        //
+        //melody.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.melodyTransitionOutDurInBars, Conductor.instance.songBpm));
+        //chords.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.chordsTransitionOutDurInBars, Conductor.instance.songBpm));
+        //fx.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.fxTransitionOutDurInBars, Conductor.instance.songBpm));
+        //highDrums.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.highDrumsTransitionOutDurInBars, Conductor.instance.songBpm));
+    }
+
     private IEnumerator CoroScheduleStop(AudioSource _source, int _numberOfBars)
     {
         //Subscribe to PhaseEnded, and count
@@ -124,6 +138,18 @@ public class BossMusicBehaviour : MonoBehaviour
         Debug.Log("Playing highdrums and fx: " + Conductor.instance.songPosition);
     }
 
+    public void ScheduleFadeInTrasition(float _zeroTime)
+    {
+        highDrums.PlayScheduled(_zeroTime);
+        fx.PlayScheduled(_zeroTime);
+
+        melody.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.melodyTransitionInDurInBars, Conductor.instance.songBpm));
+        chords.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.chordsTransitionInDurInBars, Conductor.instance.songBpm));
+        bassline.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.basslineTransitionInDurInBars, Conductor.instance.songBpm));
+        lowDrums.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.lowDrumsTransitionInDurInBars, Conductor.instance.songBpm));
+
+        Debug.Log("scheduled to: " + _zeroTime + ". and melody at: " + (_zeroTime + phaseOneMusic.melodyTransitionInDurInBars, Conductor.instance.songBpm));
+    }
     private IEnumerator CoroSchedulePlay(AudioSource _source, int _numberOfBars)
     {
         //Subscribe to PhaseEnded, and count
