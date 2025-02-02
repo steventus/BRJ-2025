@@ -106,17 +106,13 @@ public class TurntableManager : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
 
                 // Apply the rotation to the disc
+                float previousAngle = currentDisc.transform.rotation.eulerAngles.y;
+                float newAngle = targetRotation.eulerAngles.y;
+                float rotationDiff = newAngle - previousAngle;
+                Debug.Log("rotationDiff: " + rotationDiff);
 
-                currentDisc.transform.rotation = targetRotation;
 
-                // Calculate angular velocity
-                Vector3 deltaMouse = Input.mousePosition - previousMousePosition;
-                angularVelocity = deltaMouse / Time.deltaTime;
-
-                // Update the previous mouse position
-                previousMousePosition = Input.mousePosition;
-
-                rotationDirection = angleDifference >= 0 ? -1f : 1f;
+                rotationDirection = rotationDiff >= 0 ? -1f : 1f;
 
                 // Disable autorotate while the mouse is pressed
                 isRotatingOnItsOwn = false;

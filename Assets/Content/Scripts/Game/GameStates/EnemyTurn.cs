@@ -97,13 +97,13 @@ public class EnemyTurn : BaseState
         conductor.beatsPerLoop = currentChart.notes.Count;
 
         startChartTime = Conductor.instance.songPosition;
-        endChartTime = Conductor.instance.songPosition + (currentChart.notes.Count * 60/Conductor.instance.songBpm);
+        endChartTime = Conductor.instance.songPosition + (currentChart.notes.Count * 60 / Conductor.instance.songBpm);
 
         Debug.Log("StartChart: " + startChartTime + ". EndChart: " + endChartTime + ". EndPlayerCharTime: " + endPlayerChartTime);
 
-        inAttackPhase = true;
+        _currentBoss.GetComponent<BossLightBehaviour>().SetLight(true);
 
-        //Conductor.instance.ScheduleNextPhrase(TrackFactory.instance.lengthOfChart);
+        inAttackPhase = true;
     }
 
     public override void UpdateState()
@@ -131,7 +131,7 @@ public class EnemyTurn : BaseState
             //{
             //    //Schedule to begin end of current chart
             //    float _timeToStart = endChartTime;
-//
+            //
             //    //Run the schedule command now with music manager, only run once.
             //    MusicManager.instance.ScheduleFade(_timeToStart);
             //}
@@ -148,6 +148,8 @@ public class EnemyTurn : BaseState
 
         inAttackPhase = false;
         attackComplete = false;
+
+        bossRotationControl.currentBoss.GetComponent<BossLightBehaviour>().SetLight(false);
 
         //conductor.completedLoops = 0;
     }
