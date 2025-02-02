@@ -15,6 +15,7 @@ public class TurntableManager : MonoBehaviour
     [Header("Disc")]
     GameObject[] discs;
     public LayerMask whatIsDisc;
+    float previousAngle, currentAngle;
     private bool isRotatingOnItsOwn = false; // Flag to indicate autonomous rotation
     private float currentAngle = 0f; // Track the current angle
     [HideInInspector] public float rotationSpeed = 0f; // Speed of autonomous rotation (degrees per second)
@@ -61,7 +62,9 @@ public class TurntableManager : MonoBehaviour
     }
     private void Update()
     {
+        previousAngle = currentAngle;
         Scratch();
+        currentAngle = currentDisc.transform.eulerAngles.z;
     }
 
     public bool OnInputDown()
@@ -80,6 +83,7 @@ public class TurntableManager : MonoBehaviour
     //TODO: Change this to bool scratch, create sensitivity variables to check for scratch sensitivity
     public void Scratch()
     {
+        float angleDifference = Mathf.DeltaAngle(previousAngle, currentAngle);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycastHit;
         Physics.Raycast(ray, out raycastHit, Mathf.Infinity, whatIsDisc);
@@ -107,14 +111,6 @@ public class TurntableManager : MonoBehaviour
                 float rotationDiff = newAngle - previousAngle;
                 Debug.Log("rotationDiff: " + rotationDiff);
 
-                currentDisc.transform.rotation = targetRotation;
-
-                // Calculate angular velocity
-                Vector3 deltaMouse = Input.mousePosition - previousMousePosition;
-                angularVelocity = deltaMouse / Time.deltaTime;
-
-                // Update the previous mouse position
-                previousMousePosition = Input.mousePosition;
 
                 rotationDirection = rotationDiff >= 0 ? -1f : 1f;
 
