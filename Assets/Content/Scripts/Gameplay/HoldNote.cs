@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
 {
@@ -16,12 +17,14 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
     [SerializeField] private NoteType.Note noteType;
 
     // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
-// ====================================================================================
+    // ====================================================================================
 
     //adding reference to start hold note for end note to check if prev note was held
     private HoldNote connectedStartHoldNote;
 
-// ====================================================================================
+    // ====================================================================================
+
+    public UnityEvent noteHit;
 
     //Called and set from TrackFactory
     public void SetStartHold()
@@ -54,13 +57,13 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
     public void ConnectEndHoldNote(HoldNote _endHoldNote)
     {
         connectedEndHoldNote = _endHoldNote;
-        
-    // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
+
+        // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
 
         _endHoldNote.connectedStartHoldNote = this;
         Debug.Log(_endHoldNote.connectedStartHoldNote);
 
-    // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
+        // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
     }
 
     public void OnInputDown()
@@ -68,40 +71,43 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         if (isHit)
             return;
 
-    // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
-// ====================================================================================
+        // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
+        // ====================================================================================
 
         //On a hold start note and you just begun holding onto it
         if (isStart && !isHolding)
         {
             isHolding = true;
 
-        //     switch (Metronome.instance.CheckIfInputIsOnBeat())
-        //     {
-        //         case Metronome.HitType.perfect:
-        //             Metronome.instance.PerfectHit();
-        //             ReadyConnectedEndNote();
-        //             break;
+            //     switch (Metronome.instance.CheckIfInputIsOnBeat())
+            //     {
+            //         case Metronome.HitType.perfect:
+            //             Metronome.instance.PerfectHit();
+            //             ReadyConnectedEndNote();
+            //             break;
 
-        //         case Metronome.HitType.good:
-        //             Metronome.instance.GoodHit();
-        //             ReadyConnectedEndNote();
-        //             break;
+            //         case Metronome.HitType.good:
+            //             Metronome.instance.GoodHit();
+            //             ReadyConnectedEndNote();
+            //             break;
 
-        //         case Metronome.HitType.miss:
-        //             OnMiss();
-        //             break;
-        //     }
+            //         case Metronome.HitType.miss:
+            //             OnMiss();
+            //             break;
+            //     }
         }
 
         //On a hold end note, nothing happens when you press input again
 
-    // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
-// ====================================================================================
+        // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
+        // ====================================================================================
     }
 
     public void OnScratch(ScratchDirection.Direction scratchDirection)
     {
+        if (isHit)
+            return;
+
         if (noteDirection != scratchDirection)
         {
             OnMiss();
@@ -109,12 +115,13 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         }
 
 
-    // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
-// ====================================================================================
+        // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
+        // ====================================================================================
 
         //check if scratch correctly timed on start note
         if (isStart)
         {
+            UpdateNoteHit();
             Debug.Log("hold note scratch");
             switch (Metronome.instance.CheckIfInputIsOnBeat())
             {
@@ -131,22 +138,26 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
                     break;
             }
         }
-// ====================================================================================
+        // ====================================================================================
 
     }
 
     public void OnInputUp()
     {
+
         //On a hold start note, prematurely letting go of input
         if (noteType == NoteType.Note.holdStart)
         {
             Debug.Log("Miss Hold Start");
+            isHit = false;
             isHolding = false;
             OnMiss();
         }
-// ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
-// ====================================================================================
-        else if(noteType == NoteType.Note.holdEnd && connectedStartHoldNote.GetIsHolding()) {
+        // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
+        // ====================================================================================
+        else if (noteType == NoteType.Note.holdEnd && connectedStartHoldNote.GetIsHolding())
+        {
+            UpdateNoteHit();
             Debug.Log("hold note release");
             switch (Metronome.instance.CheckIfInputIsOnBeat())
             {
@@ -163,27 +174,24 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
                     break;
             }
         }
+
     }
 
-// ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
-// ====================================================================================
+    // ## JOHNNY ## Refactoring to be scratch on first note, hold mouse button down until end note, release at correct timing for perfect
+    // ====================================================================================
 
     public void OnMiss()
     {
-        //Natural guard
-        if (isHit)
-            return;
-
-        //Guard if holding while its a hold start note
-        if (isStart && isHolding)
+        //Guard if holding while its a hold start note and natural guard
+        if (isStart && isHolding || isHit)
             return;
 
         //Disable hold note
-        isHit = true;
+        UpdateNoteHit();
 
         //Disable connected end hold note at the same time
         if (isStart && connectedEndHoldNote != null)
-            connectedEndHoldNote.isHit = true;
+            connectedEndHoldNote.UpdateNoteHit();
 
         Metronome.instance.MissHit();
         //Debug.Log("Miss!");
@@ -207,8 +215,14 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         return noteType;
     }
 
-    public bool GetIsHolding() 
+    public bool GetIsHolding()
     {
         return isHolding;
+    }
+
+    public void UpdateNoteHit()
+    {
+        isHit = true;
+        noteHit?.Invoke();
     }
 }

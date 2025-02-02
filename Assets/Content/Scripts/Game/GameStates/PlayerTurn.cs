@@ -7,7 +7,6 @@ public class PlayerTurn : BaseState
     [SerializeField] float stateDuration;
     [SerializeField] int successfulNotesHitCount;
     [SerializeField] int hitsRequiredToEndTurn;
-    public float endPlayerChartTime;
 
     protected override void OnEnable()
     {
@@ -30,8 +29,6 @@ public class PlayerTurn : BaseState
 
         HandleBossIdleDanceCue();
 
-        endPlayerChartTime = Conductor.instance.songPosition + (FindObjectOfType<TrackFactory>().notes.Count * 60 / Conductor.instance.songBpm);
-        Debug.Log("PlayerEndTime: " + endPlayerChartTime);
     }
     public override void UpdateState()
     {
@@ -67,17 +64,6 @@ public class PlayerTurn : BaseState
         bool hitMinimumNotes = successfulNotesHitCount >= hitsRequiredToEndTurn;
         // checks that loop has completed
         bool currentLoopIsComplete = conductor.loopPositionInAnalog <= 0.1f;
-
-
-        //if (FindObjectOfType<EnemyTurn>().CheckBossReadyToTransition())
-        //    {
-        //        //Schedule to begin end of current chart
-        //        float _timeToStart = FindObjectOfType<EnemyTurn>().endChartTime;
-//
-        //        //Run the schedule command now with music manager, only run once.
-        //        MusicManager.instance.ScheduleFade(_timeToStart);
-        //    }
-
 
         if (hitMinimumNotes && currentLoopIsComplete)
         {

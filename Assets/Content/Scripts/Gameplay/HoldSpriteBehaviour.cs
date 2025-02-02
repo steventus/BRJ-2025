@@ -14,6 +14,16 @@ public class HoldSpriteBehaviour : NoteSpriteBehaviour
         UpdateSprite();
     }
 
+    void OnEnable()
+    {
+        holdNote.noteHit.AddListener(OnNoteHit);
+    }
+
+    void OnDisable()
+    {
+        holdNote.noteHit.RemoveListener(OnNoteHit);
+    }
+
     void UpdateSprite()
     {
         if (holdNote.IsStart)
@@ -25,5 +35,12 @@ public class HoldSpriteBehaviour : NoteSpriteBehaviour
         {
             image.sprite = noteBehaviour.GetScratchDirection() == ScratchDirection.Direction.CW ? holdEndSpriteCW : holdEndSpriteACW;
         }
+    }
+
+    private void OnNoteHit()
+    {
+        Color _color = image.color;
+        _color.a = 0.2f;
+        image.color = _color;
     }
 }

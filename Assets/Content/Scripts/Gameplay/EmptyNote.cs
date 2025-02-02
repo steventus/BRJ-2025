@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EmptyNote : MonoBehaviour, IPlayerInteractable
+public class EmptyNote : BaseNote, IPlayerInteractable
 {
     [SerializeField] private NoteType.Note noteType;
 
@@ -24,4 +24,5 @@ public class EmptyNote : MonoBehaviour, IPlayerInteractable
     {
         return noteType;
     }
+
 }
