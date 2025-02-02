@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: bossName
       value: FUNK
       objectReference: {fileID: 0}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: triggerRotationChart
+      value: 
+      objectReference: {fileID: 5856054225461559998, guid: b4f190ce6620bf94aa662b88e7f5d88b, type: 3}
     - target: {fileID: 2935683066331346002, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
       propertyPath: m_Name
       value: Boss 3 Variant

@@ -122,6 +122,7 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         if (isStart)
         {
             UpdateNoteHit();
+            isHolding = true;
             Debug.Log("hold note scratch");
             switch (Metronome.instance.CheckIfInputIsOnBeat())
             {

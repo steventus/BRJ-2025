@@ -29,6 +29,7 @@ public class PlayerTurn : BaseState
 
         HandleBossIdleDanceCue();
 
+        //Conductor.instance.ScheduleNextPhrase(TrackFactory.instance.lengthOfChart);
     }
     public override void UpdateState()
     {
@@ -53,7 +54,7 @@ public class PlayerTurn : BaseState
         }
 
         //Un-clicking Disc
-        if (TurntableManager.instance.OnInputUp())
+        if (Input.GetMouseButtonUp(0))
         {
             //Debug.Log("Unclick");
             Metronome.instance.currentNote.OnInputUp();
