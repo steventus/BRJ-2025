@@ -83,10 +83,10 @@ public class Game : MonoBehaviour
             FindObjectOfType<PlayerHealthUi>().Heal(100);
         }
         //
-        //if (GUI.Button(new Rect(20, 120, 100, 20), "Damage Boss 20"))
-        //{
-        //    Events.OnSuccessfulNoteHit.Invoke(20);
-        //}
+        if (GUI.Button(new Rect(20, 120, 100, 20), "Damage Boss 20"))
+        {
+            Events.OnSuccessfulNoteHit.Invoke(20);
+        }
         //if (GUI.Button(new Rect(20, 140, 100, 20), "WIN"))
         //{
         //    GetComponent<WinLose>().TriggerWin();

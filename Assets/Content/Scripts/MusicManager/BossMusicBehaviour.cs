@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class BossMusicBehaviour : MonoBehaviour
 {
-    [SerializeField] private AudioSource highDrums, lowDrums, melody, chords, fx, bassline;
+    [SerializeField] private AudioSource highDrums, lowDrums, melody, chords, fx, bassline, phase2;
     [SerializeField] private BossMusicScriptable phaseOneMusic, phaseTwoMusic;
     private int loopStartTimeInSamples => phaseOneMusic.timeAtDropOrChorusInSamples;
     private int loopEndTimeInSamples => phaseOneMusic.timeEndInSamples;
@@ -20,6 +20,7 @@ public class BossMusicBehaviour : MonoBehaviour
         chords.Play();
         fx.Play();
         bassline.Play();
+        phase2.Play();
     }
 
     public void StopAll()
@@ -30,6 +31,7 @@ public class BossMusicBehaviour : MonoBehaviour
         chords.Stop();
         fx.Stop();
         bassline.Stop();
+        phase2.Stop();
     }
 
     //Call when transitioning songs to immediately start at loop section
@@ -43,7 +45,8 @@ public class BossMusicBehaviour : MonoBehaviour
     {
         _source.timeSamples = sample;
     }
-    void Update(){
+    void Update()
+    {
         //Debug.Log(gameObject.name + " high Drums at: " + highDrums.timeSamples);
     }
     public void HandleUpdate()
@@ -84,6 +87,9 @@ public class BossMusicBehaviour : MonoBehaviour
         //Debug.Log("Stopping Low Drums at: " + Conductor.instance.songPosition);
 
         bassline.mute = true;
+
+        phase2.mute = true;
+
         Debug.Log("Stopping bassline Drums at: " + Conductor.instance.songPosition);
 
         //Fade out High Drums beyond transition
@@ -135,6 +141,10 @@ public class BossMusicBehaviour : MonoBehaviour
         //Play immediately high drums, FX
         highDrums.mute = false;
         fx.mute = false;
+
+        if (GetComponent<BossBehaviour>().ifReadyToTransition)
+            phase2.mute = false;
+
         Debug.Log("Playing highdrums and fx: " + Conductor.instance.songPosition);
     }
 
@@ -142,6 +152,7 @@ public class BossMusicBehaviour : MonoBehaviour
     {
         highDrums.PlayScheduled(_zeroTime);
         fx.PlayScheduled(_zeroTime);
+
 
         melody.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.melodyTransitionInDurInBars, Conductor.instance.songBpm));
         chords.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.chordsTransitionInDurInBars, Conductor.instance.songBpm));
@@ -173,6 +184,6 @@ public class BossMusicBehaviour : MonoBehaviour
 
     private void LoopSong()
     {
-        highDrums.timeSamples = lowDrums.timeSamples = melody.timeSamples = chords.timeSamples = fx.timeSamples = bassline.timeSamples = loopStartTimeInSamples;
+        highDrums.timeSamples = lowDrums.timeSamples = melody.timeSamples = chords.timeSamples = fx.timeSamples = bassline.timeSamples = phase2.timeSamples = loopStartTimeInSamples;
     }
 }
