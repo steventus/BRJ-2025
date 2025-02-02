@@ -17,9 +17,9 @@ public class TurntableManager : MonoBehaviour
     public LayerMask whatIsDisc;
     private bool isRotatingOnItsOwn = false; // Flag to indicate autonomous rotation
     private float currentAngle = 0f; // Track the current angle
-    private float rotationSpeed = 0f; // Speed of autonomous rotation (degrees per second)
+    [HideInInspector] public float rotationSpeed = 0f; // Speed of autonomous rotation (degrees per second)
     private Vector3 previousMousePosition;
-    private float rotationDirection = 0f;
+    [HideInInspector] public float rotationDirection = 0f;
     private float previousAngle = 0f; // Track the previous angle
     private Vector3 angularVelocity; // Track how fast the player was rotating the disc
     private float lastMouseInteractionTime = 0f; // Time of the last mouse movement
@@ -156,9 +156,9 @@ public class TurntableManager : MonoBehaviour
         //Debug.Log("isBeingRotated: " + isBeingRotated + ". angularVelocity.magnitude: " +  angularVelocity.magnitude * Time.deltaTime);
         if (isBeingRotated && angularVelocity.magnitude * Time.deltaTime >= scratchRotationThreshold)
         {
-            if (rotationDirection > 0) return ScratchDirection.Direction.CW;
+            if (rotationDirection > 0) return ScratchDirection.Direction.ACW;
 
-            else if (rotationDirection < 0) return ScratchDirection.Direction.ACW;
+            else if (rotationDirection < 0) return ScratchDirection.Direction.CW;
 
             else return ScratchDirection.Direction.NoScratch;
         }

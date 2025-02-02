@@ -29,6 +29,10 @@ public class PlayerSFX : MonoBehaviour
         {
             PlayClickSFX?.Invoke();
         }
+        if (TurntableManager.instance.OnInputUp())
+        {
+            PlayClickSFX?.Invoke();
+        }
     }
 
     void ScratchSFX(int n)
