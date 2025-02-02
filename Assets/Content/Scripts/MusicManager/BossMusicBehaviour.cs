@@ -44,7 +44,7 @@ public class BossMusicBehaviour : MonoBehaviour
         _source.timeSamples = sample;
     }
     void Update(){
-        Debug.Log(gameObject.name + " high Drums at: " + highDrums.timeSamples);
+        //Debug.Log(gameObject.name + " high Drums at: " + highDrums.timeSamples);
     }
     public void HandleUpdate()
     {

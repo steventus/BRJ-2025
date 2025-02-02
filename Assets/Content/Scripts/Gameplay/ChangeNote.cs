@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeNote : MonoBehaviour, IPlayerInteractable
+public class ChangeNote : BaseNote, IPlayerInteractable
 {
-    public bool isHit = false;
     Game gameManager;
     [SerializeField] private NoteType.Note noteType;
 
@@ -21,19 +20,19 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
     {
         if (isHit)
             return;
-            
+
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
             case Metronome.HitType.perfect:
                 Debug.Log("Perfect!");
-                isHit = true;
+                UpdateNoteHit();
                 Metronome.instance.PerfectHit();
                 //gameManager.stateMachine.SetState(gameManager.enemyTurn);
                 break;
 
             case Metronome.HitType.good:
                 Debug.Log("Correct!");
-                isHit = true;
+                UpdateNoteHit();
                 Metronome.instance.GoodHit();
                 //gameManager.stateMachine.SetState(gameManager.enemyTurn);
                 break;
@@ -51,7 +50,7 @@ public class ChangeNote : MonoBehaviour, IPlayerInteractable
 
     public void OnMiss()
     {
-        isHit = true;
+        UpdateNoteHit();
         Metronome.instance.MissHit();
         //gameManager.stateMachine.SetState(gameManager.enemyTurn);
         Debug.Log("Bad Change!");

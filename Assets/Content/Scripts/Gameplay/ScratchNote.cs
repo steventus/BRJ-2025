@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScratchNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
+public class ScratchNote : BaseNote, IPlayerInteractable, IScratchDirection
 {
     public bool isRight;
-    public bool isHit;
     private ScratchDirection.Direction noteDirection => isRight ? ScratchDirection.Direction.CW : ScratchDirection.Direction.ACW;
     [SerializeField] private NoteType.Note noteType;
 
@@ -29,13 +28,13 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         {
             case Metronome.HitType.perfect:
                 //Debug.Log("Perfect!");
-                isHit = true;
+                UpdateNoteHit();
                 Metronome.instance.PerfectHit();
                 break;
 
             case Metronome.HitType.good:
                 //Debug.Log("Correct!");
-                isHit = true;
+                UpdateNoteHit();
                 Metronome.instance.GoodHit();
                 break;
 
@@ -54,7 +53,7 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
     {
         if (!isHit)
         {
-            isHit = true;
+            UpdateNoteHit();
             Metronome.instance.MissHit();
             //Debug.Log("Bad!");
         }
@@ -70,4 +69,5 @@ public class ScratchNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
     {
         return noteType;
     }
+
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ScratchDirection
 {
@@ -25,5 +26,6 @@ public interface IPlayerInteractable
     public void OnMiss();
 
     public NoteType.Note GetNoteType();
-    
+
+    public void UpdateNoteHit();
 }

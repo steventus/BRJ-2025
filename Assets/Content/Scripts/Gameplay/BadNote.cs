@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BadNote : MonoBehaviour, IPlayerInteractable
+public class BadNote : BaseNote, IPlayerInteractable
 {
-    public bool isHit;
     [SerializeField] private NoteType.Note noteType;
 
     public void OnInputDown()
@@ -22,12 +21,12 @@ public class BadNote : MonoBehaviour, IPlayerInteractable
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
             case Metronome.HitType.perfect:
-                isHit = true;
+                UpdateNoteHit();
                 Metronome.instance.BadHit();
                 break;
 
             case Metronome.HitType.good:
-                isHit = true;
+                UpdateNoteHit();
                 Metronome.instance.BadHit();
                 break;
 
@@ -46,11 +45,13 @@ public class BadNote : MonoBehaviour, IPlayerInteractable
     {
         if (!isHit)
         {
-            isHit = true;
+            UpdateNoteHit();
         }
     }
     public NoteType.Note GetNoteType()
     {
         return noteType;
     }
+
+
 }

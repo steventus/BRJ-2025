@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
 {
@@ -22,6 +23,8 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
     private HoldNote connectedStartHoldNote;
 
     // ====================================================================================
+
+    public UnityEvent noteHit;
 
     //Called and set from TrackFactory
     public void SetStartHold()
@@ -118,7 +121,7 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         //check if scratch correctly timed on start note
         if (isStart)
         {
-            isHit = true;
+            UpdateNoteHit();
             Debug.Log("hold note scratch");
             switch (Metronome.instance.CheckIfInputIsOnBeat())
             {
@@ -141,15 +144,12 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
 
     public void OnInputUp()
     {
-        if (isHit)
-            return;
-
-        isHit = true;
 
         //On a hold start note, prematurely letting go of input
         if (noteType == NoteType.Note.holdStart)
         {
             Debug.Log("Miss Hold Start");
+            isHit = false;
             isHolding = false;
             OnMiss();
         }
@@ -157,6 +157,7 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
         // ====================================================================================
         else if (noteType == NoteType.Note.holdEnd && connectedStartHoldNote.GetIsHolding())
         {
+            UpdateNoteHit();
             Debug.Log("hold note release");
             switch (Metronome.instance.CheckIfInputIsOnBeat())
             {
@@ -181,20 +182,16 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
 
     public void OnMiss()
     {
-        //Natural guard
-        if (isHit)
-            return;
-
-        //Guard if holding while its a hold start note
-        if (isStart && isHolding)
+        //Guard if holding while its a hold start note and natural guard
+        if (isStart && isHolding || isHit)
             return;
 
         //Disable hold note
-        isHit = true;
+        UpdateNoteHit();
 
         //Disable connected end hold note at the same time
         if (isStart && connectedEndHoldNote != null)
-            connectedEndHoldNote.isHit = true;
+            connectedEndHoldNote.UpdateNoteHit();
 
         Metronome.instance.MissHit();
         //Debug.Log("Miss!");
@@ -221,5 +218,11 @@ public class HoldNote : MonoBehaviour, IPlayerInteractable, IScratchDirection
     public bool GetIsHolding()
     {
         return isHolding;
+    }
+
+    public void UpdateNoteHit()
+    {
+        isHit = true;
+        noteHit?.Invoke();
     }
 }
