@@ -102,6 +102,8 @@ public class EnemyTurn : BaseState
         Debug.Log("StartChart: " + startChartTime + ". EndChart: " + endChartTime + ". EndPlayerCharTime: " + endPlayerChartTime);
 
         inAttackPhase = true;
+
+        //Conductor.instance.ScheduleNextPhrase(TrackFactory.instance.lengthOfChart);
     }
 
     public override void UpdateState()

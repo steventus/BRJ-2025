@@ -121,7 +121,7 @@ public class MusicManager : MonoBehaviour
         Metronome.instance.barIndex = 0;
 
         currentMusic.FadeOutTransition();
-        PlayTransitionFill();
+        //PlayTransitionFill();
         nextMusic.FadeInTransition();
 
         currentMusic = nextMusic;
@@ -146,7 +146,7 @@ public class MusicManager : MonoBehaviour
 
         //Apply appropriate scheduling here
         currentMusic.FadeOutTransition();
-        ScheduleTransitionFill(timeToRun);
+        //ScheduleTransitionFill(timeToRun);
         nextMusic.FadeInTransition();
 
         currentMusic = nextMusic;

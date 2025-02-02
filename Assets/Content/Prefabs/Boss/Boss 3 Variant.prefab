@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: bossName
       value: FUNK
       objectReference: {fileID: 0}
+    - target: {fileID: 2091084676756580930, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: triggerRotationChart
+      value: 
+      objectReference: {fileID: 5856054225461559998, guid: b4f190ce6620bf94aa662b88e7f5d88b, type: 3}
     - target: {fileID: 2935683066331346002, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
       propertyPath: m_Name
       value: Boss 3 Variant
@@ -112,6 +116,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 39c0965b4b04a5b4c968798aff8ae6cd, type: 3}
+    - target: {fileID: 9054788145830804532, guid: 0b84b82c58a9c4c4c9375d1d63831b41, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ef275af35e462f842a7bfab829fb0514, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

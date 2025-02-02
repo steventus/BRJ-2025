@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 
 public class TrackFactory : MonoBehaviour
@@ -17,12 +16,15 @@ public class TrackFactory : MonoBehaviour
     public RectTransform track;
     public List<GameObject> notes;
     private Chart chartToSpawn;
+    public Chart ChartToSpawn => chartToSpawn;
 
     [Header("Dynamic Track Generation Settings")]
     //Set Track Length
     public float MinLength; //Base length at minimum notes
     public float LengthPerBeat; //Additional length (gradient) per additional notes
     public float trackHeight;
+
+    public float lengthOfChart{get; private set;}
 
     void Awake()
     {
@@ -104,7 +106,7 @@ public class TrackFactory : MonoBehaviour
             notes.Add(_instantiatedNote);
         }
 
-
+        lengthOfChart = 60 / Conductor.instance.songBpm * chartToSpawn.notes.Count;
         AdjustTrackLength();
     }
 

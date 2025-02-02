@@ -84,7 +84,7 @@ public class Conductor : MonoBehaviour
         loopPositionInBeats = songPositionInBeats - completedLoops * beatsPerLoop;
         loopPositionInAnalog = loopPositionInBeats / beatsPerLoop;
 
-        loopBeatIndexPositionAnalog = songPositionInBeats - lastSavedtime;
+        loopBeatIndexPositionAnalog = songPositionInBeats % TrackFactory.instance.ChartToSpawn.notes.Count;
         loopBeatIndexPosition = Mathf.FloorToInt(loopBeatIndexPositionAnalog);
     }
 

@@ -62,7 +62,7 @@ public class HoldNoteConnectionBehaviour : MonoBehaviour
         Canvas.ForceUpdateCanvases();
         yield return new WaitForEndOfFrame();
         Canvas.ForceUpdateCanvases();
-        float _length = Vector3.Distance(endingHoldNote.GetComponent<RectTransform>().position, holdNote.GetComponent<RectTransform>().position) + endingHoldNote.GetComponent<RectTransform>().rect.x;
+        float _length = Vector3.Distance(endingHoldNote.GetComponent<RectTransform>().position, holdNote.GetComponent<RectTransform>().position);
 
         holdNoteConnection.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _length);
     }
