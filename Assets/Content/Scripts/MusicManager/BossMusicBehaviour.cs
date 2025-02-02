@@ -43,6 +43,9 @@ public class BossMusicBehaviour : MonoBehaviour
     {
         _source.timeSamples = sample;
     }
+    void Update(){
+        Debug.Log(gameObject.name + " high Drums at: " + highDrums.timeSamples);
+    }
     public void HandleUpdate()
     {
         //Debug.Log(highDrums.timeSamples);
@@ -78,10 +81,24 @@ public class BossMusicBehaviour : MonoBehaviour
 
         //Stop immediately low drums, bassline
         lowDrums.mute = true;
+        //Debug.Log("Stopping Low Drums at: " + Conductor.instance.songPosition);
+
         bassline.mute = true;
+        Debug.Log("Stopping bassline Drums at: " + Conductor.instance.songPosition);
 
         //Fade out High Drums beyond transition
         StartCoroutine(CoroScheduleStop(highDrums, phaseOneMusic.highDrumsTransitionOutDurInBars));
+    }
+
+    public void ScheduleFadeOutTransition(float _zeroTime)
+    {
+        //lowDrums.PlayScheduled(_zeroTime);
+        //bassline.PlayScheduled(_zeroTime);
+        //
+        //melody.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.melodyTransitionOutDurInBars, Conductor.instance.songBpm));
+        //chords.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.chordsTransitionOutDurInBars, Conductor.instance.songBpm));
+        //fx.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.fxTransitionOutDurInBars, Conductor.instance.songBpm));
+        //highDrums.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.highDrumsTransitionOutDurInBars, Conductor.instance.songBpm));
     }
 
     private IEnumerator CoroScheduleStop(AudioSource _source, int _numberOfBars)
@@ -102,6 +119,8 @@ public class BossMusicBehaviour : MonoBehaviour
 
         //After PhrasesEnded a number of Phrases aka Bars, run event.
         _source.mute = true;
+        Debug.Log("Stopping " + _source.name + " at: " + Conductor.instance.songPosition);
+
 
     }
     public void FadeInTransition()
@@ -110,14 +129,27 @@ public class BossMusicBehaviour : MonoBehaviour
         //TODO: Play immediately and use timesamples to start at specific points
         StartCoroutine(CoroSchedulePlay(melody, phaseOneMusic.melodyTransitionInDurInBars));
         StartCoroutine(CoroSchedulePlay(chords, phaseOneMusic.chordsTransitionInDurInBars));
-        StartCoroutine(CoroSchedulePlay(fx, phaseOneMusic.fxTransitionInDurInBars));
+        StartCoroutine(CoroSchedulePlay(bassline, phaseOneMusic.basslineTransitionInDurInBars));
         StartCoroutine(CoroSchedulePlay(lowDrums, phaseOneMusic.lowDrumsTransitionInDurInBars));
 
         //Play immediately high drums, FX
         highDrums.mute = false;
         fx.mute = false;
+        Debug.Log("Playing highdrums and fx: " + Conductor.instance.songPosition);
     }
 
+    public void ScheduleFadeInTrasition(float _zeroTime)
+    {
+        highDrums.PlayScheduled(_zeroTime);
+        fx.PlayScheduled(_zeroTime);
+
+        melody.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.melodyTransitionInDurInBars, Conductor.instance.songBpm));
+        chords.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.chordsTransitionInDurInBars, Conductor.instance.songBpm));
+        bassline.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.basslineTransitionInDurInBars, Conductor.instance.songBpm));
+        lowDrums.PlayScheduled(_zeroTime + Count.BarsToSeconds(phaseOneMusic.lowDrumsTransitionInDurInBars, Conductor.instance.songBpm));
+
+        Debug.Log("scheduled to: " + _zeroTime + ". and melody at: " + (_zeroTime + phaseOneMusic.melodyTransitionInDurInBars, Conductor.instance.songBpm));
+    }
     private IEnumerator CoroSchedulePlay(AudioSource _source, int _numberOfBars)
     {
         //Subscribe to PhaseEnded, and count
@@ -136,6 +168,7 @@ public class BossMusicBehaviour : MonoBehaviour
 
         //After PhrasesEnded a number of Phrases aka Bars, run event.
         _source.mute = false;
+        Debug.Log("Playing " + _source.name + " at: " + Conductor.instance.songPosition);
     }
 
     private void LoopSong()

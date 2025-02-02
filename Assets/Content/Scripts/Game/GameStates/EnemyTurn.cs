@@ -23,6 +23,10 @@ public class EnemyTurn : BaseState
     [SerializeField] BossBehaviour _currentBoss;
     HealthSystem currentBossHealth;
 
+    public float startChartTime;
+    public float endChartTime;
+    public float endPlayerChartTime;
+
     public override void EnterState()
     {
         //Debug.Log("enter " + transform.name);
@@ -61,7 +65,7 @@ public class EnemyTurn : BaseState
         {
             //Play Transition Animations
             _currentBoss.PhaseTransition();
-            Debug.Log("Phase Transition activate!");
+            //Debug.Log("Phase Transition activate!");
 
             //To make up for additional phase required to accomodate phase transition
             _currentBoss.phrasesCompleted--;
@@ -78,6 +82,7 @@ public class EnemyTurn : BaseState
                 // chosenChart = forcedRotateChart
                 rotateBoss = true;
                 _chartToSpawn = _currentBoss.triggerRotationChart;
+
                 musicManager.StartFade();
             }
             else
@@ -90,6 +95,11 @@ public class EnemyTurn : BaseState
         currentChart = _chartToSpawn;
         TrackFactory.instance.CreateTrack(currentChart);
         conductor.beatsPerLoop = currentChart.notes.Count;
+
+        startChartTime = Conductor.instance.songPosition;
+        endChartTime = Conductor.instance.songPosition + (currentChart.notes.Count * 60/Conductor.instance.songBpm);
+
+        Debug.Log("StartChart: " + startChartTime + ". EndChart: " + endChartTime + ". EndPlayerCharTime: " + endPlayerChartTime);
 
         inAttackPhase = true;
     }
@@ -106,14 +116,23 @@ public class EnemyTurn : BaseState
             //Boss Dance Presenter
             HandleBossDanceDue();
 
-// ## TEST IMMEDIATE ROTATION ON BOSS DEFEATED
-            if(currentBossHealth.CurrentHealth <= 0)
+            // ## TEST IMMEDIATE ROTATION ON BOSS DEFEATED
+            if (currentBossHealth.CurrentHealth <= 0)
             {
                 //Boss Defeated, @ end of current chart, rotate to next boss at end of chart
                 rotateBoss = true;
             }
-// ## TEST IMMEDIATE ROTATION ON BOSS DEFEATED
-       
+            // ## TEST IMMEDIATE ROTATION ON BOSS DEFEATED
+
+            //Schedule song ready to transition
+            //if (CheckBossReadyToTransition())
+            //{
+            //    //Schedule to begin end of current chart
+            //    float _timeToStart = endChartTime;
+//
+            //    //Run the schedule command now with music manager, only run once.
+            //    MusicManager.instance.ScheduleFade(_timeToStart);
+            //}
         }
     }
     public override void ExitState()
@@ -127,7 +146,7 @@ public class EnemyTurn : BaseState
 
         inAttackPhase = false;
         attackComplete = false;
-        
+
         //conductor.completedLoops = 0;
     }
 
@@ -153,5 +172,13 @@ public class EnemyTurn : BaseState
             bossRotationControl.currentBoss.phrasesCompleted++;
         }
         base.OnPhraseEnded();
+    }
+
+    public bool CheckBossReadyToTransition()
+    {
+        bool hasPerformedEnoughAttacks = _currentBoss.phrasesCompleted >= minAttacksBeforeRotation;
+        bool isReadyToTransition = _currentBoss.ifReadyToTransition;
+
+        return !_currentBoss.IsPhaseTwo && isReadyToTransition || hasPerformedEnoughAttacks;
     }
 }
