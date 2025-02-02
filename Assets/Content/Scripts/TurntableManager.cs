@@ -15,13 +15,10 @@ public class TurntableManager : MonoBehaviour
     [Header("Disc")]
     GameObject[] discs;
     public LayerMask whatIsDisc;
-    float previousAngle, currentAngle;
     private bool isRotatingOnItsOwn = false; // Flag to indicate autonomous rotation
-    private float currentAngle = 0f; // Track the current angle
     [HideInInspector] public float rotationSpeed = 0f; // Speed of autonomous rotation (degrees per second)
     private Vector3 previousMousePosition;
     [HideInInspector] public float rotationDirection = 0f;
-    private float previousAngle = 0f; // Track the previous angle
     private Vector3 angularVelocity; // Track how fast the player was rotating the disc
     private float lastMouseInteractionTime = 0f; // Time of the last mouse movement
     private bool isBeingRotated;
@@ -62,9 +59,8 @@ public class TurntableManager : MonoBehaviour
     }
     private void Update()
     {
-        previousAngle = currentAngle;
         Scratch();
-        currentAngle = currentDisc.transform.eulerAngles.z;
+        
     }
 
     public bool OnInputDown()
@@ -83,7 +79,6 @@ public class TurntableManager : MonoBehaviour
     //TODO: Change this to bool scratch, create sensitivity variables to check for scratch sensitivity
     public void Scratch()
     {
-        float angleDifference = Mathf.DeltaAngle(previousAngle, currentAngle);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit raycastHit;
         Physics.Raycast(ray, out raycastHit, Mathf.Infinity, whatIsDisc);
@@ -97,7 +92,7 @@ public class TurntableManager : MonoBehaviour
         if (isBeingRotated) // 0 is the left mouse button
         {
 
-            Plane groundPlane = new Plane(Vector3.up, currentDisc.transform.position);
+            Plane groundPlane = new Plane(currentDisc.transform.up, currentDisc.transform.position);
 
             if (groundPlane.Raycast(ray, out float enter))
             {
@@ -108,9 +103,19 @@ public class TurntableManager : MonoBehaviour
                 // Apply the rotation to the disc
                 float previousAngle = currentDisc.transform.rotation.eulerAngles.y;
                 float newAngle = targetRotation.eulerAngles.y;
-                float rotationDiff = newAngle - previousAngle;
+                float rotationDiff = -Mathf.DeltaAngle(previousAngle, newAngle);
                 Debug.Log("rotationDiff: " + rotationDiff);
 
+                currentDisc.transform.rotation = targetRotation;
+
+                Vector3 deltaMouse = Input.mousePosition - previousMousePosition;
+                angularVelocity = deltaMouse / Time.deltaTime;
+
+                // Update the previous mouse position
+                previousMousePosition = Input.mousePosition;
+
+                if(Mathf.Abs(rotationDiff) < 0.01)
+                    rotationDiff = 0;
 
                 rotationDirection = rotationDiff >= 0 ? -1f : 1f;
 
