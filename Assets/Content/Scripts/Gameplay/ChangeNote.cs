@@ -24,14 +24,14 @@ public class ChangeNote : BaseNote, IPlayerInteractable
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
             case Metronome.HitType.perfect:
-                Debug.Log("Perfect!");
+                //Debug.Log("Perfect!");
                 UpdateNoteHit();
                 Metronome.instance.PerfectHit();
                 //gameManager.stateMachine.SetState(gameManager.enemyTurn);
                 break;
 
             case Metronome.HitType.good:
-                Debug.Log("Correct!");
+                //Debug.Log("Correct!");
                 UpdateNoteHit();
                 Metronome.instance.GoodHit();
                 //gameManager.stateMachine.SetState(gameManager.enemyTurn);

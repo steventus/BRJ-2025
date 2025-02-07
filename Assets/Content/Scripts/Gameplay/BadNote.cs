@@ -16,7 +16,7 @@ public class BadNote : BaseNote, IPlayerInteractable
         if (isHit)
             return;
 
-        Debug.Log("Hitting Bad Note");
+        //Debug.Log("Hitting Bad Note");
 
         switch (Metronome.instance.CheckIfInputIsOnBeat())
         {
