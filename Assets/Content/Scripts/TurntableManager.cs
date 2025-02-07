@@ -104,7 +104,7 @@ public class TurntableManager : MonoBehaviour
                 float previousAngle = currentDisc.transform.rotation.eulerAngles.y;
                 float newAngle = targetRotation.eulerAngles.y;
                 float rotationDiff = -Mathf.DeltaAngle(previousAngle, newAngle);
-                Debug.Log("rotationDiff: " + rotationDiff);
+                //Debug.Log("rotationDiff: " + rotationDiff);
 
                 currentDisc.transform.rotation = targetRotation;
 
@@ -162,9 +162,9 @@ public class TurntableManager : MonoBehaviour
         //Debug.Log("isBeingRotated: " + isBeingRotated + ". angularVelocity.magnitude: " +  angularVelocity.magnitude * Time.deltaTime);
         if (isBeingRotated && angularVelocity.magnitude * Time.deltaTime >= scratchRotationThreshold)
         {
-            if (rotationDirection > 0) return ScratchDirection.Direction.ACW;
+            if (rotationDirection > 0) return ScratchDirection.Direction.CW;
 
-            else if (rotationDirection < 0) return ScratchDirection.Direction.CW;
+            else if (rotationDirection < 0) return ScratchDirection.Direction.ACW;
 
             else return ScratchDirection.Direction.NoScratch;
         }

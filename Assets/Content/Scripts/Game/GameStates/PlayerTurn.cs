@@ -49,7 +49,7 @@ public class PlayerTurn : BaseState
         ScratchDirection.Direction _scratchInput = TurntableManager.instance.ScratchInput();
         if (_scratchInput != ScratchDirection.Direction.NoScratch)
         {
-            //Debug.Log(_scratchInput);
+            Debug.Log("Scratch direction: " + _scratchInput);
             Metronome.instance.currentNote.OnScratch(_scratchInput);
         }
 

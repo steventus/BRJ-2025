@@ -19,17 +19,23 @@ public class ShowDir : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (TM.rotationDirection > 0)
+        ScratchDirection.Direction _scratchInput = TurntableManager.instance.ScratchInput();
+        if (_scratchInput == ScratchDirection.Direction.CW)
         {
             img.enabled = true;
             img.sprite = CW;
             //CW
         }
-        if(TM.rotationDirection < 0)
+        else if(_scratchInput == ScratchDirection.Direction.ACW)
         {
             img.enabled = true;
             img.sprite = ACW;
             //ACW
+        }
+
+        else
+        {
+            img.enabled = false;
         }
     }
 }
